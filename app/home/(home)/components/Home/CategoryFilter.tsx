@@ -33,7 +33,11 @@ export function CategoryFilter() {
   const [categoryValues, setCategoryValues] = useState('all');
 
   return (
-    <ScrollView pl={'$6'} horizontal showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      px={'$6'}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+    >
       <RadioGroup
         flexDirection="row"
         gap={'$3'}

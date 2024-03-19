@@ -22,7 +22,7 @@ export const gluestackUIConfig = createConfig({
     mb: 'marginBottom',
     mr: 'marginRight',
     ml: 'marginLeft',
-    rounded: 'borderRadius',
+    rounded: 'borderRadius'
   } as const,
   tokens: {
     colors: {
@@ -384,10 +384,10 @@ export const gluestackUIConfig = createConfig({
       backgroundLightMuted: '#F6F6F7',
       backgroundDarkMuted: '#252526',
       white: '#FFFFFF',
-      black: '#000000',
+      black: '#000000'
     },
     space: {
-      'px': '1px',
+      px: '1px',
       '0': 0,
       '0.5': 2,
       '1': 4,
@@ -432,32 +432,32 @@ export const gluestackUIConfig = createConfig({
       '3/6': '50%',
       '4/6': '66.666%',
       '5/6': '83.333%',
-      'full': '100%',
+      full: '100%'
     },
     borderWidths: {
       '0': 0,
       '1': 1,
       '2': 2,
       '4': 4,
-      '8': 8,
+      '8': 8
     },
     radii: {
-      'none': 0,
-      'xs': 2,
-      'sm': 4,
-      'md': 6,
-      'lg': 8,
-      'xl': 12,
+      none: 0,
+      xs: 2,
+      sm: 4,
+      md: 6,
+      lg: 8,
+      xl: 12,
       '2xl': 16,
       '3xl': 24,
-      'full': 9999,
+      full: 9999
     },
     breakpoints: {
       base: 0,
       sm: 480,
       md: 768,
       lg: 992,
-      xl: 1280,
+      xl: 1280
     },
     mediaQueries: {
       base: '@media screen and (min-width: 0)',
@@ -465,29 +465,29 @@ export const gluestackUIConfig = createConfig({
       sm: '@media screen and (min-width: 480px)',
       md: '@media screen and (min-width: 768px)',
       lg: '@media screen and (min-width: 992px)',
-      xl: '@media screen and (min-width: 1280px)',
+      xl: '@media screen and (min-width: 1280px)'
     },
     letterSpacings: {
-      'xs': -0.4,
-      'sm': -0.2,
-      'md': 0,
-      'lg': 0.2,
-      'xl': 0.4,
-      '2xl': 1.6,
+      xs: -0.4,
+      sm: -0.2,
+      md: 0,
+      lg: 0.2,
+      xl: 0.4,
+      '2xl': 1.6
     },
     lineHeights: {
       '2xs': 16,
-      'xs': 18,
-      'sm': 20,
-      'md': 22,
-      'lg': 24,
-      'xl': 28,
+      xs: 18,
+      sm: 20,
+      md: 22,
+      lg: 24,
+      xl: 28,
       '2xl': 32,
       '3xl': 40,
       '4xl': 48,
       '5xl': 56,
       '6xl': 72,
-      '7xl': 90,
+      '7xl': 90
     },
     fontWeights: {
       hairline: '100',
@@ -499,20 +499,20 @@ export const gluestackUIConfig = createConfig({
       bold: '700',
       extrabold: '800',
       black: '900',
-      extraBlack: '950',
+      extraBlack: '950'
     },
     fonts: {
       heading: undefined,
       body: undefined,
-      mono: undefined,
+      mono: undefined
     },
     fontSizes: {
       '2xs': 10,
-      'xs': 12,
-      'sm': 14,
-      'md': 16,
-      'lg': 18,
-      'xl': 20,
+      xs: 12,
+      sm: 14,
+      md: 16,
+      lg: 18,
+      xl: 20,
       '2xl': 24,
       '3xl': 30,
       '4xl': 36,
@@ -520,7 +520,7 @@ export const gluestackUIConfig = createConfig({
       '6xl': 60,
       '7xl': 72,
       '8xl': 96,
-      '9xl': 128,
+      '9xl': 128
     },
     opacity: {
       0: 0,
@@ -537,8 +537,8 @@ export const gluestackUIConfig = createConfig({
       80: 0.8,
       90: 0.9,
       95: 0.95,
-      100: 1,
-    },
+      100: 1
+    }
   } as const,
   globalStyle: {
     variants: {
@@ -547,41 +547,41 @@ export const gluestackUIConfig = createConfig({
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: -2,
-            height: 2,
+            height: 2
           },
           shadowRadius: 8,
           shadowOpacity: 0.5,
-          elevation: 10,
+          elevation: 10
         },
         '2': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 3,
+            height: 3
           },
           shadowRadius: 8,
           shadowOpacity: 0.5,
-          elevation: 10,
+          elevation: 10
         },
         '3': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 2,
-            height: 2,
+            height: 2
           },
           shadowRadius: 8,
           shadowOpacity: 0.5,
-          elevation: 10,
+          elevation: 10
         },
         '4': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: -3,
+            height: -3
           },
           shadowRadius: 8,
           shadowOpacity: 0.5,
-          elevation: 10,
+          elevation: 10
         },
         // this 5th version is only for toast shadow
         // temporary
@@ -589,33 +589,33 @@ export const gluestackUIConfig = createConfig({
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 3,
+            height: 3
           },
           shadowRadius: 8,
           shadowOpacity: 0.2,
-          elevation: 10,
-        },
+          elevation: 10
+        }
       },
       softShadow: {
         '1': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 0,
+            height: 0
           },
           shadowRadius: 10,
           shadowOpacity: 0.1,
           _android: {
             shadowColor: '$backgroundLight500',
             elevation: 5,
-            shadowOpacity: 0.05,
-          },
+            shadowOpacity: 0.05
+          }
         },
         '2': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 0,
+            height: 0
           },
           shadowRadius: 20,
           elevation: 3,
@@ -623,14 +623,14 @@ export const gluestackUIConfig = createConfig({
           _android: {
             shadowColor: '$backgroundLight500',
             elevation: 10,
-            shadowOpacity: 0.1,
-          },
+            shadowOpacity: 0.1
+          }
         },
         '3': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 0,
+            height: 0
           },
           shadowRadius: 30,
           shadowOpacity: 0.1,
@@ -638,14 +638,14 @@ export const gluestackUIConfig = createConfig({
           _android: {
             shadowColor: '$backgroundLight500',
             elevation: 15,
-            shadowOpacity: 0.15,
-          },
+            shadowOpacity: 0.15
+          }
         },
         '4': {
           shadowColor: '$backgroundLight900',
           shadowOffset: {
             width: 0,
-            height: 0,
+            height: 0
           },
           shadowRadius: 40,
           shadowOpacity: 0.1,
@@ -653,11 +653,11 @@ export const gluestackUIConfig = createConfig({
           _android: {
             shadowColor: '$backgroundLight500',
             elevation: 20,
-            shadowOpacity: 0.2,
-          },
-        },
-      },
-    },
+            shadowOpacity: 0.2
+          }
+        }
+      }
+    }
   },
   themes: {
     dark: {
@@ -702,15 +702,15 @@ export const gluestackUIConfig = createConfig({
         backgroundWarning: '#412F23',
         backgroundSuccess: '#1C2B21',
         backgroundInfo: '#1A282E',
-        backgroundMuted: '#252526',
-      },
-    },
+        backgroundMuted: '#252526'
+      }
+    }
   },
-  plugins: [new AnimationResolver(MotionAnimationDriver)],
+  plugins: [new AnimationResolver(MotionAnimationDriver)]
 });
 
 export const config = {
-  ...gluestackUIConfig,
+  ...gluestackUIConfig
 };
 
 type Config = typeof gluestackUIConfig; // Assuming `config` is defined elsewhere

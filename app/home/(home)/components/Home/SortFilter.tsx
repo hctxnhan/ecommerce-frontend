@@ -15,7 +15,7 @@ import {
   RadioIndicator,
   RadioLabel
 } from '@/components';
-import React from 'react';
+import React, { useState } from 'react';
 
 const sortByOptions = [
   {
@@ -55,53 +55,54 @@ const categoryOptions = [
   }
 ];
 
-export function SortFilter() {
-  const [values, setValues] = React.useState(sortByOptions[0].value);
-  const [showActionsheet, setShowActionsheet] = React.useState(false);
+export function SortFilter({
+  showActionsheet,
+  setShowActionsheet
+}: {
+  showActionsheet: boolean;
+  setShowActionsheet: (value: boolean) => void;
+}) {
+  const [values, setValues] = useState(sortByOptions[0].value);
 
   return (
-    <Center>
-      <Button onPress={() => setShowActionsheet(true)}>
-        <ButtonText>Open</ButtonText>
-      </Button>
-      <Actionsheet isOpen={showActionsheet}>
-        <ActionsheetBackdrop
-          onPress={() => {
-            setShowActionsheet(false);
-          }}
-          backgroundColor="$backgroundLight500"
-        />
-        <ActionsheetContent
-          p={'$6'}
-          backgroundColor="$backgroundLight100"
-          borderRadius="$xl"
-        >
-          <ActionsheetSectionHeaderText>Sort</ActionsheetSectionHeaderText>
-          <ActionsheetItem w="$full" flexDirection="column">
-            <RadioGroup gap={'$3'} value={values} onChange={setValues}>
-              {sortByOptions.map((option) => (
-                <Radio
-                  width="$full"
-                  key={option.value}
-                  value={option.value}
-                  accessibilityLabel="Radio"
-                >
-                  <HStack justifyContent="space-between" alignItems="center">
-                    <RadioLabel textAlignVertical="center">
-                      {option.label}
-                    </RadioLabel>
+    <Actionsheet isOpen={showActionsheet}>
+      <ActionsheetBackdrop
+        onPress={() => {
+          setShowActionsheet(false);
+        }}
+        backgroundColor="$backgroundLight500"
+      />
+      <ActionsheetContent
+        p={'$6'}
+        backgroundColor="$backgroundLight100"
+        borderRadius="$xl"
+      >
+        <ActionsheetSectionHeaderText>Sort</ActionsheetSectionHeaderText>
+        <ActionsheetItem w="$full" flexDirection="column">
+          <RadioGroup gap={'$3'} value={values} onChange={setValues}>
+            {sortByOptions.map((option) => (
+              <Radio
+                width="$full"
+                key={option.value}
+                value={option.value}
+                accessibilityLabel="Radio"
+              >
+                <HStack justifyContent="space-between" alignItems="center">
+                  <RadioLabel textAlignVertical="center">
+                    {option.label}
+                  </RadioLabel>
 
-                    <RadioIndicator>
-                      <RadioIcon>
-                        <CircleIcon size="md" color="$primary500" />
-                      </RadioIcon>
-                    </RadioIndicator>
-                  </HStack>
-                </Radio>
-              ))}
-            </RadioGroup>
-          </ActionsheetItem>
-          {/* <ActionsheetSectionHeaderText
+                  <RadioIndicator>
+                    <RadioIcon>
+                      <CircleIcon size="md" color="$primary500" />
+                    </RadioIcon>
+                  </RadioIndicator>
+                </HStack>
+              </Radio>
+            ))}
+          </RadioGroup>
+        </ActionsheetItem>
+        {/* <ActionsheetSectionHeaderText
             backgroundColor="$secondary200"
             w={'$full'}
             rounded="$xl"
@@ -139,8 +140,7 @@ export function SortFilter() {
               ))}
             </RadioGroup>
           </ActionsheetItem> */}
-        </ActionsheetContent>
-      </Actionsheet>
-    </Center>
+      </ActionsheetContent>
+    </Actionsheet>
   );
 }

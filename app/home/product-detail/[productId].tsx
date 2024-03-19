@@ -16,10 +16,13 @@ import { Container } from '@/components/__custom__/Container';
 import { getCurrency } from '@/utils/utils';
 import { useToken } from '@gluestack-style/react';
 import { BadgeCheck } from 'lucide-react-native';
+import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { AddToCartSheet } from './components/AddToCartSheet';
 
 export default function ProductId() {
   const greenToken = useToken('colors', 'green500');
+  const [showActionsheet, setShowActionsheet] = useState(false);
 
   return (
     <SafeAreaView
@@ -113,10 +116,22 @@ export default function ProductId() {
 
           <Container x pTop></Container>
         </VStack>
-        <Button size="xl" rounded="$none">
-          <ButtonText textAlign="center">Add to cart</ButtonText>
+        <Button
+          onPress={() => setShowActionsheet(true)}
+          bgColor="$primary500"
+          size="xl"
+          rounded="$none"
+        >
+          <ButtonText textTransform="uppercase" textAlign="center">
+            Add to cart
+          </ButtonText>
         </Button>
       </VStack>
+
+      <AddToCartSheet
+        setShowActionsheet={setShowActionsheet}
+        showActionsheet={showActionsheet}
+      />
     </SafeAreaView>
   );
 }
