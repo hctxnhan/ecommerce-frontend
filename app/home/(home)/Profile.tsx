@@ -3,6 +3,7 @@ import {
   AvatarFallbackText,
   Button,
   ButtonIcon,
+  ButtonText,
   HStack,
   Icon,
   SafeAreaView,
@@ -10,49 +11,69 @@ import {
   VStack
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
-import { ChevronRight, EditIcon, User2Icon } from 'lucide-react-native';
+import { router } from 'expo-router';
+import {
+  BellIcon,
+  EditIcon,
+  LocateIcon,
+  LogOut,
+  ShoppingBagIcon,
+  User2Icon
+} from 'lucide-react-native';
 
 function ProfileLink({
   title,
+  onPress,
   icon,
   disabled = false
 }: {
+  onPress?: () => void;
   disabled?: boolean;
   title: string;
   icon: React.ElementType;
 }) {
   return (
-    <HStack
-      borderColor="$borderLight200"
+    <Button
       w="$full"
-      gap="$3"
-      alignItems="center"
+      variant="outline"
+      px={'$0'}
+      action="secondary"
+      borderWidth={0}
+      onPress={onPress}
+      disabled={disabled}
+      sx={{
+        _icon: {
+          props: {
+            color: '$green600'
+          }
+        }
+      }}
+      // $active={{
+      //   _text: {
+      //     color: '$primary500'
+      //   },
+      //   _icon: {
+      //     fill: '$primary500'
+      //   }
+      // }}
+      // $disabled={{
+      //   _text: {
+      //     color: '$white'
+      //   }
+      // }}
     >
-      <Button bgColor="$backgroundLight100" size="xs" aspectRatio={1}>
-        <ButtonIcon as={icon} size="lg" color="$secondary600" />
-      </Button>
-      <Text
-        color={disabled ? '$textLight400' : '$text800'}
-        fontWeight="$medium"
-        flex={1}
-      >
+      <ButtonIcon as={icon} size="xl" />
+      <ButtonText ml={'$3'} fontWeight="$medium" size="lg" flex={1}>
         {title}
-      </Text>
-      <Button variant="link">
-        <ButtonIcon
-          as={ChevronRight}
-          size="lg"
-          color={disabled ? '$textLight400' : '$text800'}
-        />
-      </Button>
-    </HStack>
+      </ButtonText>
+    </Button>
   );
 }
 
 export default function Tab2() {
   return (
     <SafeAreaView flex={1}>
-      <Container x y>
+      <Container x y py={'$2'}>
         <HStack alignItems="center" gap={'$3'}>
           <Icon size={30} as={User2Icon} />
           <Text fontSize={'$2xl'} fontWeight={'bold'}>
@@ -61,7 +82,14 @@ export default function Tab2() {
         </HStack>
       </Container>
       <Container x y>
-        <HStack alignItems="center" gap="$2">
+        <HStack
+          p="$3"
+          borderWidth={1}
+          rounded={'$lg'}
+          borderColor="$borderLight200"
+          alignItems="center"
+          gap="$2"
+        >
           <Avatar size="lg">
             <AvatarFallbackText>JD</AvatarFallbackText>
           </Avatar>
@@ -75,10 +103,16 @@ export default function Tab2() {
         </HStack>
       </Container>
       <Container x>
-        <ProfileLink title="My orders" icon={EditIcon} />
-        <ProfileLink title="Notifications" icon={EditIcon} />
-        <ProfileLink title="My address" icon={EditIcon} />
-        <ProfileLink title="Log out" icon={EditIcon} />
+        <ProfileLink
+          onPress={() => {
+            router.push('/home/orders');
+          }}
+          title="My orders"
+          icon={ShoppingBagIcon}
+        />
+        <ProfileLink disabled title="Notifications" icon={BellIcon} />
+        <ProfileLink disabled title="My address" icon={LocateIcon} />
+        <ProfileLink title="Log out" icon={LogOut} />
       </Container>
     </SafeAreaView>
   );

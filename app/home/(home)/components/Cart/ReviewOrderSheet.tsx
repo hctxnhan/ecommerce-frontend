@@ -8,11 +8,15 @@ import {
   ButtonText,
   HStack,
   Image,
+  ScrollView,
   Text,
   VStack
 } from '@/components';
 import { getCurrency } from '@/utils/utils';
 import React from 'react';
+import { OrderReviewItem } from './OrderReviewItem';
+import { Container } from '@/components/__custom__/Container';
+import { OrderTotal } from './OrderTotal';
 
 export function ReviewOrderSheet({
   showActionsheet,
@@ -22,7 +26,7 @@ export function ReviewOrderSheet({
   setShowActionsheet: (value: boolean) => void;
 }) {
   return (
-    <Actionsheet isOpen={showActionsheet}>
+    <Actionsheet snapPoints={[80]} isOpen={showActionsheet}>
       <ActionsheetBackdrop
         onPress={() => {
           setShowActionsheet(false);
@@ -34,39 +38,33 @@ export function ReviewOrderSheet({
         backgroundColor="$backgroundLight100"
         borderRadius="$xl"
       >
-        <ActionsheetSectionHeaderText>Add to cart</ActionsheetSectionHeaderText>
-        <ActionsheetItem w="$full" flexDirection="column">
-          <HStack
-            p="$2"
-            borderWidth={1}
-            rounded={'$lg'}
-            borderColor="$borderLight200"
-            alignItems="center"
-            gap={'$3'}
-            w={'$full'}
-          >
-            <Image
-              rounded={'$lg'}
-              source={{ uri: 'https://via.placeholder.com/150' }}
-              w={120}
-              h={120}
-              objectFit="cover"
-              alt="Product image"
-            />
+        <ActionsheetSectionHeaderText>
+          Review Order
+        </ActionsheetSectionHeaderText>
 
-            <VStack gap={'$1'}>
-              <Text size="lg" fontWeight="bold">
-                Variegated snake
-              </Text>
-              <Text color="$primary500" fontWeight="bold" size="2xl">
-                {getCurrency(20)}
-              </Text>
+        <ScrollView flex={1} w={'$full'}>
+          <Container x flex={1}>
+            <VStack pb={'$4'} gap={'$6'}>
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
+              <OrderReviewItem />
             </VStack>
-          </HStack>
-        </ActionsheetItem>
+          </Container>
+        </ScrollView>
+
+        <Container x pBottom>
+          <ActionsheetItem w="$full">
+            <OrderTotal />
+          </ActionsheetItem>
+        </Container>
 
         <Button rounded={'$none'}>
-          <ButtonText textAlign="center">Yes, remove!</ButtonText>
+          <ButtonText textAlign="center">Checkout</ButtonText>
         </Button>
       </ActionsheetContent>
     </Actionsheet>

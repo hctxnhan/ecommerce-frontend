@@ -22,6 +22,7 @@ import {
 import { MinusCircleIcon, PlusCircleIcon } from 'lucide-react-native';
 import { getCurrency } from '@/utils/utils';
 import React, { useState } from 'react';
+import { Container } from '@/components/__custom__/Container';
 
 export function AddToCartSheet({
   showActionsheet,
@@ -58,58 +59,60 @@ export function AddToCartSheet({
       >
         <ActionsheetSectionHeaderText>Add to cart</ActionsheetSectionHeaderText>
         <ActionsheetItem w="$full" flexDirection="column">
-          <HStack gap={'$3'} w={'$full'}>
-            <Image
-              rounded={'$lg'}
-              source={{ uri: 'https://via.placeholder.com/150' }}
-              w={120}
-              h={120}
-              objectFit="cover"
-              alt="Product image"
-            />
+          <Container x pBottom w="$full">
+            <HStack gap={'$3'} w={'$full'}>
+              <Image
+                rounded={'$lg'}
+                source={{ uri: 'https://via.placeholder.com/150' }}
+                w={120}
+                h={120}
+                objectFit="cover"
+                alt="Product image"
+              />
 
-            <VStack gap={'$1'}>
-              <Text size="lg" fontWeight="bold">
-                Variegated snake
-              </Text>
-              <Text color="$primary500" fontWeight="bold" size="2xl">
-                {getCurrency(20)}
-              </Text>
-              <HStack alignItems="center" gap={'$4'}>
-                <Button
-                  disabled={!canMinus}
-                  onPress={handleChangeQuantity(-1)}
-                  size="xl"
-                  variant="link"
-                  action="secondary"
-                >
-                  <ButtonIcon
-                    color={canMinus ? 'primary500' : 'backgroundLight500'}
-                    as={MinusCircleIcon}
-                    size="xl"
-                  />
-                </Button>
-                <Text w="$8" fontWeight="bold" size="xl" textAlign="center">
-                  {quantity}
+              <VStack gap={'$1'}>
+                <Text size="lg" fontWeight="bold">
+                  Variegated snake
                 </Text>
-                <Button
-                  disabled={!canPlus}
-                  onPress={handleChangeQuantity(1)}
-                  size="xl"
-                  variant="link"
-                  action="secondary"
-                >
-                  <ButtonIcon
-                    as={PlusCircleIcon}
+                <Text color="$primary500" fontWeight="bold" size="2xl">
+                  {getCurrency(20)}
+                </Text>
+                <HStack alignItems="center" gap={'$4'}>
+                  <Button
+                    disabled={!canMinus}
+                    onPress={handleChangeQuantity(-1)}
                     size="xl"
-                    color={canPlus ? 'primary500' : 'backgroundLight500'}
-                  />
-                </Button>
-              </HStack>
-            </VStack>
-          </HStack>
+                    variant="link"
+                    action="secondary"
+                  >
+                    <ButtonIcon
+                      color={canMinus ? 'primary500' : 'backgroundLight500'}
+                      as={MinusCircleIcon}
+                      size="xl"
+                    />
+                  </Button>
+                  <Text w="$8" fontWeight="bold" size="xl" textAlign="center">
+                    {quantity}
+                  </Text>
+                  <Button
+                    disabled={!canPlus}
+                    onPress={handleChangeQuantity(1)}
+                    size="xl"
+                    variant="link"
+                    action="secondary"
+                  >
+                    <ButtonIcon
+                      as={PlusCircleIcon}
+                      size="xl"
+                      color={canPlus ? 'primary500' : 'backgroundLight500'}
+                    />
+                  </Button>
+                </HStack>
+              </VStack>
+            </HStack>
+          </Container>
         </ActionsheetItem>
-        <Button>
+        <Button rounded="$none">
           <ButtonText textAlign="center">Add</ButtonText>
         </Button>
       </ActionsheetContent>

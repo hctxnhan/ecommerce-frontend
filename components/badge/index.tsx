@@ -4,78 +4,78 @@ import { Text, View } from 'react-native';
 const StyledRoot = styled(
   View,
   {
-    'flexDirection': 'row',
-    'alignItems': 'center',
-    'borderRadius': '$xs',
-    'variants': {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: '$xs',
+    variants: {
       action: {
         error: {
           bg: '$backgroundError',
           borderColor: '$error300',
 
           _icon: {
-            color: '$error600',
+            color: '$error600'
           },
 
           _text: {
-            color: '$error600',
-          },
+            color: '$error600'
+          }
         },
         warning: {
           bg: '$backgroundWarning',
           borderColor: '$warning300',
 
           _icon: {
-            color: '$warning600',
+            color: '$warning600'
           },
 
           _text: {
-            color: '$warning600',
-          },
+            color: '$warning600'
+          }
         },
         success: {
-          bg: '$backgroundSuccess',
+          bg: '$backgroundLightSuccess',
           borderColor: '$success300',
 
           _icon: {
-            color: '$success600',
+            color: '$success600'
           },
 
           _text: {
-            color: '$success600',
-          },
+            color: '$success600'
+          }
         },
         info: {
           bg: '$backgroundInfo',
           borderColor: '$info300',
 
           _icon: {
-            color: '$info600',
+            color: '$info600'
           },
 
           _text: {
-            color: '$info600',
-          },
+            color: '$info600'
+          }
         },
         muted: {
           bg: '$backgroundMuted',
           borderColor: '$secondary300',
 
           _icon: {
-            color: '$secondary600',
+            color: '$secondary600'
           },
 
           _text: {
-            color: '$secondary600',
-          },
-        },
+            color: '$secondary600'
+          }
+        }
       },
 
       variant: {
         solid: {},
         outline: {
-          borderWidth: '$1',
-        },
+          borderWidth: '$1'
+        }
       },
 
       size: {
@@ -83,52 +83,52 @@ const StyledRoot = styled(
           px: '$2',
           _icon: {
             props: {
-              size: '2xs',
-            },
+              size: '2xs'
+            }
           },
           _text: {
             props: {
-              size: '2xs',
-            },
-          },
+              size: '2xs'
+            }
+          }
         },
         md: {
           px: '$2',
           _icon: {
             props: {
-              size: 'xs',
-            },
+              size: 'xs'
+            }
           },
           _text: {
             props: {
-              size: 'xs',
-            },
-          },
+              size: 'xs'
+            }
+          }
         },
         lg: {
           px: '$2',
           _icon: {
-            props: { size: 'sm' },
+            props: { size: 'sm' }
           },
           _text: {
-            props: { size: 'sm' },
-          },
-        },
-      },
+            props: { size: 'sm' }
+          }
+        }
+      }
     },
 
     ':disabled': {
-      opacity: 0.5,
+      opacity: 0.5
     },
-    'defaultProps': {
+    defaultProps: {
       action: 'info',
       variant: 'solid',
-      size: 'md',
-    },
+      size: 'md'
+    }
   },
   {
     componentName: 'Badge',
-    descendantStyle: ['_text', '_icon'],
+    descendantStyle: ['_text', '_icon']
   } as const
 );
 
@@ -147,94 +147,94 @@ const StyledText = styled(
           props: {
             // @ts-ignore
             numberOfLines: 1,
-            ellipsizeMode: 'tail',
-          },
-        },
+            ellipsizeMode: 'tail'
+          }
+        }
       },
       bold: {
         true: {
-          fontWeight: '$bold',
-        },
+          fontWeight: '$bold'
+        }
       },
       underline: {
         true: {
-          textDecorationLine: 'underline',
-        },
+          textDecorationLine: 'underline'
+        }
       },
       strikeThrough: {
         true: {
-          textDecorationLine: 'line-through',
-        },
+          textDecorationLine: 'line-through'
+        }
       },
       size: {
         '2xs': {
-          fontSize: '$2xs',
+          fontSize: '$2xs'
         },
-        'xs': {
-          fontSize: '$xs',
-        },
-
-        'sm': {
-          fontSize: '$sm',
+        xs: {
+          fontSize: '$xs'
         },
 
-        'md': {
-          fontSize: '$md',
+        sm: {
+          fontSize: '$sm'
         },
 
-        'lg': {
-          fontSize: '$lg',
+        md: {
+          fontSize: '$md'
         },
 
-        'xl': {
-          fontSize: '$xl',
+        lg: {
+          fontSize: '$lg'
+        },
+
+        xl: {
+          fontSize: '$xl'
         },
 
         '2xl': {
-          fontSize: '$2xl',
+          fontSize: '$2xl'
         },
 
         '3xl': {
-          fontSize: '$3xl',
+          fontSize: '$3xl'
         },
 
         '4xl': {
-          fontSize: '$4xl',
+          fontSize: '$4xl'
         },
 
         '5xl': {
-          fontSize: '$5xl',
+          fontSize: '$5xl'
         },
 
         '6xl': {
-          fontSize: '$6xl',
-        },
+          fontSize: '$6xl'
+        }
       },
       sub: {
         true: {
-          fontSize: '$xs',
-        },
+          fontSize: '$xs'
+        }
       },
       italic: {
         true: {
-          fontStyle: 'italic',
-        },
+          fontStyle: 'italic'
+        }
       },
       highlight: {
         true: {
-          bg: '$yellow500',
-        },
-      },
+          bg: '$yellow500'
+        }
+      }
     },
 
     defaultProps: {
-      size: 'md',
+      size: 'md'
     },
-    textTransform: 'uppercase',
+    textTransform: 'uppercase'
   },
   {
     componentName: 'BadgeText',
-    ancestorStyle: ['_text'],
+    ancestorStyle: ['_text']
   } as const
 );
 
@@ -248,69 +248,69 @@ const StyledIcon = styled(
           w: '$3',
           props: {
             // @ts-ignore
-            size: 12,
-          },
+            size: 12
+          }
         },
-        'xs': {
+        xs: {
           h: '$3.5',
           w: '$3.5',
           props: {
             //@ts-ignore
-            size: 14,
-          },
+            size: 14
+          }
         },
-        'sm': {
+        sm: {
           h: '$4',
           w: '$4',
           props: {
             //@ts-ignore
-            size: 16,
-          },
+            size: 16
+          }
         },
-        'md': {
+        md: {
           h: '$4.5',
           w: '$4.5',
           props: {
             //@ts-ignore
-            size: 18,
-          },
+            size: 18
+          }
         },
-        'lg': {
+        lg: {
           h: '$5',
           w: '$5',
           props: {
             //@ts-ignore
-            size: 20,
-          },
+            size: 20
+          }
         },
-        'xl': {
+        xl: {
           h: '$6',
           w: '$6',
           props: {
             //@ts-ignore
-            size: 24,
-          },
-        },
-      },
+            size: 24
+          }
+        }
+      }
     },
     props: {
       size: 'md',
       //@ts-ignore
-      fill: 'none',
+      fill: 'none'
     },
 
-    color: '$background500',
+    color: '$background500'
   },
   {
     componentName: 'BaseIcon',
     resolveProps: ['stroke', 'fill'],
-    ancestorStyle: ['_icon'],
+    ancestorStyle: ['_icon']
   } as const,
   {
     propertyTokenMap: {
       stroke: 'colors',
-      fill: 'colors',
-    },
+      fill: 'colors'
+    }
   }
 );
 

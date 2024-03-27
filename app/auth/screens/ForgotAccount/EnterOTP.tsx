@@ -23,12 +23,7 @@ export function EnterOTP() {
           <Text color="$primary500">hctxnhan@gmail.com</Text>
         </Center>
 
-        <OTPInput
-          codeLength={6}
-          onCodeFilled={(code) => {
-            console.log('Code Filled', code);
-          }}
-        />
+        <OTPInput codeLength={6} onCodeFilled={(code) => {}} />
 
         <HStack mt={'$16'} gap={'$4'}>
           <Button flex={1} variant="outline">

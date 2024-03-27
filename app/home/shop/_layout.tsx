@@ -1,3 +1,4 @@
+export { ErrorBoundary } from 'expo-router';
 import { CustomHeader } from '@/components/__custom__/CustomHeader';
 import { Stack } from 'expo-router';
 
@@ -9,9 +10,15 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name="[productId]"
+        name="[shopId]/index"
         options={{
-          title: 'Product details'
+          title: 'Shop details'
+        }}
+      />
+      <Stack.Screen
+        name="[shopId]/voucher"
+        options={{
+          title: 'Shop vouchers'
         }}
       />
     </Stack>

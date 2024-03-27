@@ -1,9 +1,8 @@
-import { Box, Divider, SafeAreaView, ScrollView } from '@/components';
-import { SearchBar } from './components/Home/SearchBar';
-import { SortFilter } from './components/Home/SortFilter';
-import { CategoryFilter } from './components/Home/CategoryFilter';
+import { SafeAreaView, ScrollView } from '@/components';
 import { Container } from '@/components/__custom__/Container';
+import { CategoryFilter } from './components/Home/CategoryFilter';
 import { ProductList } from './components/Home/ProductList';
+import { SearchBar } from './components/Home/SearchBar';
 export default function Home() {
   return (
     <SafeAreaView flex={1}>

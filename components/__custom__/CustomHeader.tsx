@@ -17,6 +17,8 @@ export function CustomHeader(props) {
         backgroundColor="$backgroundLight0"
         alignItems="center"
         justifyContent="center"
+        borderBottomWidth={1}
+        borderBottomColor="$borderLight100"
       >
         <Button
           w={'$10'}

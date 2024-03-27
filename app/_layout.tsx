@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary
@@ -45,10 +46,12 @@ export default function RootLayout() {
 }
 function RootLayoutNav() {
   return (
-    <GluestackUIProvider>
-      <ThemeProvider value={DefaultTheme}>
-        <Slot />
-      </ThemeProvider>
-    </GluestackUIProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <GluestackUIProvider>
+        <ThemeProvider value={DefaultTheme}>
+          <Slot />
+        </ThemeProvider>
+      </GluestackUIProvider>
+    </GestureHandlerRootView>
   );
 }

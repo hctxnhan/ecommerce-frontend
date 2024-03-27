@@ -22,6 +22,18 @@ export default function AppLayout() {
           headerShown: false
         }}
       />
+      <Stack.Screen
+        name="orders"
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="shop"
+        options={{
+          headerShown: false
+        }}
+      />
     </Stack>
   );
 }

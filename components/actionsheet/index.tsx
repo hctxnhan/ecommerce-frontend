@@ -2,7 +2,7 @@ import { H1, H2, H3, H4, H5, H6 } from '@expo/html-elements';
 import {
   AnimatePresence,
   AnimatedPressable,
-  AnimatedView,
+  AnimatedView
 } from '@gluestack-style/animation-resolver';
 import { styled, AsForwarder } from '@gluestack-style/react';
 import { createActionsheet } from '@gluestack-ui/actionsheet';
@@ -13,15 +13,15 @@ import {
   ScrollView,
   VirtualizedList,
   FlatList,
-  SectionList,
+  SectionList
 } from 'react-native';
 
 const StyledRoot = styled(View, {
   width: '$full',
   height: '$full',
   _web: {
-    pointerEvents: 'none',
-  },
+    pointerEvents: 'none'
+  }
 });
 
 const StyledContent = styled(
@@ -31,65 +31,65 @@ const StyledContent = styled(
     borderTopLeftRadius: '$3xl',
     borderTopRightRadius: '$3xl',
     h: '$full',
-    p: '$2',
+    p: '$0',
     bg: '$background0',
 
     _sectionHeaderBackground: {
-      bg: '$background0',
+      bg: '$background0'
     },
 
     defaultProps: {
-      hardShadow: '5',
+      hardShadow: '5'
     },
 
     _web: {
       userSelect: 'none',
-      pointerEvents: 'auto',
-    },
+      pointerEvents: 'auto'
+    }
   },
   {
-    descendantStyle: ['_sectionHeaderBackground'],
+    descendantStyle: ['_sectionHeaderBackground']
   }
 );
 
 const StyledItem = styled(
   Pressable,
   {
-    'p': '$3',
-    'flexDirection': 'row',
-    'alignItems': 'center',
-    'rounded': '$sm',
-    'w': '$full',
+    p: '$0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    rounded: '$sm',
+    w: '$full',
 
     ':disabled': {
       opacity: 0.4,
       _web: {
         // @ts-ignore
         pointerEvents: 'all !important',
-        cursor: 'not-allowed',
-      },
+        cursor: 'not-allowed'
+      }
     },
 
     ':hover': {
-      bg: '$background50',
+      bg: '$background50'
     },
 
     ':active': {
-      bg: '$background100',
+      bg: '$background100'
     },
 
     ':focus': {
-      bg: '$background100',
+      bg: '$background100'
     },
 
-    '_web': {
+    _web: {
       ':focusVisible': {
-        bg: '$background100',
-      },
-    },
+        bg: '$background100'
+      }
+    }
   },
   {
-    descendantStyle: ['_text', '_icon'],
+    descendantStyle: ['_text', '_icon']
   }
 );
 
@@ -109,92 +109,92 @@ const StyledText = styled(
           props: {
             // @ts-ignore
             numberOfLines: 1,
-            ellipsizeMode: 'tail',
-          },
-        },
+            ellipsizeMode: 'tail'
+          }
+        }
       },
       bold: {
         true: {
-          fontWeight: '$bold',
-        },
+          fontWeight: '$bold'
+        }
       },
       underline: {
         true: {
-          textDecorationLine: 'underline',
-        },
+          textDecorationLine: 'underline'
+        }
       },
       strikeThrough: {
         true: {
-          textDecorationLine: 'line-through',
-        },
+          textDecorationLine: 'line-through'
+        }
       },
       size: {
         '2xs': {
-          fontSize: '$2xs',
+          fontSize: '$2xs'
         },
-        'xs': {
-          fontSize: '$xs',
-        },
-
-        'sm': {
-          fontSize: '$sm',
+        xs: {
+          fontSize: '$xs'
         },
 
-        'md': {
-          fontSize: '$md',
+        sm: {
+          fontSize: '$sm'
         },
 
-        'lg': {
-          fontSize: '$lg',
+        md: {
+          fontSize: '$md'
         },
 
-        'xl': {
-          fontSize: '$xl',
+        lg: {
+          fontSize: '$lg'
+        },
+
+        xl: {
+          fontSize: '$xl'
         },
 
         '2xl': {
-          fontSize: '$2xl',
+          fontSize: '$2xl'
         },
 
         '3xl': {
-          fontSize: '$3xl',
+          fontSize: '$3xl'
         },
 
         '4xl': {
-          fontSize: '$4xl',
+          fontSize: '$4xl'
         },
 
         '5xl': {
-          fontSize: '$5xl',
+          fontSize: '$5xl'
         },
 
         '6xl': {
-          fontSize: '$6xl',
-        },
+          fontSize: '$6xl'
+        }
       },
       sub: {
         true: {
-          fontSize: '$xs',
-        },
+          fontSize: '$xs'
+        }
       },
       italic: {
         true: {
-          fontStyle: 'italic',
-        },
+          fontStyle: 'italic'
+        }
       },
       highlight: {
         true: {
-          bg: '$yellow500',
-        },
-      },
+          bg: '$yellow500'
+        }
+      }
     },
 
     defaultProps: {
-      size: 'md',
-    },
+      size: 'md'
+    }
   },
   {
-    ancestorStyle: ['_text'],
+    ancestorStyle: ['_text']
   }
 );
 
@@ -212,97 +212,97 @@ const StyledItemText = styled(
           props: {
             // @ts-ignore
             numberOfLines: 1,
-            ellipsizeMode: 'tail',
-          },
-        },
+            ellipsizeMode: 'tail'
+          }
+        }
       },
       bold: {
         true: {
-          fontWeight: '$bold',
-        },
+          fontWeight: '$bold'
+        }
       },
       underline: {
         true: {
-          textDecorationLine: 'underline',
-        },
+          textDecorationLine: 'underline'
+        }
       },
       strikeThrough: {
         true: {
-          textDecorationLine: 'line-through',
-        },
+          textDecorationLine: 'line-through'
+        }
       },
       size: {
         '2xs': {
-          fontSize: '$2xs',
+          fontSize: '$2xs'
         },
-        'xs': {
-          fontSize: '$xs',
-        },
-
-        'sm': {
-          fontSize: '$sm',
+        xs: {
+          fontSize: '$xs'
         },
 
-        'md': {
-          fontSize: '$md',
+        sm: {
+          fontSize: '$sm'
         },
 
-        'lg': {
-          fontSize: '$lg',
+        md: {
+          fontSize: '$md'
         },
 
-        'xl': {
-          fontSize: '$xl',
+        lg: {
+          fontSize: '$lg'
+        },
+
+        xl: {
+          fontSize: '$xl'
         },
 
         '2xl': {
-          fontSize: '$2xl',
+          fontSize: '$2xl'
         },
 
         '3xl': {
-          fontSize: '$3xl',
+          fontSize: '$3xl'
         },
 
         '4xl': {
-          fontSize: '$4xl',
+          fontSize: '$4xl'
         },
 
         '5xl': {
-          fontSize: '$5xl',
+          fontSize: '$5xl'
         },
 
         '6xl': {
-          fontSize: '$6xl',
-        },
+          fontSize: '$6xl'
+        }
       },
       sub: {
         true: {
-          fontSize: '$xs',
-        },
+          fontSize: '$xs'
+        }
       },
       italic: {
         true: {
-          fontStyle: 'italic',
-        },
+          fontStyle: 'italic'
+        }
       },
       highlight: {
         true: {
-          bg: '$yellow500',
-        },
-      },
+          bg: '$yellow500'
+        }
+      }
     },
 
     defaultProps: {
-      size: 'md',
+      size: 'md'
     },
     mx: '$2',
     props: {
-      size: 'md',
+      size: 'md'
     },
-    color: '$text800',
+    color: '$text800'
   },
   {
-    ancestorStyle: ['_text'],
+    ancestorStyle: ['_text']
   }
 );
 
@@ -310,59 +310,59 @@ const StyledDragIndicator = styled(View, {
   w: '$16',
   h: '$1',
   bg: '$background400',
-  rounded: '$full',
+  rounded: '$full'
 });
 
 const StyledDragIndicatorWrapper = styled(View, {
   py: '$1',
   w: '$full',
-  alignItems: 'center',
+  alignItems: 'center'
 });
 
 const StyledBackdrop = styled(AnimatedPressable, {
   ':initial': {
-    opacity: 0,
+    opacity: 0
   },
 
   ':animate': {
-    opacity: 0.5,
+    opacity: 0.5
   },
 
   ':exit': {
-    opacity: 0,
+    opacity: 0
   },
 
-  'position': 'absolute',
-  'left': 0,
-  'top': 0,
-  'right': 0,
-  'bottom': 0,
-  'bg': '$background950',
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  bg: '$background950',
 
-  '_web': {
+  _web: {
     cursor: 'default',
-    pointerEvents: 'auto',
-  },
+    pointerEvents: 'auto'
+  }
 });
 
 const StyledScrollView = styled(ScrollView, {
   w: '$full',
-  h: 'auto',
+  h: 'auto'
 });
 
 const StyledVirtualizedList = styled(VirtualizedList, {
   w: '$full',
-  h: 'auto',
+  h: 'auto'
 });
 
 const StyledFlatList = styled(FlatList, {
   w: '$full',
-  h: 'auto',
+  h: 'auto'
 });
 
 const StyledSectionList = styled(SectionList, {
   w: '$full',
-  h: 'auto',
+  h: 'auto'
 });
 
 const StyledSectionHeaderText = styled(H4, {
@@ -372,106 +372,106 @@ const StyledSectionHeaderText = styled(H4, {
 
   // Overrides expo-html default styling
   marginVertical: 0,
-
+  marginTop: '$3',
   variants: {
     isTruncated: {
       true: {
         props: {
           // @ts-ignore
           numberOfLines: 1,
-          ellipsizeMode: 'tail',
-        },
-      },
+          ellipsizeMode: 'tail'
+        }
+      }
     },
     bold: {
       true: {
-        fontWeight: '$bold',
-      },
+        fontWeight: '$bold'
+      }
     },
     underline: {
       true: {
-        textDecorationLine: 'underline',
-      },
+        textDecorationLine: 'underline'
+      }
     },
     strikeThrough: {
       true: {
-        textDecorationLine: 'line-through',
-      },
+        textDecorationLine: 'line-through'
+      }
     },
     size: {
       '5xl': {
         //@ts-ignore
         props: { as: H1 },
-        fontSize: '$6xl',
+        fontSize: '$6xl'
       },
       '4xl': {
         //@ts-ignore
         props: { as: H1 },
-        fontSize: '$5xl',
+        fontSize: '$5xl'
       },
 
       '3xl': {
         //@ts-ignore
         props: { as: H1 },
-        fontSize: '$4xl',
+        fontSize: '$4xl'
       },
 
       '2xl': {
         //@ts-ignore
         props: { as: H2 },
-        fontSize: '$3xl',
+        fontSize: '$3xl'
       },
 
-      'xl': {
+      xl: {
         //@ts-ignore
         props: { as: H3 },
-        fontSize: '$2xl',
+        fontSize: '$2xl'
       },
 
-      'lg': {
+      lg: {
         //@ts-ignore
         props: { as: H4 },
-        fontSize: '$xl',
+        fontSize: '$xl'
       },
 
-      'md': {
+      md: {
         //@ts-ignore
         props: { as: H5 },
-        fontSize: '$lg',
+        fontSize: '$lg'
       },
 
-      'sm': {
+      sm: {
         //@ts-ignore
         props: { as: H6 },
-        fontSize: '$md',
+        fontSize: '$md'
       },
 
-      'xs': {
+      xs: {
         //@ts-ignore
         props: { as: H6 },
-        fontSize: '$sm',
-      },
+        fontSize: '$sm'
+      }
     },
     sub: {
       true: {
-        fontSize: '$xs',
-      },
+        fontSize: '$xs'
+      }
     },
     italic: {
       true: {
-        fontStyle: 'italic',
-      },
+        fontStyle: 'italic'
+      }
     },
     highlight: {
       true: {
-        bg: '$yellow500',
-      },
-    },
+        bg: '$yellow500'
+      }
+    }
   },
   color: '$text500',
   props: { size: 'xs' },
   textTransform: 'uppercase',
-  p: '$3',
+  p: '$3'
 });
 
 const StyledIcon = styled(
@@ -484,66 +484,66 @@ const StyledIcon = styled(
           w: '$3',
           props: {
             // @ts-ignore
-            size: 12,
-          },
+            size: 12
+          }
         },
-        'xs': {
+        xs: {
           h: '$3.5',
           w: '$3.5',
           props: {
             //@ts-ignore
-            size: 14,
-          },
+            size: 14
+          }
         },
-        'sm': {
+        sm: {
           h: '$4',
           w: '$4',
           props: {
             //@ts-ignore
-            size: 16,
-          },
+            size: 16
+          }
         },
-        'md': {
+        md: {
           h: '$4.5',
           w: '$4.5',
           props: {
             //@ts-ignore
-            size: 18,
-          },
+            size: 18
+          }
         },
-        'lg': {
+        lg: {
           h: '$5',
           w: '$5',
           props: {
             //@ts-ignore
-            size: 20,
-          },
+            size: 20
+          }
         },
-        'xl': {
+        xl: {
           h: '$6',
           w: '$6',
           props: {
             //@ts-ignore
-            size: 24,
-          },
-        },
-      },
+            size: 24
+          }
+        }
+      }
     },
     props: {
-      size: 'sm',
+      size: 'sm'
     },
 
-    color: '$background500',
+    color: '$background500'
   },
   {
     componentName: 'BaseIcon',
-    resolveProps: ['stroke', 'fill'],
+    resolveProps: ['stroke', 'fill']
   } as const,
   {
     propertyTokenMap: {
       stroke: 'colors',
-      fill: 'colors',
-    },
+      fill: 'colors'
+    }
   }
 );
 
@@ -561,7 +561,7 @@ export const Actionsheet = createActionsheet({
   SectionList: StyledSectionList,
   SectionHeaderText: StyledSectionHeaderText,
   Icon: StyledIcon,
-  AnimatePresence: AnimatePresence,
+  AnimatePresence: AnimatePresence
 });
 
 export const ActionsheetContent = Actionsheet.Content;
