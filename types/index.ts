@@ -11,7 +11,7 @@ export interface Product {
 
 export interface Owner {
   name: string;
-  status: "active" | "inactive";
+  status: 'active' | 'inactive';
   verified: boolean;
   _id: string;
 }
@@ -21,6 +21,15 @@ export interface ProductDetail extends Product {
   attributes: Record<string, string>;
 }
 
+export interface ProductInCart {
+  productId: string;
+  productName: string;
+  price: number;
+  quantity: number;
+  ownerId: string;
+  total: number;
+}
+
 export interface APIResponse<T> {
   data: T;
   metadata: {
@@ -28,6 +37,6 @@ export interface APIResponse<T> {
       total: number;
       page: number;
       limit: number;
-    }
-  }
+    };
+  };
 }

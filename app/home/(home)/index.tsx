@@ -48,7 +48,6 @@ export default function Home() {
           isFetchingNextPage={query.isFetchingNextPage}
           isLoading={query.isLoading}
           onReachEnd={() => {
-            console.log('fetching next page');
             query.fetchNextPage();
           }}
         />

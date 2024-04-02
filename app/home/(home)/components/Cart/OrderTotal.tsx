@@ -1,7 +1,17 @@
 import { HStack, Text, VStack } from '@/components';
 import { getCurrency } from '@/utils/utils';
 
-export function OrderTotal() {
+interface OrderTotalProps {
+  subtotal: number;
+  shipping: number;
+  total: number;
+}
+
+function showPrice(price: number) {
+  return price > 0 ? getCurrency(price) : 'Free';
+}
+
+export function OrderTotal({ subtotal, shipping, total }: OrderTotalProps) {
   return (
     <VStack
       gap={'$6'}
@@ -15,20 +25,20 @@ export function OrderTotal() {
         <Text fontWeight="bold" textTransform="uppercase" color="$text500">
           Subtotal
         </Text>
-        <Text fontWeight="bold">{getCurrency(100)}</Text>
+        <Text fontWeight="bold">{showPrice(subtotal)}</Text>
       </HStack>
       <HStack w="$full" justifyContent="space-between">
         <Text fontWeight="bold" textTransform="uppercase" color="$text500">
           Shipping
         </Text>
-        <Text fontWeight="bold">{getCurrency(10)}</Text>
+        <Text fontWeight="bold">{showPrice(shipping)}</Text>
       </HStack>
       <HStack w="$full" justifyContent="space-between" alignItems="center">
         <Text fontWeight="bold" textTransform="uppercase" color="$text500">
           Total
         </Text>
         <Text fontWeight="bold" color="$primary500" size="3xl">
-          {getCurrency(110)}
+          {showPrice(total)}
         </Text>
       </HStack>
     </VStack>

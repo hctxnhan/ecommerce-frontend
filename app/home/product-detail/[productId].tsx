@@ -139,10 +139,11 @@ export default function ProductId() {
         </ButtonText>
       </Button>
 
-      <AddToCartSheet
+      {productDetail && <AddToCartSheet
+        product={productDetail}
         setShowActionsheet={setShowActionsheet}
         showActionsheet={showActionsheet}
-      />
+      />}
     </SafeAreaView>
   );
 }

@@ -1,7 +1,14 @@
 import { HStack, Image, Text, VStack } from '@/components';
+import { ProductInCart } from '@/types';
 import { getCurrency } from '@/utils/utils';
 
-export function OrderReviewItem() {
+type OrderReviewItemProps = {
+  item: ProductInCart & {
+    totalPriceAfterDiscount: number;
+  };
+};
+
+export function OrderReviewItem({ item }: OrderReviewItemProps) {
   return (
     <HStack gap={'$3'} w={'$full'} position="relative">
       <Image
@@ -15,13 +22,13 @@ export function OrderReviewItem() {
 
       <VStack gap={'$1'} flex={1}>
         <Text size="lg" fontWeight="bold">
-          Variegated snake
+          {item.productName}
         </Text>
         <Text textDecorationLine="line-through" color="$text400" size="md">
-          {getCurrency(20)}
+          {getCurrency(item.price)}
         </Text>
         <Text size="md" fontWeight="bold">
-          {3} x {getCurrency(18)}
+          {item.quantity} x {getCurrency(item.totalPriceAfterDiscount)}
         </Text>
         <HStack
           alignItems="flex-end"
@@ -36,7 +43,7 @@ export function OrderReviewItem() {
             flex={1}
             color="$primary500"
           >
-            {getCurrency(3 * 18)}
+            {getCurrency(item.totalPriceAfterDiscount * item.quantity)}
           </Text>
         </HStack>
       </VStack>

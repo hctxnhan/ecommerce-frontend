@@ -1,3 +1,4 @@
+import { cartApi } from '@/api';
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -7,30 +8,55 @@ import {
   Button,
   ButtonIcon,
   ButtonText,
-  Center,
-  CircleIcon,
   HStack,
   Image,
-  Radio,
-  RadioGroup,
-  RadioIcon,
-  RadioIndicator,
-  RadioLabel,
   Text,
   VStack
 } from '@/components';
-import { MinusCircleIcon, PlusCircleIcon } from 'lucide-react-native';
-import { getCurrency } from '@/utils/utils';
-import React, { useState } from 'react';
 import { Container } from '@/components/__custom__/Container';
+import { useToast } from '@/hooks/useToast';
+import { Product, ProductDetail } from '@/types';
+import { getCurrency } from '@/utils/utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { MinusCircleIcon, PlusCircleIcon } from 'lucide-react-native';
+import { useState } from 'react';
 
 export function AddToCartSheet({
   showActionsheet,
-  setShowActionsheet
+  setShowActionsheet,
+  product
 }: {
   showActionsheet: boolean;
   setShowActionsheet: (value: boolean) => void;
+  product: ProductDetail;
 }) {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+
+  const addMutation = useMutation({
+    mutationFn: cartApi.add,
+    onSuccess: () => {
+      toast.show({
+        title: 'Success',
+        description: 'Product added to cart',
+        type: 'success'
+      });
+
+      setShowActionsheet(false);
+
+      queryClient.invalidateQueries({
+        queryKey: ['cart']
+      });
+    },
+    onError: (error) => {
+      toast.show({
+        title: 'Error',
+        description: error.message,
+        type: 'error'
+      });
+    }
+  });
+
   const [quantity, setQuantity] = useState(1);
 
   const canPlus = quantity < 10;
@@ -43,6 +69,16 @@ export function AddToCartSheet({
       setQuantity(quantity - 1);
     }
   };
+
+  function handleAddToCart() {
+    addMutation.mutate({
+      productId: product._id,
+      quantity,
+      price: product.price,
+      productName: product.name,
+      ownerId: product.owner?._id
+    });
+  }
 
   return (
     <Actionsheet isOpen={showActionsheet}>
@@ -72,10 +108,10 @@ export function AddToCartSheet({
 
               <VStack gap={'$1'}>
                 <Text size="lg" fontWeight="bold">
-                  Variegated snake
+                  {product.name}
                 </Text>
                 <Text color="$primary500" fontWeight="bold" size="2xl">
-                  {getCurrency(20)}
+                  {getCurrency(product.price)}
                 </Text>
                 <HStack alignItems="center" gap={'$4'}>
                   <Button
@@ -112,7 +148,7 @@ export function AddToCartSheet({
             </HStack>
           </Container>
         </ActionsheetItem>
-        <Button rounded="$none">
+        <Button onPress={handleAddToCart} rounded="$none">
           <ButtonText textAlign="center">Add</ButtonText>
         </Button>
       </ActionsheetContent>

@@ -18,7 +18,7 @@ interface FormInputProps {
   label: string;
   isRequired?: boolean;
   isDisabled?: boolean;
-  inputIcon: any;
+  inputIcon?: any;
   name: string;
   type?: ComponentProps<typeof InputField>['type'];
 }
@@ -47,12 +47,16 @@ export function FormInput({
       <Controller
         name={name}
         control={control}
-        render={({ field: {onBlur, onChange, value} }) => (
+        render={({ field: { onBlur, onChange, value } }) => (
           <Input>
-            <InputSlot pl="$4">
-              <InputIcon as={inputIcon} />
-            </InputSlot>
-            <InputField type={type} placeholder={placeholder}
+            {inputIcon && (
+              <InputSlot pl="$4">
+                <InputIcon as={inputIcon} />
+              </InputSlot>
+            )}
+            <InputField
+              type={type}
+              placeholder={placeholder}
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}

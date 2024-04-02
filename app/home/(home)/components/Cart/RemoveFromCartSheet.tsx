@@ -1,3 +1,4 @@
+import { cartApi } from '@/api';
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -12,16 +13,50 @@ import {
   VStack
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
+import { useToast } from '@/hooks/useToast';
+import { ProductInCart } from '@/types';
 import { getCurrency } from '@/utils/utils';
-import React from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function RemoveFromCartSheet({
   showActionsheet,
-  setShowActionsheet
+  setShowActionsheet,
+  item
 }: {
   showActionsheet: boolean;
   setShowActionsheet: (value: boolean) => void;
+  item: ProductInCart;
 }) {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  const removeMutation = useMutation({
+    mutationFn: () => cartApi.remove(item.productId),
+    onSuccess: () => {
+      toast.show({
+        title: 'Success',
+        description: 'Product removed from cart',
+        type: 'success'
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ['cart']
+      });
+    },
+    onError: (error) => {
+      toast.show({
+        title: 'Error',
+        description: error.message,
+        type: 'error'
+      });
+    }
+  });
+
+  function handleRemove() {
+    removeMutation.mutate();
+    setShowActionsheet(false);
+  }
+
   return (
     <Actionsheet isOpen={showActionsheet}>
       <ActionsheetBackdrop
@@ -59,17 +94,17 @@ export function RemoveFromCartSheet({
 
               <VStack gap={'$1'}>
                 <Text size="lg" fontWeight="bold">
-                  Variegated snake
+                  {item.productName}
                 </Text>
                 <Text color="$primary500" fontWeight="bold" size="2xl">
-                  {getCurrency(20)}
+                  {getCurrency(item.price)}
                 </Text>
               </VStack>
             </HStack>
           </Container>
         </ActionsheetItem>
 
-        <Button action="negative" rounded={'$none'}>
+        <Button onPress={handleRemove} action="negative" rounded={'$none'}>
           <ButtonText textAlign="center">Yes, remove!</ButtonText>
         </Button>
       </ActionsheetContent>

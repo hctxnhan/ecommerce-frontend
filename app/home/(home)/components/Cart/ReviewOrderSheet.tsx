@@ -6,17 +6,16 @@ import {
   ActionsheetSectionHeaderText,
   Button,
   ButtonText,
-  HStack,
-  Image,
   ScrollView,
-  Text,
   VStack
 } from '@/components';
-import { getCurrency } from '@/utils/utils';
-import React from 'react';
-import { OrderReviewItem } from './OrderReviewItem';
 import { Container } from '@/components/__custom__/Container';
+import { OrderReviewItem } from './OrderReviewItem';
 import { OrderTotal } from './OrderTotal';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { cartApi, orderApi } from '@/api';
+import { useCartStore } from '@/configs/store/Cart.store';
+import { useToast } from '@/hooks/useToast';
 
 export function ReviewOrderSheet({
   showActionsheet,
@@ -25,6 +24,66 @@ export function ReviewOrderSheet({
   showActionsheet: boolean;
   setShowActionsheet: (value: boolean) => void;
 }) {
+  const cartQuery = useQuery({
+    queryKey: ['cart'],
+    queryFn: cartApi.get,
+    select: (data) => data.data.data
+  });
+
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  const voucher = useCartStore.use.voucher();
+  const address = useCartStore.use.deliveryAddress();
+
+  const reviewOrderQuery = useQuery({
+    queryKey: ['reviewOrder'],
+    queryFn: () =>
+      orderApi.checkoutReview({
+        cart: cartQuery.data!,
+        discountCodes: voucher ? [voucher] : []
+      }),
+    enabled:
+      showActionsheet && cartQuery.isSuccess && !!voucher && !!cartQuery.data,
+    select: (data) => data.data.data.cart
+  });
+
+  const placeOrderMutation = useMutation({
+    mutationFn: orderApi.placeOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['cart']
+      });
+
+      toast.show({
+        title: 'Success',
+        description: 'Order placed',
+        type: 'success'
+      });
+    },
+    onError: (error) => {
+      toast.show({
+        title: 'Error',
+        description: error.message,
+        type: 'error'
+      });
+    },
+    onSettled: () => {
+      setShowActionsheet(false);
+
+      queryClient.invalidateQueries({
+        queryKey: ['reviewOrder']
+      });
+    }
+  });
+
+  function handlePlaceOrder() {
+    placeOrderMutation.mutate({
+      discountCodes: voucher ? [voucher] : [],
+      deliveryAddress: address
+    });
+  }
+
   return (
     <Actionsheet snapPoints={[80]} isOpen={showActionsheet}>
       <ActionsheetBackdrop
@@ -45,26 +104,25 @@ export function ReviewOrderSheet({
         <ScrollView flex={1} w={'$full'}>
           <Container x flex={1}>
             <VStack pb={'$4'} gap={'$6'}>
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
-              <OrderReviewItem />
+              {reviewOrderQuery.data?.items?.map((item) => (
+                <OrderReviewItem key={item.productId} item={item} />
+              ))}
             </VStack>
           </Container>
         </ScrollView>
 
         <Container x pBottom>
           <ActionsheetItem w="$full">
-            <OrderTotal />
+            <OrderTotal
+              shipping={0}
+              total={reviewOrderQuery.data?.total || 0}
+              subtotal={reviewOrderQuery.data?.total || 0}
+            />
           </ActionsheetItem>
         </Container>
 
-        <Button rounded={'$none'}>
-          <ButtonText textAlign="center">Checkout</ButtonText>
+        <Button onPress={handlePlaceOrder} rounded={'$none'}>
+          <ButtonText textAlign="center">Place order</ButtonText>
         </Button>
       </ActionsheetContent>
     </Actionsheet>
