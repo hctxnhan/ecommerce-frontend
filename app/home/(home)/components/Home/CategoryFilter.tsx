@@ -1,14 +1,11 @@
 import {
   Box,
-  HStack,
   Radio,
   RadioGroup,
-  RadioIndicator,
-  RadioLabel,
   ScrollView,
   Text
 } from '@/components';
-import { useState } from 'react';
+import { useSearchStore } from '@/configs/store/Search.store';
 
 const categoryFilter = [
   {
@@ -30,7 +27,8 @@ const categoryFilter = [
 ];
 
 export function CategoryFilter() {
-  const [categoryValues, setCategoryValues] = useState('all');
+  const category = useSearchStore.use.category();
+  const setCategory = useSearchStore.use.setCategory();
 
   return (
     <ScrollView
@@ -41,11 +39,11 @@ export function CategoryFilter() {
       <RadioGroup
         flexDirection="row"
         gap={'$3'}
-        value={categoryValues}
-        onChange={setCategoryValues}
+        value={category}
+        onChange={setCategory}
       >
         {categoryFilter.map((option) => {
-          const isSelected = categoryValues === option.value;
+          const isSelected = category === option.value;
 
           return (
             <Radio

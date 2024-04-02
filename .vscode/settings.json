@@ -1,0 +1,7 @@
+{
+  "rest-client.environmentVariables": {
+    "local": {
+        "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWRiMDBkNWI4MWFjMDU5Nzc0Mjk2ZTciLCJyb2xlIjoidXNlciIsInN0YXR1cyI6ImFjdGl2ZSIsInZlcmlmaWVkIjp0cnVlLCJlbWFpbCI6InRoYW5obmhhbnN0dWR5QGdtYWlsLmNvbSIsImlhdCI6MTcxMjAzNzUzNSwiZXhwIjoxNzQzNTczNTM1fQ.Nkh6xcFSSMQO2aa1lG5Otw1lLLuI-LALl-_9M9Smd4M",
+    },
+  }
+}

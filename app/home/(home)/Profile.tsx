@@ -1,3 +1,4 @@
+import { authApi } from '@/api/auth';
 import {
   Avatar,
   AvatarFallbackText,
@@ -11,6 +12,8 @@ import {
   VStack
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
+import { useAsyncAction } from '@/hooks/useAsyncAction';
+import { useToast } from '@/hooks/useToast';
 import { router } from 'expo-router';
 import {
   BellIcon,
@@ -71,6 +74,23 @@ function ProfileLink({
 }
 
 export default function Tab2() {
+  const { start } = useAsyncAction(authApi.logout);
+  const toast = useToast();
+
+  function handleLogout() {
+    start(undefined, {
+      onSuccess: () => {
+        toast.show({
+          title: 'Logged out successfully',
+          type: 'success',
+          description: 'You have successfully logged out'
+        });
+
+        router.push('/auth/Login');
+      }
+    });
+  }
+
   return (
     <SafeAreaView flex={1}>
       <Container x y py={'$2'}>
@@ -112,7 +132,7 @@ export default function Tab2() {
         />
         <ProfileLink disabled title="Notifications" icon={BellIcon} />
         <ProfileLink disabled title="My address" icon={LocateIcon} />
-        <ProfileLink title="Log out" icon={LogOut} />
+        <ProfileLink title="Log out" onPress={handleLogout} icon={LogOut} />
       </Container>
     </SafeAreaView>
   );

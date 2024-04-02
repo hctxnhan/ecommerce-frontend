@@ -21,14 +21,18 @@ export function Container({
   pBottom = false,
   ...rest
 }: ContainerProps) {
+  const calculatedP = {
+    px: x ? px : undefined,
+    py: y ? py : undefined,
+    pl: pLeft ? px : undefined,
+    pr: pRight ? px : undefined,
+    pt: pTop ? py : undefined,
+    pb: pBottom ? py : undefined
+  };
+
   return (
     <Box
-      px={x ? px : undefined}
-      py={y ? py : undefined}
-      pl={pLeft ? px : undefined}
-      pr={pRight ? px : undefined}
-      pt={pTop ? py : undefined}
-      pb={pBottom ? py : undefined}
+      {...calculatedP}
       {...rest}
     />
   );

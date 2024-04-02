@@ -16,7 +16,7 @@ const StyledRoot = styled(
     variants: {
       action: {
         error: {
-          bg: '$backgroundError',
+          bg: '$backgroundLightError',
           borderColor: '$error300',
 
           _icon: {
@@ -24,7 +24,7 @@ const StyledRoot = styled(
           },
         },
         warning: {
-          bg: '$backgroundWarning',
+          bg: '$backgroundLightWarning',
           borderColor: '$warning300',
 
           _icon: {
@@ -32,7 +32,7 @@ const StyledRoot = styled(
           },
         },
         success: {
-          bg: '$backgroundSuccess',
+          bg: '$backgroundLightSuccess',
           borderColor: '$success300',
 
           _icon: {
@@ -40,7 +40,7 @@ const StyledRoot = styled(
           },
         },
         info: {
-          bg: '$backgroundInfo',
+          bg: '$backgroundLightInfo',
           borderColor: '$info300',
 
           _icon: {
@@ -48,7 +48,7 @@ const StyledRoot = styled(
           },
         },
         attention: {
-          bg: '$backgroundMuted',
+          bg: '$backgroundLightMuted',
           borderColor: '$secondary300',
 
           _icon: {

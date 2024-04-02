@@ -372,7 +372,6 @@ const StyledSectionHeaderText = styled(H4, {
 
   // Overrides expo-html default styling
   marginVertical: 0,
-  marginTop: '$3',
   variants: {
     isTruncated: {
       true: {

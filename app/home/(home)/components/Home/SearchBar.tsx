@@ -8,12 +8,22 @@ import {
   InputSlot,
   SearchIcon
 } from '@/components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SortFilter } from './SortFilter';
+import { useSearchStore } from '@/configs/store/Search.store';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export function SearchBar() {
-  const [value, setValue] = useState('');
   const [showActionsheet, setShowActionsheet] = useState(false);
+  const setSearchToStore = useSearchStore.use.setSearch();
+  const searchInStore = useSearchStore.use.search();
+
+  const [search, setSearch] = useState(searchInStore);
+  const debounceSearch = useDebounce(search, 500);
+
+  useEffect(() => {
+    setSearchToStore(debounceSearch);
+  }, [debounceSearch]);
 
   return (
     <>
@@ -28,9 +38,9 @@ export function SearchBar() {
         <InputField
           flex={1}
           onChange={(e: any) => {
-            setValue(e.nativeEvent.text);
+            setSearch(e.nativeEvent.text);
           }}
-          value={value}
+          value={search}
           placeholder="Search"
         />
         <InputSlot flexDirection="row">

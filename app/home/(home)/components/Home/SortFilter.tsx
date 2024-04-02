@@ -15,43 +15,33 @@ import {
   RadioIndicator,
   RadioLabel
 } from '@/components';
+import { useSearchStore } from '@/configs/store/Search.store';
 import React, { useState } from 'react';
 
 const sortByOptions = [
   {
-    label: 'PRICE (low to high)',
+    label: 'NEWEST',
+    value: 'newest-desc'
+  },
+  {
+    label: 'OLDEST',
+    value: 'newest-asc'
+  },
+  {
+    label: 'CHEAPEST',
     value: 'price-asc'
   },
   {
-    label: 'PRICE (high to low)',
+    label: 'MOST EXPENSIVE',
     value: 'price-desc'
   },
   {
-    label: 'RATING (low to high)',
+    label: 'HIGHEST RATING',
     value: 'rating-asc'
   },
   {
-    label: 'RATING (high to low)',
+    label: 'LOWEST RATING',
     value: 'rating-desc'
-  }
-];
-
-const categoryOptions = [
-  {
-    label: 'All',
-    value: 'all'
-  },
-  {
-    label: 'Electronics',
-    value: 'electronics'
-  },
-  {
-    label: 'Clothes',
-    value: 'clothes'
-  },
-  {
-    label: 'Furniture',
-    value: 'furniture'
   }
 ];
 
@@ -62,7 +52,8 @@ export function SortFilter({
   showActionsheet: boolean;
   setShowActionsheet: (value: boolean) => void;
 }) {
-  const [values, setValues] = useState(sortByOptions[0].value);
+  const setSort = useSearchStore.use.setSort();
+  const sortOption = useSearchStore.use.sort();
 
   return (
     <Actionsheet isOpen={showActionsheet}>
@@ -79,7 +70,12 @@ export function SortFilter({
       >
         <ActionsheetSectionHeaderText>Sort</ActionsheetSectionHeaderText>
         <ActionsheetItem w="$full" flexDirection="column">
-          <RadioGroup gap={'$3'} value={values} onChange={setValues}>
+          <RadioGroup
+            w="$full"
+            gap={'$3'}
+            value={sortOption}
+            onChange={setSort}
+          >
             {sortByOptions.map((option) => (
               <Radio
                 width="$full"
@@ -87,7 +83,11 @@ export function SortFilter({
                 value={option.value}
                 accessibilityLabel="Radio"
               >
-                <HStack justifyContent="space-between" alignItems="center">
+                <HStack
+                  flex={1}
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
                   <RadioLabel textAlignVertical="center">
                     {option.label}
                   </RadioLabel>

@@ -24,7 +24,6 @@ export function ViewImageModal({ onClose, image }: ViewImageModalProps) {
   const composedGesture = Gesture.Simultaneous(pan, pinch);
 
   function handlePinch(e) {
-    console.log(e);
     // const clampScale = clampValue(
     //   e.scale * scale,
     //   IMAGE_SCALE.MIN,

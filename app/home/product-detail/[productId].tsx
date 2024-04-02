@@ -21,10 +21,23 @@ import { useState } from 'react';
 import { AddToCartSheet } from './components/AddToCartSheet';
 import { NavigateButton } from '@/components/__custom__/NavigateButton';
 import { Rating } from '@/components/__custom__/Rating';
+import { useQuery } from '@tanstack/react-query';
+import { productApi } from '@/api/product';
+import { useLocalSearchParams } from 'expo-router';
 
 export default function ProductId() {
   const greenToken = useToken('colors', 'green500');
   const [showActionsheet, setShowActionsheet] = useState(false);
+  const params = useLocalSearchParams<{
+    productId: string;
+  }>();
+
+  const { data: product } = useQuery({
+    queryKey: ['product', { id: params.productId }],
+    queryFn: productApi.getProductById.bind(null, params.productId)
+  });
+
+  const productDetail = product?.data.data;
 
   return (
     <SafeAreaView flex={1}>
@@ -53,45 +66,46 @@ export default function ProductId() {
             action="success"
             mb={'$1'}
           >
-            <BadgeText color="$text0">Electronics</BadgeText>
+            <BadgeText color="$text0">{productDetail?.type}</BadgeText>
           </Badge>
           <Text mb={'$1'} fontWeight="bold" size="2xl">
-            TV Samsung 52inch
+            {productDetail?.name}
           </Text>
           <Text fontWeight="bold" size="xl" color="$primary500">
-            {getCurrency(1000)}
+            {productDetail?.price && getCurrency(productDetail.price)}
           </Text>
           <Rating mt={'$1'} rating={4} size="md" />
         </Container>
 
-        <Container x pTop>
-          <HStack alignItems="center" gap="$1">
-            <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-              <AvatarFallbackText>Sandeep Srivastava</AvatarFallbackText>
-            </Avatar>
-            <VStack gap={'$1'}>
-              <Text ml={'$2'} fontWeight="bold">
-                Sandeep Srivastava
-              </Text>
-              <HStack alignItems="center" gap={'$1'}>
-                <Text ml={'$2'} size="sm">
-                  Verified store
+        {productDetail?.owner && (
+          <Container x pTop>
+            <HStack alignItems="center" gap="$1">
+              <Avatar bgColor="$amber600" size="md" borderRadius="$full">
+                <AvatarFallbackText>
+                  {productDetail?.owner?.name}
+                </AvatarFallbackText>
+              </Avatar>
+              <VStack gap={'$1'}>
+                <Text ml={'$2'} fontWeight="bold">
+                  {productDetail?.owner?.name}{' '}
                 </Text>
-                <BadgeCheck size={18} color={greenToken} />
-              </HStack>
-            </VStack>
-          </HStack>
-        </Container>
+                <HStack alignItems="center" gap={'$1'}>
+                  <Text ml={'$2'} size="sm">
+                    Verified store
+                  </Text>
+                  <BadgeCheck size={18} color={greenToken} />
+                </HStack>
+              </VStack>
+            </HStack>
+          </Container>
+        )}
 
         <Container x pTop>
           <Text size="lg" fontWeight="bold" mb={'$2'}>
             Description
           </Text>
           <Text size="md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            {productDetail?.description}
           </Text>
         </Container>
         <Container x pTop>
@@ -99,15 +113,14 @@ export default function ProductId() {
             Product attributes
           </Text>
           <Box>
-            <Text>
-              In stock: <Text color="$green500">Yes</Text>
-            </Text>
-            <Text>
-              Color: <Text color="$primary500">Black</Text>
-            </Text>
-            <Text>
-              Size: <Text color="$primary500">53 inch</Text>
-            </Text>
+            {Object.entries(productDetail?.attributes || {}).map(
+              ([key, value]) => (
+                <HStack key={key} gap={'$1'}>
+                  <Text textTransform='capitalize' fontWeight="bold">{key}:</Text>
+                  <Text>{value}</Text>
+                </HStack>
+              )
+            )}
           </Box>
         </Container>
 

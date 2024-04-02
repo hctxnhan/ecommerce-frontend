@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler'; 
+
 import { GluestackUIProvider } from '@/components';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -10,6 +12,9 @@ export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary
 } from 'expo-router';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/configs/queryClient';
+import { GlobalLoading } from '@/components/__custom__/GlobalLoading';
 
 // export const unstable_settings = {
 //   // Ensure that reloading on `/modal` keeps a back button present.
@@ -49,7 +54,10 @@ function RootLayoutNav() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GluestackUIProvider>
         <ThemeProvider value={DefaultTheme}>
-          <Slot />
+          <QueryClientProvider client={queryClient}>
+            <Slot />
+            <GlobalLoading />
+          </QueryClientProvider>
         </ThemeProvider>
       </GluestackUIProvider>
     </GestureHandlerRootView>
