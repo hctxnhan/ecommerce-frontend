@@ -21,6 +21,7 @@ interface FormInputProps {
   inputIcon?: any;
   name: string;
   type?: ComponentProps<typeof InputField>['type'];
+  multiline?: boolean;
 }
 
 export function FormInput({
@@ -32,7 +33,8 @@ export function FormInput({
   isDisabled = false,
   inputIcon,
   name,
-  type = 'text'
+  type = 'text',
+  multiline = false
 }: FormInputProps) {
   return (
     <FormControl
@@ -60,6 +62,7 @@ export function FormInput({
               value={value}
               onBlur={onBlur}
               onChangeText={onChange}
+              multiline={multiline}
             />
           </Input>
         )}

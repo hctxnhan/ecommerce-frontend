@@ -13,14 +13,14 @@ interface RatingProps extends ComponentProps<typeof HStack> {
 export function Rating({
   rating,
   size = 'sm',
-  total = 5,
+  total,
   ...rest
 }: RatingProps) {
   return (
     <HStack gap="$1" alignItems="center" {...rest}>
       <Icon as={Star} size={size} color="$yellow500" />
-      <Text ml="$1" size={size} color="$text400">
-        {rating} ({total})
+      <Text ml="$0.5" size={size} color="$text400">
+        {rating} {!!total && `(${total})`}
       </Text>
     </HStack>
   );

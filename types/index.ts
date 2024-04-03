@@ -101,6 +101,25 @@ export interface Discount {
   value: number;
 }
 
+export interface Comment {
+  _id: string;
+  productId: string;
+  userId: string;
+  content: string;
+  parentCommentId: string | null;
+  isDeleted: boolean;
+  commentLeft: number;
+  commentRight: number;
+  createdAt: string;
+  updatedAt: string;
+  rating?: number;
+  user: {
+    _id: string;
+    name: string;
+    avatar: string;
+  }
+}
+
 export interface APIResponse<T> {
   data: T;
   metadata: {

@@ -9,9 +9,15 @@ export default function Layout() {
       }}
     >
       <Stack.Screen
-        name="[productId]"
+        name="[productId]/index"
         options={{
           title: 'Product details'
+        }}
+      />
+      <Stack.Screen
+        name="[productId]/comment"
+        options={{
+          title: 'Comments'
         }}
       />
     </Stack>

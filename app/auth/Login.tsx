@@ -67,7 +67,6 @@ export default function Login() {
         router.replace('/');
       },
       onError: (error: AxiosError) => {
-        console.log(error);
         toast.show({
           type: 'error',
           title: 'Login failed',

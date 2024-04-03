@@ -16,8 +16,6 @@ export default function Voucher() {
     enabled: !!shopId
   });
 
-  console.log(query.data?.data.data)
-
   return (
     <SafeAreaView flex={1}>
       <ScrollView>

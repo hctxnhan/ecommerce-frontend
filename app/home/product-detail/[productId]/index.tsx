@@ -16,12 +16,11 @@ import { Container } from '@/components/__custom__/Container';
 import { NavigateButton } from '@/components/__custom__/NavigateButton';
 import { Rating } from '@/components/__custom__/Rating';
 import { getCurrency } from '@/utils/utils';
-import { useToken } from '@gluestack-style/react';
 import { useQuery } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { AddToCartSheet } from './components/AddToCartSheet';
-import { ShopBadge } from './components/ShopBadge';
+import { AddToCartSheet } from '../components/AddToCartSheet';
+import { ShopBadge } from '../components/ShopBadge';
 
 export default function ProductId() {
   const [showActionsheet, setShowActionsheet] = useState(false);
@@ -76,7 +75,9 @@ export default function ProductId() {
 
         {productDetail?.owner && (
           <Pressable
-            onPress={() => router.push(`/home/shop/${productDetail.owner._id}/`)}
+            onPress={() =>
+              router.push(`/home/shop/${productDetail.owner._id}/`)
+            }
           >
             <Container x y>
               <ShopBadge
@@ -113,7 +114,13 @@ export default function ProductId() {
         </Container>
 
         <Container x y>
-          <NavigateButton onPress={() => {}}>Reviews (12)</NavigateButton>
+          <NavigateButton
+            onPress={() =>
+              router.push(`/home/product-detail/${params.productId}/comment/`)
+            }
+          >
+            Reviews
+          </NavigateButton>
         </Container>
       </ScrollView>
       <Button
