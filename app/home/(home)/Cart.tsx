@@ -19,7 +19,7 @@ import { CartItem } from './components/Cart/CartItem';
 import { EmptyCartModal } from './components/Cart/EmptyCartModal';
 import { ReviewOrderSheet } from './components/Cart/ReviewOrderSheet';
 import { VoucherInput } from './components/Cart/VoucherInput';
-import { If } from 'react-if';
+
 export default function Cart() {
   const [showPreview, setShowPreview] = useState(false);
 

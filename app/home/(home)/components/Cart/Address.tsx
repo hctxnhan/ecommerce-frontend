@@ -12,13 +12,35 @@ import { EditIcon, MapPin } from 'lucide-react-native';
 import { EditDeliveryAddress } from './EditDeliveryAddress';
 import { If, Else, Then } from 'react-if';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { profileApi } from '@/api';
+import { asyncAction } from '@/utils/asyncAction';
 export function Address() {
   const [showEditDASheet, setShowEditDASheet] = useState(false);
   const deliveryAddress = useCartStore.use.deliveryAddress();
+  const setDeliveryAddress = useCartStore.use.setDeliveryAddress();
 
   function handleEdit() {
     setShowEditDASheet(true);
   }
+
+  const callback = asyncAction(profileApi.getProfile, {
+    onSuccess: (data) => {
+      if (data.data.data.address)
+        setDeliveryAddress({
+          ...data.data.data.address,
+          isPrimary: true,
+          isDefault: true
+        });
+    }
+  });
+
+  const profileQuery = useQuery({
+    queryKey: ['profile'],
+    queryFn: callback,
+    enabled: deliveryAddress === null,
+    select: (data) => data.data.data.address
+  });
 
   return (
     <>

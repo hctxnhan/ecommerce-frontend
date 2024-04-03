@@ -8,6 +8,7 @@ interface CartStoreState {
     name: string;
     phone: string;
     isPrimary: boolean;
+    isDefault?: boolean;
   } | null;
   voucher: string | null;
 }

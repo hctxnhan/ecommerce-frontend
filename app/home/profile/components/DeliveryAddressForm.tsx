@@ -17,8 +17,8 @@ const Schema = z.object({
   }),
   phone: z.string({
     required_error: 'Phone number is required'
-  })
-  // isPrimary: z.boolean().optional().default(false)
+  }),
+  isPrimary: z.boolean().optional().default(false)
 });
 
 export type DeliveryAddressFormValues = z.infer<typeof Schema>;
@@ -26,15 +26,16 @@ export type DeliveryAddressFormValues = z.infer<typeof Schema>;
 interface DeliveryAddressFormProps {
   defaultValues?: z.infer<typeof Schema>;
   onSubmit: (data: z.infer<typeof Schema>) => void;
+  canSetPrimary?: boolean;
 }
 
 export function DeliveryAddressForm({
   onSubmit,
-  defaultValues
+  defaultValues,
+  canSetPrimary = false
 }: DeliveryAddressFormProps) {
   const {
     control,
-
     handleSubmit,
     formState: { errors, isDirty }
   } = useForm({
@@ -73,13 +74,15 @@ export function DeliveryAddressForm({
         errorMessage={errors.city?.message as string}
       />
 
-      {/* <Controller
+      <Controller
+        disabled={!canSetPrimary}
         control={control}
         name="isPrimary"
         render={({ field: { value, onChange } }) => (
           <HStack gap={'$4'} alignItems="center" justifyContent="space-between">
             <Text>Set as primary</Text>
             <Switch
+              disabled={!canSetPrimary}
               value={value}
               onValueChange={onChange}
               trackColor={{
@@ -89,7 +92,7 @@ export function DeliveryAddressForm({
             />
           </HStack>
         )}
-      /> */}
+      />
 
       <Button disabled={!isDirty} onPress={handleSubmit(onSubmit)}>
         <ButtonText textAlign="center">Update</ButtonText>

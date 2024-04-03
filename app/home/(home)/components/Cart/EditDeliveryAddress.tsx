@@ -1,20 +1,13 @@
+import { DeliveryAddressForm } from '@/app/home/profile/components/DeliveryAddressForm';
 import {
   Actionsheet,
   ActionsheetBackdrop,
   ActionsheetContent,
   ActionsheetItem,
-  ActionsheetSectionHeaderText,
-  Button,
-  ButtonText,
-  HStack,
-  Switch,
-  Text
+  ActionsheetSectionHeaderText
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
-import { FormInput } from '@/components/__custom__/FormInput';
 import { useCartStore } from '@/configs/store/Cart.store';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const Schema = z.object({
@@ -40,18 +33,14 @@ export function EditDeliveryAddress({
   showActionsheet: boolean;
   setShowActionsheet: (value: boolean) => void;
 }) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
-    resolver: zodResolver(Schema)
-  });
-
   const setDA = useCartStore.use.setDeliveryAddress();
+  const deliveryAddress = useCartStore.use.deliveryAddress();
 
   function onSubmit(data: z.infer<typeof Schema>) {
-    setDA(data);
+    setDA({
+      ...data,
+      isDefault: false
+    });
     setShowActionsheet(false);
   }
 
@@ -73,63 +62,20 @@ export function EditDeliveryAddress({
         </ActionsheetSectionHeaderText>
 
         <ActionsheetItem w="$full" flexDirection="column">
-          <Container gap={'$8'} w="$full" x pBottom>
-            <FormInput
-              control={control}
-              name="name"
-              placeholder="Full name"
-              label="Name"
-              errorMessage={errors.name?.message as string}
-            />
-            <FormInput
-              control={control}
-              name="phone"
-              placeholder="Phone number"
-              label="Phone number"
-              errorMessage={errors.phone?.message as string}
-            />
-            <FormInput
-              control={control}
-              name="address"
-              placeholder="Address"
-              label="Address"
-              errorMessage={errors.address?.message as string}
-            />
-            <FormInput
-              control={control}
-              name="city"
-              placeholder="City"
-              label="City"
-              errorMessage={errors.city?.message as string}
-            />
-
-            <Controller
-              control={control}
-              name="isPrimary"
-              render={({ field: { value, onChange } }) => (
-                <HStack
-                  gap={'$4'}
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Text>Set as primary</Text>
-                  <Switch
-                    value={value}
-                    onValueChange={onChange}
-                    trackColor={{
-                      true: '$primary500',
-                      false: '$borderLight200'
-                    }}
-                  />
-                </HStack>
-              )}
+          <Container w={'$full'} x y>
+            <DeliveryAddressForm
+              defaultValues={{
+                address: deliveryAddress?.address ?? '',
+                city: deliveryAddress?.city ?? '',
+                name: deliveryAddress?.name ?? '',
+                phone: deliveryAddress?.phone ?? '',
+                isPrimary: deliveryAddress?.isPrimary ?? false
+              }}
+              canSetPrimary
+              onSubmit={onSubmit}
             />
           </Container>
         </ActionsheetItem>
-
-        <Button onPress={handleSubmit(onSubmit)} rounded={'$none'}>
-          <ButtonText textAlign="center">Update</ButtonText>
-        </Button>
       </ActionsheetContent>
     </Actionsheet>
   );

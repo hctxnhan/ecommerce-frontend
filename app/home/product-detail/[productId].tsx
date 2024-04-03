@@ -76,13 +76,15 @@ export default function ProductId() {
 
         {productDetail?.owner && (
           <Pressable
-            onPress={() => router.push(`home/shop/${productDetail.owner._id}/`)}
+            onPress={() => router.push(`/home/shop/${productDetail.owner._id}/`)}
           >
-            <ShopBadge
-              shopId={productDetail.owner._id}
-              shopName={productDetail.owner.name}
-              shopVerified={productDetail.owner.verified}
-            />
+            <Container x y>
+              <ShopBadge
+                shopId={productDetail.owner._id}
+                shopName={productDetail.owner.name}
+                shopVerified={productDetail.owner.verified}
+              />
+            </Container>
           </Pressable>
         )}
 

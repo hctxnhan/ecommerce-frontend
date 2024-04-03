@@ -7,6 +7,7 @@ interface GetProductQuery {
   limit: number;
   search: string;
   category: string;
+  shopId: string;
 }
 
 export const productApi = {
@@ -14,14 +15,16 @@ export const productApi = {
     page = 1,
     limit = 6,
     search = '',
-    category = 'all'
+    category = 'all',
+    shopId
   }: GetProductQuery) =>
     axiosInstance.get<APIResponse<Product[]>>('/products', {
       params: {
         page,
         limit,
         search,
-        type: category
+        type: category,
+        shopId
       }
     }),
   getProductById: (id: string) =>

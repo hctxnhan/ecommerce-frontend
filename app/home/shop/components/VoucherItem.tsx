@@ -1,8 +1,63 @@
-import { Box, HStack, Icon, Text, VStack } from '@/components';
+import {
+  Box,
+  Button,
+  ButtonIcon,
+  ButtonText,
+  HStack,
+  Icon,
+  Text,
+  VStack
+} from '@/components';
 import { Container } from '@/components/__custom__/Container';
-import { Calendar, DollarSign } from 'lucide-react-native';
+import { Discount, DiscountApplyType, DiscountType } from '@/types';
+import {
+  BadgePercent,
+  Calendar,
+  CopyCheck,
+  CopyIcon,
+  DollarSign
+} from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import * as Clipboard from 'expo-clipboard';
+import { Else, If, Then } from 'react-if';
+import { useCartStore } from '@/configs/store/Cart.store';
 
-export function VoucherItem() {
+interface VoucherItemProps {
+  voucher: Discount;
+}
+
+const discountApplyType = (
+  applyType: DiscountApplyType,
+  applyValues: string[]
+) => {
+  switch (applyType) {
+    case DiscountApplyType.ALL:
+      return 'all products';
+    case DiscountApplyType.CATEGORIES:
+      return `${applyValues.join(', ')} categories`;
+    case DiscountApplyType.BRANDS:
+      return `products from ${applyValues.join(', ')} brands`;
+    case DiscountApplyType.PRODUCTS:
+      return 'specific products';
+    default:
+      return '';
+  }
+};
+
+export function VoucherItem({ voucher }: VoucherItemProps) {
+  const [hasCopied, setHasCopied] = useState(false);
+  const setVoucher = useCartStore.use.setVoucher();
+  const voucherInCart = useCartStore.use.voucher();
+
+  function handleCopy() {
+    Clipboard.setStringAsync(voucher.code);
+    setHasCopied(true);
+
+    setTimeout(() => {
+      setHasCopied(false);
+    }, 2000);
+  }
+
   return (
     <Container
       borderWidth={2}
@@ -10,6 +65,26 @@ export function VoucherItem() {
       rounded={'$2xl'}
       overflow="hidden"
     >
+      <Button
+        position="absolute"
+        top={'$2'}
+        right={'$4'}
+        size="xs"
+        variant="link"
+        zIndex={100}
+        disabled={voucher.code === voucherInCart}
+        onPress={setVoucher.bind(null, voucher.code)}
+      >
+        <ButtonText
+          ml={'$1'}
+          color={
+            voucher.code === voucherInCart ? '$primary200' : '$backgroundLight0'
+          }
+        >
+          {voucher.code === voucherInCart ? 'Applied' : 'Apply'}
+        </ButtonText>
+      </Button>
+
       <Container
         x
         y
@@ -18,21 +93,41 @@ export function VoucherItem() {
         bg="$primary500"
         gap={'$1'}
       >
-        <Text color="$text0" fontWeight="bold" size="xl">
-          #SUMMER20
+        <Text color="$text0" fontWeight="bold" size="lg">
+          {voucher.name}
         </Text>
-        <Text color="$text0">Save 20% on all summer items</Text>
+        <Text color="$text0">{voucher.description}</Text>
 
         <Box
+          my={'$2'}
           w={'$full'}
           borderTopWidth={2}
           borderStyle="dashed"
-          borderColor="$text0"
+          borderColor="$primary400"
         />
 
-        <Text size="sm" color="$primary100">
-          This voucher belong to Sandeep Srivastava. It can be used only once.
-        </Text>
+        <HStack alignItems="center">
+          <Text size="sm" color="$primary100">
+            {voucher.code}
+          </Text>
+
+          <Button
+            ml={'$2'}
+            size="xs"
+            variant="link"
+            zIndex={100}
+            onPress={handleCopy}
+          >
+            <ButtonIcon
+              size="sm"
+              color="$backgroundLight0"
+              as={hasCopied ? CopyCheck : CopyIcon}
+            />
+            <ButtonText ml={'$1'} color="$backgroundLight0">
+              {hasCopied ? 'Copied' : 'Copy'}
+            </ButtonText>
+          </Button>
+        </HStack>
       </Container>
 
       <Container justifyContent="space-between" gap={'$2'} x y>
@@ -45,7 +140,7 @@ export function VoucherItem() {
               Valid till
             </Text>
             <Text color="$text600" fontWeight="$semibold">
-              August 31, 2021
+              {new Date(voucher.endDate).toDateString()}
             </Text>
           </VStack>
         </HStack>
@@ -59,7 +154,24 @@ export function VoucherItem() {
               Minimum order
             </Text>
             <Text color="$text600" fontWeight="$semibold">
-              $100
+              {voucher.minOrderValue}$
+            </Text>
+          </VStack>
+        </HStack>
+
+        <HStack gap={'$2'}>
+          <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
+            <Icon as={BadgePercent} size={'xl'} />
+          </Box>
+          <VStack>
+            <Text size="sm" color="$text400">
+              Discount value
+            </Text>
+            <Text color="$text600" fontWeight="$semibold">
+              {voucher.type === DiscountType.PERCENTAGE
+                ? voucher.value + '%'
+                : voucher.value + '$'}{' '}
+              on {discountApplyType(voucher.applyType, voucher.applyValue)}
             </Text>
           </VStack>
         </HStack>

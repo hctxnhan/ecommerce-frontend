@@ -70,6 +70,37 @@ export interface DeliveryAddress {
   city: string;
 }
 
+export enum DiscountType {
+  PERCENTAGE = 'percentage',
+  FIXED = 'fixed'
+}
+
+export enum DiscountApplyType {
+  ALL = 'all',
+  PRODUCTS = 'products',
+  CATEGORIES = 'categories',
+  BRANDS = 'brands'
+}
+
+export interface Discount {
+  _id: string;
+  applyType: DiscountApplyType;
+  applyValue: string[];
+  code: string;
+  description: string;
+  endDate: string;
+  isActive: boolean;
+  minOrderValue: number;
+  name: string;
+  owner: string;
+  startDate: string;
+  type: DiscountType;
+  usageLimit: number;
+  usageLimitPerUser: number;
+  usedCount: number;
+  value: number;
+}
+
 export interface APIResponse<T> {
   data: T;
   metadata: {
