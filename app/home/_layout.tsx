@@ -31,6 +31,12 @@ export default function AppLayout() {
           }}
         />
         <Stack.Screen
+          name="profile"
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
           name="shop"
           options={{
             headerShown: false

@@ -51,19 +51,6 @@ function ProfileLink({
           }
         }
       }}
-      // $active={{
-      //   _text: {
-      //     color: '$primary500'
-      //   },
-      //   _icon: {
-      //     fill: '$primary500'
-      //   }
-      // }}
-      // $disabled={{
-      //   _text: {
-      //     color: '$white'
-      //   }
-      // }}
     >
       <ButtonIcon as={icon} size="xl" />
       <ButtonText ml={'$3'} fontWeight="$medium" size="lg" flex={1}>
@@ -131,7 +118,13 @@ export default function Tab2() {
           icon={ShoppingBagIcon}
         />
         <ProfileLink disabled title="Notifications" icon={BellIcon} />
-        <ProfileLink disabled title="My address" icon={LocateIcon} />
+        <ProfileLink
+          onPress={() => {
+            router.push('/home/profile/address');
+          }}
+          title="My address"
+          icon={LocateIcon}
+        />
         <ProfileLink title="Log out" onPress={handleLogout} icon={LogOut} />
       </Container>
     </SafeAreaView>

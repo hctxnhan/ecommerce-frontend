@@ -3,15 +3,17 @@ import { getCurrency } from '@/utils/utils';
 
 interface OrderTotalProps {
   subtotal: number;
-  shipping: number;
-  total: number;
+  shipping?: number;
+  total?: number;
 }
 
 function showPrice(price: number) {
   return price > 0 ? getCurrency(price) : 'Free';
 }
 
-export function OrderTotal({ subtotal, shipping, total }: OrderTotalProps) {
+export function OrderTotal({ subtotal, shipping = 0, total }: OrderTotalProps) {
+  const calculatedTotal = total ?? subtotal + shipping;
+
   return (
     <VStack
       gap={'$6'}
@@ -38,7 +40,7 @@ export function OrderTotal({ subtotal, shipping, total }: OrderTotalProps) {
           Total
         </Text>
         <Text fontWeight="bold" color="$primary500" size="3xl">
-          {showPrice(total)}
+          {showPrice(calculatedTotal)}
         </Text>
       </HStack>
     </VStack>

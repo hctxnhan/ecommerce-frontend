@@ -46,7 +46,7 @@ const StyledRoot = styled(
           }
         },
         info: {
-          bg: '$backgroundInfo',
+          bg: '$backgroundLightInfo',
           borderColor: '$info300',
 
           _icon: {

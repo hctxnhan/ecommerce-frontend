@@ -1,5 +1,6 @@
 import { ComponentProps } from 'react';
 import { Box } from '../box';
+import { DimensionValue } from 'react-native';
 
 interface ContainerProps extends ComponentProps<typeof Box> {
   x?: boolean;
@@ -21,19 +22,31 @@ export function Container({
   pBottom = false,
   ...rest
 }: ContainerProps) {
-  const calculatedP = {
-    px: x ? px : undefined,
-    py: y ? py : undefined,
-    pl: pLeft ? px : undefined,
-    pr: pRight ? px : undefined,
-    pt: pTop ? py : undefined,
-    pb: pBottom ? py : undefined
-  };
+  const calculatedP = {} as Record<string, typeof px>;
 
-  return (
-    <Box
-      {...calculatedP}
-      {...rest}
-    />
-  );
+  if (x) {
+    calculatedP['px'] = px;
+  }
+
+  if (y) {
+    calculatedP['py'] = py;
+  }
+
+  if (pLeft) {
+    calculatedP['pl'] = px;
+  }
+
+  if (pRight) {
+    calculatedP['pr'] = px;
+  }
+
+  if (pTop) {
+    calculatedP['pt'] = py;
+  }
+
+  if (pBottom) {
+    calculatedP['pb'] = py;
+  }
+
+  return <Box {...calculatedP} {...rest} />;
 }

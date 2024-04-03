@@ -43,8 +43,7 @@ export function ReviewOrderSheet({
         cart: cartQuery.data!,
         discountCodes: voucher ? [voucher] : []
       }),
-    enabled:
-      showActionsheet && cartQuery.isSuccess && !!voucher && !!cartQuery.data,
+    enabled: showActionsheet && cartQuery.isSuccess && !!cartQuery.data,
     select: (data) => data.data.data.cart
   });
 

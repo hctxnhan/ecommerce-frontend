@@ -8,14 +8,19 @@ import {
   VStack
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
+import { Order } from '@/types';
 import { getCurrency } from '@/utils/utils';
 import { router } from 'expo-router';
 
-export function OrderItem() {
+interface OrderItemProps {
+  item: Order;
+}
+
+export function OrderItem({ item }: OrderItemProps) {
   return (
     <Pressable
       onPress={() => {
-        router.push('/home/orders/1234');
+        router.push(`/home/orders/${item._id}`);
       }}
     >
       <Container w="$full" flex={1}>
@@ -37,15 +42,15 @@ export function OrderItem() {
             alt="Product image"
           />
 
-          <VStack gap={'$1'}>
-            <Text size="lg" fontWeight="bold">
-              Variegated snake
+          <VStack gap={'$1'} flex={1}>
+            <Text size="xl" fontWeight="bold">
+              {item.shippingInfo.name}
             </Text>
             <Text size="xs" color="$text400">
-              +2 more items
+              Deliver to {item.shippingInfo?.address}
             </Text>
             <Text color="$primary500" fontWeight="bold" size="2xl">
-              {getCurrency(246)}
+              {getCurrency(item.totalValue)}
             </Text>
             <Badge
               p={'$1'}
@@ -53,7 +58,7 @@ export function OrderItem() {
               alignSelf="flex-start"
               action="success"
             >
-              <BadgeText>In transit</BadgeText>
+              <BadgeText>{item.status}</BadgeText>
             </Badge>
           </VStack>
         </HStack>

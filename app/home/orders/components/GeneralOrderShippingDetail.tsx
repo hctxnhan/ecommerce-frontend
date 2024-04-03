@@ -1,7 +1,25 @@
-import { Box, HStack, Icon, Text, VStack } from '@/components';
+import { Badge, BadgeText, Box, HStack, Icon, Text, VStack } from '@/components';
 import { TruckIcon } from 'lucide-react-native';
 
-export function GeneralOrderShippingDetail() {
+interface GeneralOrderShippingDetailProps {
+  orderNumber: string;
+  orderStatus: string;
+  orderDate: string;
+  estimatedDelivery: string;
+  deliveryAddress: {
+    name: string;
+    address: string;
+    phone: string;
+  };
+}
+
+export function GeneralOrderShippingDetail({
+  orderNumber,
+  orderStatus,
+  orderDate,
+  estimatedDelivery,
+  deliveryAddress
+}: GeneralOrderShippingDetailProps) {
   return (
     <VStack
       gap={'$4'}
@@ -15,21 +33,26 @@ export function GeneralOrderShippingDetail() {
         <Box rounded="$2xl" p={'$4'} bg="$backgroundLight100">
           <Icon as={TruckIcon} size={'xl'} />
         </Box>
-        <VStack gap={'$1'}>
-          <Text size="lg" fontWeight="bold">
-            #123456
-          </Text>
+        <VStack flex={1} gap={'$1'}>
+          <Text size="md">{orderNumber}</Text>
 
-          <Text color="$primary500">In progress</Text>
+          <Badge
+            p={'$1'}
+            variant="solid"
+            alignSelf="flex-start"
+            action="info"
+          >
+            <BadgeText>{orderStatus}</BadgeText>
+          </Badge>
         </VStack>
       </HStack>
       <HStack justifyContent="space-between">
-        <VStack>
+        <VStack flex={1}>
           <Text size="sm" color="$secondary400">
             Order date
           </Text>
           <Text size="sm" fontWeight="bold">
-            May 12, 2021
+            {orderDate}
           </Text>
         </VStack>
         <VStack>
@@ -37,10 +60,25 @@ export function GeneralOrderShippingDetail() {
             Estimated delivery
           </Text>
           <Text size="sm" fontWeight="bold">
-            May 15, 2021
+            {estimatedDelivery}
           </Text>
         </VStack>
       </HStack>
+
+      <VStack>
+        <Text size="sm" color="$secondary400">
+          Delivery address
+        </Text>
+        <Text size="sm" fontWeight="bold">
+          {deliveryAddress.name}
+        </Text>
+        <Text size="sm" fontWeight="bold">
+          {deliveryAddress.address}
+        </Text>
+        <Text size="sm" fontWeight="bold">
+          {deliveryAddress.phone}
+        </Text>
+      </VStack>
     </VStack>
   );
 }

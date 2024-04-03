@@ -9,27 +9,13 @@ import {
 import { Container } from '@/components/__custom__/Container';
 import { useToken } from '@gluestack-style/react';
 import { BadgeCheck, MapPin } from 'lucide-react-native';
+import { ShopBadge } from '../../product-detail/components/ShopBadge';
 
 export function ShopDetail() {
   const greenToken = useToken('colors', 'green500');
   return (
     <Container x y>
-      <HStack alignItems="center" gap="$1">
-        <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-          <AvatarFallbackText>Sandeep Srivastava</AvatarFallbackText>
-        </Avatar>
-        <VStack gap={'$1'}>
-          <Text ml={'$2'} fontWeight="bold">
-            Sandeep Srivastava
-          </Text>
-          <HStack alignItems="center" gap={'$1'}>
-            <Text ml={'$2'} size="sm">
-              Verified store
-            </Text>
-            <BadgeCheck size={18} color={greenToken} />
-          </HStack>
-        </VStack>
-      </HStack>
+      <ShopBadge shopId="1234" shopName="Shop Name" shopVerified={true} />
 
       <HStack mt={'$4'} gap="$1">
         <Icon as={MapPin} size={'lg'} color="$secondary400" />

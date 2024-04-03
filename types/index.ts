@@ -30,6 +30,46 @@ export interface ProductInCart {
   total: number;
 }
 
+export interface ProductInOrder extends ProductDetail {
+  quantity: number;
+  totalPriceAfterDiscount?: number;
+  status: OrderItemStatus;
+  orderId: string;
+  productId: string;
+}
+
+export enum OrderItemStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  SHIPPING = 'shipping',
+  CANCELLED = 'cancelled',
+  COMPLETED = 'completed'
+}
+
+export enum OrderStatus {
+  ALL = 'all',
+  PENDING = 'pending',
+  PROCESSING = 'processing',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled'
+}
+
+export interface Order {
+  _id: string;
+  customerId: string;
+  shippingInfo: DeliveryAddress;
+  totalValue: number;
+  status: OrderStatus;
+  createdAt: string;
+}
+
+export interface DeliveryAddress {
+  address: string;
+  name: string;
+  phone: string;
+  city: string;
+}
+
 export interface APIResponse<T> {
   data: T;
   metadata: {

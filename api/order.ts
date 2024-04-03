@@ -1,4 +1,10 @@
-import { APIResponse } from './../types/index';
+import {
+  APIResponse,
+  Order,
+  OrderStatus,
+  ProductDetail,
+  ProductInOrder
+} from './../types/index';
 import { ProductInCart } from '@/types';
 import { axiosInstance } from './axiosInstance';
 
@@ -32,6 +38,15 @@ interface PlaceOrderBody {
   };
 }
 
+type GetAllOrdersResponse = {
+  _id: string;
+  orders: Order[];
+}[];
+
+type OrderResponse = Order & {
+  items: ProductInOrder[];
+};
+
 export const orderApi = {
   checkoutReview: (body: CheckoutReviewBody) =>
     axiosInstance.post<APIResponse<CheckoutReviewResponse>>(
@@ -39,5 +54,11 @@ export const orderApi = {
       body
     ),
   placeOrder: (body: PlaceOrderBody) =>
-    axiosInstance.post('/orders/checkout', body)
+    axiosInstance.post('/orders/checkout', body),
+  getAll: (status: OrderStatus) =>
+    axiosInstance.get<APIResponse<GetAllOrdersResponse>>(
+      `/orders/my-orders?status=${status}`
+    ),
+  getById: (orderId: string) =>
+    axiosInstance.get<APIResponse<OrderResponse>>(`/orders/${orderId}`)
 };

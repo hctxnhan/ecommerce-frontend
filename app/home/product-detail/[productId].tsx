@@ -1,6 +1,5 @@
+import { productApi } from '@/api/product';
 import {
-  Avatar,
-  AvatarFallbackText,
   Badge,
   BadgeText,
   Box,
@@ -8,25 +7,23 @@ import {
   ButtonText,
   HStack,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
-  Text,
-  VStack
+  Text
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
-import { getCurrency } from '@/utils/utils';
-import { useToken } from '@gluestack-style/react';
-import { BadgeCheck } from 'lucide-react-native';
-import { useState } from 'react';
-import { AddToCartSheet } from './components/AddToCartSheet';
 import { NavigateButton } from '@/components/__custom__/NavigateButton';
 import { Rating } from '@/components/__custom__/Rating';
+import { getCurrency } from '@/utils/utils';
+import { useToken } from '@gluestack-style/react';
 import { useQuery } from '@tanstack/react-query';
-import { productApi } from '@/api/product';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useState } from 'react';
+import { AddToCartSheet } from './components/AddToCartSheet';
+import { ShopBadge } from './components/ShopBadge';
 
 export default function ProductId() {
-  const greenToken = useToken('colors', 'green500');
   const [showActionsheet, setShowActionsheet] = useState(false);
   const params = useLocalSearchParams<{
     productId: string;
@@ -78,35 +75,22 @@ export default function ProductId() {
         </Container>
 
         {productDetail?.owner && (
-          <Container x pTop>
-            <HStack alignItems="center" gap="$1">
-              <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-                <AvatarFallbackText>
-                  {productDetail?.owner?.name}
-                </AvatarFallbackText>
-              </Avatar>
-              <VStack gap={'$1'}>
-                <Text ml={'$2'} fontWeight="bold">
-                  {productDetail?.owner?.name}{' '}
-                </Text>
-                <HStack alignItems="center" gap={'$1'}>
-                  <Text ml={'$2'} size="sm">
-                    Verified store
-                  </Text>
-                  <BadgeCheck size={18} color={greenToken} />
-                </HStack>
-              </VStack>
-            </HStack>
-          </Container>
+          <Pressable
+            onPress={() => router.push(`home/shop/${productDetail.owner._id}/`)}
+          >
+            <ShopBadge
+              shopId={productDetail.owner._id}
+              shopName={productDetail.owner.name}
+              shopVerified={productDetail.owner.verified}
+            />
+          </Pressable>
         )}
 
         <Container x pTop>
           <Text size="lg" fontWeight="bold" mb={'$2'}>
             Description
           </Text>
-          <Text size="md">
-            {productDetail?.description}
-          </Text>
+          <Text size="md">{productDetail?.description}</Text>
         </Container>
         <Container x pTop>
           <Text size="lg" fontWeight="bold" mb={'$2'}>
@@ -116,7 +100,9 @@ export default function ProductId() {
             {Object.entries(productDetail?.attributes || {}).map(
               ([key, value]) => (
                 <HStack key={key} gap={'$1'}>
-                  <Text textTransform='capitalize' fontWeight="bold">{key}:</Text>
+                  <Text textTransform="capitalize" fontWeight="bold">
+                    {key}:
+                  </Text>
                   <Text>{value}</Text>
                 </HStack>
               )
@@ -139,11 +125,13 @@ export default function ProductId() {
         </ButtonText>
       </Button>
 
-      {productDetail && <AddToCartSheet
-        product={productDetail}
-        setShowActionsheet={setShowActionsheet}
-        showActionsheet={showActionsheet}
-      />}
+      {productDetail && (
+        <AddToCartSheet
+          product={productDetail}
+          setShowActionsheet={setShowActionsheet}
+          showActionsheet={showActionsheet}
+        />
+      )}
     </SafeAreaView>
   );
 }

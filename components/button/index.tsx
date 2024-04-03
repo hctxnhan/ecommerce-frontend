@@ -11,7 +11,6 @@ const StyledRoot = styled(
     'flexDirection': 'row',
     'justifyContent': 'center',
     'alignItems': 'center',
-
     '_text': {
       color: '$text0',
       fontWeight: '$semibold',

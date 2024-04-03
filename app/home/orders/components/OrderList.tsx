@@ -1,8 +1,14 @@
 import { HStack, Icon, Text, VStack } from '@/components';
+import { Order } from '@/types';
 import { CalendarDays } from 'lucide-react-native';
 import { OrderItem } from './OrderItem';
 
-export function OrderList() {
+interface OrderListProps {
+  orders: Order[];
+  date: string;
+}
+
+export function OrderList({ orders, date }: OrderListProps) {
   return (
     <VStack gap={'$4'}>
       <HStack alignItems="center" justifyContent="flex-start">
@@ -14,12 +20,13 @@ export function OrderList() {
           ml="$2"
           mt="$1"
         >
-          May 12, 2021
+          {date}
         </Text>
       </HStack>
 
-      <OrderItem />
-      <OrderItem />
+      {orders.map((order) => (
+        <OrderItem key={order._id} item={order} />
+      ))}
     </VStack>
   );
 }

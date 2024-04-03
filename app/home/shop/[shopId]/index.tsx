@@ -18,12 +18,11 @@ import { ViewImageModal } from '@/components/__custom__/ViewImageModal';
 export default function ShopId() {
   return (
     <SafeAreaView flex={1}>
-      <Text>ShopId</Text>
-      <ViewImageModal
+      {/* <ViewImageModal
         image="https://via.placeholder.com/150"
         onClose={() => console.log('close')}
-      />
-      {/* <ScrollView>
+      /> */}
+      <ScrollView>
         <ShopDetail />
 
         <Container x pBottom>
@@ -70,7 +69,7 @@ export default function ShopId() {
           </HStack>
           <ProductList />
         </Container>
-      </ScrollView> */}
+      </ScrollView>
     </SafeAreaView>
   );
 }

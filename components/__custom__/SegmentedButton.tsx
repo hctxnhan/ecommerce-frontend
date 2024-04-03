@@ -8,7 +8,8 @@ interface SegmentedButtonProps {
   children:
     | ReactElement<SegmentedButtonButtonProps>
     | ReactElement<SegmentedButtonButtonProps>[];
-  initialValue?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 interface SegmentedButtonButtonProps {
@@ -22,13 +23,9 @@ interface SegmentedButtonButtonProps {
 
 export function SegmentedButtonGroup({
   children,
-  initialValue = ''
+  onChange,
+  value,
 }: SegmentedButtonProps) {
-  const [selectedValue, setSelectedValue] = useState(initialValue);
-  const handleClick = (value: string) => {
-    setSelectedValue(value);
-  };
-
   return (
     <HStack overflow="hidden" rounded={'$3xl'} bg="$backgroundLight200">
       <ScrollView w={'$full'} horizontal showsHorizontalScrollIndicator={false}>
@@ -38,8 +35,8 @@ export function SegmentedButtonGroup({
           }
 
           return React.cloneElement(child, {
-            isSelected: child.props.value === selectedValue,
-            onPress: handleClick,
+            isSelected: child.props.value === value,
+            onPress: onChange,
             index,
             total: React.Children.count(children)
           });
