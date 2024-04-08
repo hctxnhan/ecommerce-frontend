@@ -14,7 +14,7 @@ export function RatingInput({ rating, onChange }: RatingInputProps) {
   };
 
   return (
-    <HStack justifyContent='center'>
+    <HStack justifyContent='center' gap="$2">
       {[1, 2, 3, 4, 5].map((star) => (
         <StarButton
           key={star}

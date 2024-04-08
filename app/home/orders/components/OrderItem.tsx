@@ -41,7 +41,6 @@ export function OrderItem({ item }: OrderItemProps) {
             objectFit="cover"
             alt="Product image"
           />
-
           <VStack gap={'$1'} flex={1}>
             <Text size="xl" fontWeight="bold">
               {item.shippingInfo.name}

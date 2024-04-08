@@ -127,6 +127,7 @@ export function CreateCommentSheet({ productId }: { productId: string }) {
           </ActionsheetItem>
 
           <Button
+            w="$full"
             onPress={handleSubmit(onSubmit)}
             action="primary"
             rounded={'$none'}

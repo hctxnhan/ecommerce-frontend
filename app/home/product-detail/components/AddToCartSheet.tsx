@@ -148,7 +148,7 @@ export function AddToCartSheet({
             </HStack>
           </Container>
         </ActionsheetItem>
-        <Button onPress={handleAddToCart} rounded="$none">
+        <Button w={'$full'} onPress={handleAddToCart} rounded="$none">
           <ButtonText textAlign="center">Add</ButtonText>
         </Button>
       </ActionsheetContent>

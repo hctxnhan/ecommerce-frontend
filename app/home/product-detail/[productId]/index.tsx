@@ -70,7 +70,7 @@ export default function ProductId() {
           <Text fontWeight="bold" size="xl" color="$primary500">
             {productDetail?.price && getCurrency(productDetail.price)}
           </Text>
-          <Rating mt={'$1'} rating={4} size="md" />
+          <Rating long mt={'$1'} rating={4} size="md" />
         </Container>
 
         {productDetail?.owner && (

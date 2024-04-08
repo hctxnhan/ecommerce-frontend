@@ -57,6 +57,14 @@ const StyledRoot = styled(
             size: 24,
           },
         },
+        '6xl': {
+          h: '$10',
+          w: '$10',
+          props: {
+            // @ts-ignore
+            size: 60,
+          },
+        }
       },
     },
     props: {
