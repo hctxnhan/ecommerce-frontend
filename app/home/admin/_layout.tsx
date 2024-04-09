@@ -1,7 +1,5 @@
-import { useProfile } from '@/hooks/useProfile';
-import { UserRole } from '@/types';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Redirect, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import React from 'react';
 
 function TabBarIcon(props: {
@@ -12,12 +10,6 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const { profile, isLoading } = useProfile();
-
-  if(isLoading) return null;
-
-  if(profile?.role === UserRole.ADMIN) return <Redirect href="/home/admin/" />;
-
   return (
     <Tabs
       screenOptions={{
@@ -29,22 +21,22 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Manage Shop',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />
         }}
       />
 
       <Tabs.Screen
-        name="Cart"
+        name="request"
         options={{
-          title: 'Cart',
+          title: 'Requests',
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="cart-plus" color={color} />
+            <TabBarIcon name="bookmark" color={color} />
           )
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => (

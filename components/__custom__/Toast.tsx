@@ -15,8 +15,8 @@ export function Toast({
 }) {
   const id = 'toastId-' + toastId;
   return (
-    <OriginalToast nativeID={id} variant="accent" action={action}>
-      <VStack space="xs">
+    <OriginalToast w={'$full'} nativeID={id} variant="accent" action={action}>
+      <VStack space="xs" w={'$full'}>
         <ToastTitle>{title}</ToastTitle>
         <ToastDescription>{description}</ToastDescription>
       </VStack>

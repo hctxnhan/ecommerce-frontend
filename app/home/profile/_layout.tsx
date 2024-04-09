@@ -21,6 +21,18 @@ export default function Layout() {
           title: 'Profile Details'
         }}
       />
+      <Stack.Screen
+        name="SellerRegistration"
+        options={{
+          title: 'Register as a Seller'
+        }}
+      />
+      <Stack.Screen
+        name="RequestHistory"
+        options={{
+          title: 'Request History'
+        }}
+      />
     </Stack>
   );
 }

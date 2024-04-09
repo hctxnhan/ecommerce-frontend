@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 export interface Product {
   _id: string;
   name: string;
@@ -9,11 +11,18 @@ export interface Product {
   slug: string;
 }
 
+export enum UserRole {
+  ADMIN = 'admin',
+  SHOP_OWNER = 'shopOwner',
+  USER = 'user'
+}
+
 export interface Owner {
   name: string;
   status: 'active' | 'inactive';
   verified: boolean;
   _id: string;
+  role: UserRole;
 }
 
 export interface ProductDetail extends Product {
@@ -117,7 +126,22 @@ export interface Comment {
     _id: string;
     name: string;
     avatar: string;
-  }
+  };
+}
+
+export enum ShopRequestStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected'
+}
+
+export interface ShopRequest {
+  _id: string;
+  shopName: string;
+  shopDescription: string;
+  shopAddress: string;
+  status: ShopRequestStatus;
+  createdAt: string;
 }
 
 export interface APIResponse<T> {
@@ -127,6 +151,15 @@ export interface APIResponse<T> {
       total: number;
       page: number;
       limit: number;
+    };
+  };
+}
+
+export interface APIError extends Omit<AxiosError, 'response'> {
+  response: {
+    data: {
+      message: string;
+      statusCode: number;
     };
   };
 }

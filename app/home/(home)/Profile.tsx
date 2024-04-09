@@ -2,6 +2,8 @@ import { authApi } from '@/api/auth';
 import {
   Avatar,
   AvatarFallbackText,
+  Badge,
+  BadgeText,
   Button,
   ButtonIcon,
   ButtonText,
@@ -11,9 +13,12 @@ import {
   Text,
   VStack
 } from '@/components';
+import { IfRole } from '@/components/__custom__/Auth';
 import { Container } from '@/components/__custom__/Container';
 import { useAsyncAction } from '@/hooks/useAsyncAction';
+import { useProfile } from '@/hooks/useProfile';
 import { useToast } from '@/hooks/useToast';
+import { UserRole } from '@/types';
 import { router } from 'expo-router';
 import {
   BellIcon,
@@ -63,6 +68,7 @@ function ProfileLink({
 export default function Tab2() {
   const { start } = useAsyncAction(authApi.logout);
   const toast = useToast();
+  const { profile } = useProfile();
 
   function handleLogout() {
     start(undefined, {
@@ -92,17 +98,24 @@ export default function Tab2() {
         <HStack
           p="$3"
           borderWidth={1}
-          rounded={'$lg'}
+          rounded={'$3xl'}
           borderColor="$borderLight200"
           alignItems="center"
           gap="$2"
         >
           <Avatar size="lg">
-            <AvatarFallbackText>JD</AvatarFallbackText>
+            <AvatarFallbackText>{profile?.name}</AvatarFallbackText>
           </Avatar>
           <VStack flex={1} gap={'$2'}>
-            <Text fontWeight={'bold'}>John Doe</Text>
-            <Text>@1234lkhjjhsadf8</Text>
+            <HStack alignItems="center" gap={'$1'}>
+              <Text fontWeight={'bold'}>{profile?.name}</Text>
+              <Badge>
+                <BadgeText>{profile?.role}</BadgeText>
+              </Badge>
+            </HStack>
+            <Text size="xs" color="$text400">
+              @{profile?._id}
+            </Text>
           </VStack>
           <Button variant="link">
             <ButtonIcon as={EditIcon} size="xl" />
@@ -110,21 +123,34 @@ export default function Tab2() {
         </HStack>
       </Container>
       <Container x>
-        <ProfileLink
-          onPress={() => {
-            router.push('/home/orders');
-          }}
-          title="My orders"
-          icon={ShoppingBagIcon}
-        />
+        <IfRole is={UserRole.USER}>
+          <ProfileLink
+            onPress={() => {
+              router.push('/home/orders/');
+            }}
+            title="My orders"
+            icon={ShoppingBagIcon}
+          />
+        </IfRole>
+        <IfRole is={UserRole.USER}>
+          <ProfileLink
+            onPress={() => {
+              router.push('/home/profile/SellerRegistration');
+            }}
+            title="Register as a seller"
+            icon={ShoppingBagIcon}
+          />
+        </IfRole>
         <ProfileLink disabled title="Notifications" icon={BellIcon} />
-        <ProfileLink
-          onPress={() => {
-            router.push('/home/profile/address');
-          }}
-          title="My address"
-          icon={LocateIcon}
-        />
+        <IfRole is={UserRole.USER}>
+          <ProfileLink
+            onPress={() => {
+              router.push('/home/profile/address');
+            }}
+            title="My address"
+            icon={LocateIcon}
+          />
+        </IfRole>
         <ProfileLink title="Log out" onPress={handleLogout} icon={LogOut} />
       </Container>
     </SafeAreaView>

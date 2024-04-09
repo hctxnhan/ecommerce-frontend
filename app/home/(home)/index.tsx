@@ -1,11 +1,11 @@
-import { SafeAreaView, ScrollView } from '@/components';
+import { productApi } from '@/api/product';
+import { SafeAreaView } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import { useSearchStore } from '@/configs/store/Search.store';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { CategoryFilter } from './components/Home/CategoryFilter';
 import { ProductList } from './components/Home/ProductList';
 import { SearchBar } from './components/Home/SearchBar';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { productApi } from '@/api/product';
 
 export default function Home() {
   const search = useSearchStore.use.search();

@@ -19,6 +19,18 @@ export default function AppLayout() {
           }}
         />
         <Stack.Screen
+          name="admin"
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="shopOwner"
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
           name="product-detail"
           options={{
             headerShown: false

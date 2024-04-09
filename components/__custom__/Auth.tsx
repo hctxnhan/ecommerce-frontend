@@ -1,4 +1,6 @@
 import { useAsyncAction } from '@/hooks/useAsyncAction';
+import { useProfile } from '@/hooks/useProfile';
+import { UserRole } from '@/types';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { Redirect } from 'expo-router';
 import { ReactNode, useEffect, useState } from 'react';
@@ -40,6 +42,31 @@ export function AuthRoute({ children }: { children: ReactNode }) {
 
   if (accessToken) {
     return <Redirect href="/" />;
+  }
+
+  return children;
+}
+
+export function IfRole({
+  children,
+  is: role,
+  isNot: notRole
+}: {
+  children: ReactNode;
+  is?: UserRole | UserRole[];
+  isNot?: UserRole | UserRole[];
+}) {
+  const { profile, isLoading } = useProfile();
+
+  if (isLoading || !profile) {
+    return null;
+  }
+
+  const roles = Array.isArray(role) ? role : [role];
+  const notRoles = Array.isArray(notRole) ? notRole : [notRole];
+
+  if(!roles.includes(profile.role) || notRoles.includes(profile.role)) {
+    return null;
   }
 
   return children;
