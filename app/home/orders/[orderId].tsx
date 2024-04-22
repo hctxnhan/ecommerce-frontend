@@ -8,7 +8,7 @@ import { Container } from '@/components/__custom__/Container';
 import { OrderItemStatus, OrderStatus as OrderStatusEnum } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { useLocalSearchParams } from 'expo-router';
-import { OrderTotal } from '../(home)/components/Cart/OrderTotal';
+import { OrderTotal } from '../user/components/Cart/OrderTotal';
 import { CancelOrderModal } from './components/CancelOrderSheet';
 import { GeneralOrderShippingDetail } from './components/GeneralOrderShippingDetail';
 import { OrderDetailItem } from './components/OrderDetailProduct';

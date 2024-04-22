@@ -29,10 +29,9 @@ export function ShopRequestItem({
   const confirmRequest = useMutation({
     mutationFn: shopApi.confirmShopRequest,
     onSuccess: () => {
-      queryClient.setQueryData(['shopRequests'], (data: ShopRequest[]) => {
-        console.log(data, item._id);
-        return data.filter((request) => request._id !== item._id);
-      });
+      queryClient.invalidateQueries({
+        queryKey: ['shopRequests', { status: ShopRequestStatus.PENDING }]
+      })
 
       toast.show({
         title: 'Request confirmed',

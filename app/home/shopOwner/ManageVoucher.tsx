@@ -1,18 +1,25 @@
-import { Divider, SafeAreaView } from '@/components';
+import { SafeAreaView } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import {
   SegmentedButton,
   SegmentedButtonGroup
 } from '@/components/__custom__/SegmentedButton';
+import { useProfile } from '@/hooks/useProfile';
 import { ShopRequestStatus } from '@/types';
 import { useState } from 'react';
+import { VoucherList } from '../shop/components/VoucherList';
 
 export default function ManageVoucher() {
   const [segment, setSegment] = useState(ShopRequestStatus.PENDING);
+  const { profile, isLoading } = useProfile();
+
+  if (isLoading || !profile) {
+    return null;
+  }
 
   return (
     <SafeAreaView flex={1}>
-      <Container x y flex={1}>
+      <Container x y>
         <SegmentedButtonGroup
           value={segment}
           onChange={setSegment as (value: string) => void}
@@ -27,8 +34,8 @@ export default function ManageVoucher() {
             Expired
           </SegmentedButton>
         </SegmentedButtonGroup>
-        <Divider py={'$2'} />
       </Container>
+      <VoucherList shopId={profile?._id} />
     </SafeAreaView>
   );
 }

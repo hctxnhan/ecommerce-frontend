@@ -114,7 +114,7 @@ export default function Tab2() {
               </Badge>
             </HStack>
             <Text size="xs" color="$text400">
-              @{profile?._id}
+              {profile?.email}
             </Text>
           </VStack>
           <Button variant="link">

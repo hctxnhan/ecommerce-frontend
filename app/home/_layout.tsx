@@ -13,7 +13,7 @@ export default function AppLayout() {
     <PrivateRoute>
       <Stack>
         <Stack.Screen
-          name="(home)"
+          name="user"
           options={{
             headerShown: false
           }}

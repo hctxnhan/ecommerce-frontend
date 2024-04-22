@@ -110,7 +110,7 @@ export function ReviewOrderSheet({
           </Container>
         </ScrollView>
 
-        <Container x pBottom>
+        <Container w={'$full'} x pBottom>
           <ActionsheetItem w="$full">
             <OrderTotal
               shipping={0}
@@ -120,7 +120,7 @@ export function ReviewOrderSheet({
           </ActionsheetItem>
         </Container>
 
-        <Button onPress={handlePlaceOrder} rounded={'$none'}>
+        <Button w='$full' onPress={handlePlaceOrder} rounded={'$none'}>
           <ButtonText textAlign="center">Place order</ButtonText>
         </Button>
       </ActionsheetContent>

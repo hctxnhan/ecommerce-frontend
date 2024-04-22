@@ -12,9 +12,7 @@ export default function RequestHistory() {
     queryFn: shopApi.getMyShopRegistrationRequest,
     select: (data) => data.data.data
   });
-
-  console.log(query.data);
-
+  
   return (
     <SafeAreaView flex={1}>
       <Container flex={1} x y gap={'$8'} w="$full">

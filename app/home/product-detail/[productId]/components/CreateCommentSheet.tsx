@@ -8,10 +8,12 @@ import {
   Button,
   ButtonText
 } from '@/components';
+import { IfRole } from '@/components/__custom__/Auth';
 import { Container } from '@/components/__custom__/Container';
 import { FormInput } from '@/components/__custom__/FormInput';
 import { RatingInput } from '@/components/__custom__/RatingInput';
 import { useToast } from '@/hooks/useToast';
+import { UserRole } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -72,7 +74,7 @@ export function CreateCommentSheet({ productId }: { productId: string }) {
   }
 
   return (
-    <>
+    <IfRole is={UserRole.USER}>
       <Button
         onPress={() => {
           setShowActionsheet(true);
@@ -136,6 +138,6 @@ export function CreateCommentSheet({ productId }: { productId: string }) {
           </Button>
         </ActionsheetContent>
       </Actionsheet>
-    </>
+    </IfRole>
   );
 }

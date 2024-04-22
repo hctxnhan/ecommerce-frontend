@@ -21,6 +21,8 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { AddToCartSheet } from '../components/AddToCartSheet';
 import { ShopBadge } from '../components/ShopBadge';
+import { IfRole } from '@/components/__custom__/Auth';
+import { UserRole } from '@/types';
 
 export default function ProductId() {
   const [showActionsheet, setShowActionsheet] = useState(false);
@@ -82,7 +84,7 @@ export default function ProductId() {
             <Container x y>
               <ShopBadge
                 shopId={productDetail.owner._id}
-                shopName={productDetail.owner.name}
+                shopName={productDetail.owner.shop.name}
                 shopVerified={productDetail.owner.verified}
               />
             </Container>
@@ -123,24 +125,27 @@ export default function ProductId() {
           </NavigateButton>
         </Container>
       </ScrollView>
-      <Button
-        onPress={() => setShowActionsheet(true)}
-        bgColor="$primary500"
-        size="xl"
-        rounded="$none"
-      >
-        <ButtonText textTransform="uppercase" textAlign="center">
-          Add to cart
-        </ButtonText>
-      </Button>
 
-      {productDetail && (
-        <AddToCartSheet
-          product={productDetail}
-          setShowActionsheet={setShowActionsheet}
-          showActionsheet={showActionsheet}
-        />
-      )}
+      <IfRole is={UserRole.USER}>
+        <Button
+          onPress={() => setShowActionsheet(true)}
+          bgColor="$primary500"
+          size="xl"
+          rounded="$none"
+        >
+          <ButtonText textTransform="uppercase" textAlign="center">
+            Add to cart
+          </ButtonText>
+        </Button>
+
+        {productDetail && (
+          <AddToCartSheet
+            product={productDetail}
+            setShowActionsheet={setShowActionsheet}
+            showActionsheet={showActionsheet}
+          />
+        )}
+      </IfRole>
     </SafeAreaView>
   );
 }

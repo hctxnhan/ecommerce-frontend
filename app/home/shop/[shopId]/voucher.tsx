@@ -1,29 +1,16 @@
-import { SafeAreaView, ScrollView, Text } from '@/components';
-import { Container } from '@/components/__custom__/Container';
-import { VoucherItem } from '../components/VoucherItem';
+import { SafeAreaView, ScrollView } from '@/components';
 import { useLocalSearchParams } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
-import { shopApi } from '@/api';
+import { VoucherList } from '../components/VoucherList';
 
 export default function Voucher() {
   const { shopId } = useLocalSearchParams<{
     shopId: string;
   }>();
 
-  const query = useQuery({
-    queryKey: ['shop-vouchers', { id: shopId }],
-    queryFn: shopApi.getDiscounts.bind(null, shopId),
-    enabled: !!shopId
-  });
-
   return (
     <SafeAreaView flex={1}>
       <ScrollView>
-        <Container x y gap={'$4'}>
-          {query.data?.data.data.map((voucher) => (
-            <VoucherItem key={voucher._id} voucher={voucher} />
-          ))}
-        </Container>
+        <VoucherList shopId={shopId} />
       </ScrollView>
     </SafeAreaView>
   );

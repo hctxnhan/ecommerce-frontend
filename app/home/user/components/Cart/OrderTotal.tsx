@@ -16,6 +16,7 @@ export function OrderTotal({ subtotal, shipping = 0, total }: OrderTotalProps) {
 
   return (
     <VStack
+      width={'$full'}
       gap={'$6'}
       borderWidth={1}
       rounded={'$lg'}

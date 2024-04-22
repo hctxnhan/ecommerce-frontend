@@ -11,7 +11,7 @@ import { NavigateButton } from '@/components/__custom__/NavigateButton';
 import { useQuery } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
-import { ProductList } from '../../(home)/components/Home/ProductList';
+import { ProductList } from '../../user/components/Home/ProductList';
 import { ShopDetail } from '../components/ShopDetail';
 import { productApi, shopApi } from '@/api';
 import { ShopBadge } from '../../product-detail/components/ShopBadge';

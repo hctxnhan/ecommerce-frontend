@@ -13,7 +13,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   return (
-    <RedirectRoleHome role={[UserRole.SHOP_OWNER]}>
+    <RedirectRoleHome role={[UserRole.USER]}>
       <Tabs
         screenOptions={{
           // Disable the static render of the header on web
@@ -24,40 +24,22 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Shop',
+            title: 'Home',
             tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />
           }}
         />
 
         <Tabs.Screen
-          name="ManageProduct"
+          name="Cart"
           options={{
-            title: 'Products',
+            title: 'Cart',
             tabBarIcon: ({ color }) => (
-              <TabBarIcon name="bookmark" color={color} />
+              <TabBarIcon name="cart-plus" color={color} />
             )
           }}
         />
         <Tabs.Screen
-          name="ManageVoucher"
-          options={{
-            title: 'Vouchers',
-            tabBarIcon: ({ color }) => (
-              <TabBarIcon name="bookmark" color={color} />
-            )
-          }}
-        />
-        <Tabs.Screen
-          name="ManageOrder"
-          options={{
-            title: 'Orders',
-            tabBarIcon: ({ color }) => (
-              <TabBarIcon name="bookmark" color={color} />
-            )
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
+          name="Profile"
           options={{
             title: 'Profile',
             tabBarIcon: ({ color }) => (

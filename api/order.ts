@@ -61,5 +61,7 @@ export const orderApi = {
     ),
   getById: (orderId: string) =>
     axiosInstance.get<APIResponse<OrderResponse>>(`/orders/${orderId}`),
-  cancelOrder: (orderId: string) => axiosInstance.delete(`/orders/${orderId}`)
+  cancelOrder: (orderId: string) => axiosInstance.delete(`/orders/${orderId}`),
+  getShopOrderItems: () =>
+    axiosInstance.get<APIResponse<ProductDetail[]>>('/orders/shop-order-items')
 };

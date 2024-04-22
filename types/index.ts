@@ -23,6 +23,12 @@ export interface Owner {
   verified: boolean;
   _id: string;
   role: UserRole;
+  email: string;
+  shop: {
+    name: string;
+    description: string;
+    address: string;
+  };
 }
 
 export interface ProductDetail extends Product {
@@ -45,6 +51,9 @@ export interface ProductInOrder extends ProductDetail {
   status: OrderItemStatus;
   orderId: string;
   productId: string;
+  order?: {
+    shippingInfo?: DeliveryAddress;
+  };
 }
 
 export enum OrderItemStatus {
