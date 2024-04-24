@@ -1,3 +1,4 @@
+import { ProductType } from '@/utils/createProduct';
 import { AxiosError } from 'axios';
 
 export interface Product {
@@ -6,7 +7,7 @@ export interface Product {
   price: number;
   description: string;
   isPublished: boolean;
-  type: string;
+  type: ProductType;
   avgRating: number;
   slug: string;
 }

@@ -9,7 +9,9 @@ import {
   VStack
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
+import { useCartStore } from '@/configs/store/Cart.store';
 import { Discount, DiscountApplyType, DiscountType } from '@/types';
+import * as Clipboard from 'expo-clipboard';
 import {
   BadgePercent,
   Calendar,
@@ -17,13 +19,12 @@ import {
   CopyIcon,
   DollarSign
 } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
-import * as Clipboard from 'expo-clipboard';
-import { Else, If, Then } from 'react-if';
-import { useCartStore } from '@/configs/store/Cart.store';
+import { useState } from 'react';
 
 interface VoucherItemProps {
   voucher: Discount;
+  canCopy?: boolean;
+  canApply?: boolean;
 }
 
 const discountApplyType = (
@@ -44,7 +45,11 @@ const discountApplyType = (
   }
 };
 
-export function VoucherItem({ voucher }: VoucherItemProps) {
+export function VoucherItem({
+  voucher,
+  canCopy = true,
+  canApply = true
+}: VoucherItemProps) {
   const [hasCopied, setHasCopied] = useState(false);
   const setVoucher = useCartStore.use.setVoucher();
   const voucherInCart = useCartStore.use.voucher();
@@ -65,25 +70,29 @@ export function VoucherItem({ voucher }: VoucherItemProps) {
       rounded={'$2xl'}
       overflow="hidden"
     >
-      <Button
-        position="absolute"
-        top={'$2'}
-        right={'$4'}
-        size="xs"
-        variant="link"
-        zIndex={100}
-        disabled={voucher.code === voucherInCart}
-        onPress={setVoucher.bind(null, voucher.code)}
-      >
-        <ButtonText
-          ml={'$1'}
-          color={
-            voucher.code === voucherInCart ? '$primary200' : '$backgroundLight0'
-          }
+      {canApply && (
+        <Button
+          position="absolute"
+          top={'$2'}
+          right={'$4'}
+          size="xs"
+          variant="link"
+          zIndex={100}
+          disabled={voucher.code === voucherInCart}
+          onPress={setVoucher.bind(null, voucher.code)}
         >
-          {voucher.code === voucherInCart ? 'Applied' : 'Apply'}
-        </ButtonText>
-      </Button>
+          <ButtonText
+            ml={'$1'}
+            color={
+              voucher.code === voucherInCart
+                ? '$primary200'
+                : '$backgroundLight0'
+            }
+          >
+            {voucher.code === voucherInCart ? 'Applied' : 'Apply'}
+          </ButtonText>
+        </Button>
+      )}
 
       <Container
         x
@@ -93,41 +102,45 @@ export function VoucherItem({ voucher }: VoucherItemProps) {
         bg="$primary500"
         gap={'$1'}
       >
-        <Text color="$text0" fontWeight="bold" size="lg">
+        <Text color="$text0" fontWeight="bold">
           {voucher.name}
         </Text>
         <Text color="$text0">{voucher.description}</Text>
 
-        <Box
-          my={'$2'}
-          w={'$full'}
-          borderTopWidth={2}
-          borderStyle="dashed"
-          borderColor="$primary400"
-        />
-
-        <HStack alignItems="center">
-          <Text size="sm" color="$primary100">
-            {voucher.code}
-          </Text>
-
-          <Button
-            ml={'$2'}
-            size="xs"
-            variant="link"
-            zIndex={100}
-            onPress={handleCopy}
-          >
-            <ButtonIcon
-              size="sm"
-              color="$backgroundLight0"
-              as={hasCopied ? CopyCheck : CopyIcon}
+        {canCopy && (
+          <>
+            <Box
+              my={'$2'}
+              w={'$full'}
+              borderTopWidth={2}
+              borderStyle="dashed"
+              borderColor="$primary400"
             />
-            <ButtonText ml={'$1'} color="$backgroundLight0">
-              {hasCopied ? 'Copied' : 'Copy'}
-            </ButtonText>
-          </Button>
-        </HStack>
+
+            <HStack alignItems="center">
+              <Text size="sm" color="$primary100">
+                {voucher.code}
+              </Text>
+
+              <Button
+                ml={'$2'}
+                size="xs"
+                variant="link"
+                zIndex={100}
+                onPress={handleCopy}
+              >
+                <ButtonIcon
+                  size="sm"
+                  color="$backgroundLight0"
+                  as={hasCopied ? CopyCheck : CopyIcon}
+                />
+                <ButtonText ml={'$1'} color="$backgroundLight0">
+                  {hasCopied ? 'Copied' : 'Copy'}
+                </ButtonText>
+              </Button>
+            </HStack>
+          </>
+        )}
       </Container>
 
       <Container justifyContent="space-between" gap={'$2'} x y>

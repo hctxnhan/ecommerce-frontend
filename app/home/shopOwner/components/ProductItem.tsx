@@ -1,37 +1,30 @@
 import {
   Badge,
   BadgeText,
-  Box,
   HStack,
-  Image,
   Pressable,
   Text
 } from '@/components';
 import { Product } from '@/types';
 import { getCurrency } from '@/utils/utils';
-import { router } from 'expo-router';
 
-interface ProductCardProps {
+interface ProductItemOwnerProps {
   product: Product;
+  onPress?: () => void;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductItemOwner({ product, onPress }: ProductItemOwnerProps) {
   return (
     <Pressable
-      onPress={() => {
-        router.push(`home/product-detail/${product._id}`);
-      }}
+      borderWidth={1}
+      padding={'$2'}
+      rounded={'$xl'}
+      borderColor={'$borderLight200'}
+      onPress={onPress}
       flex={1}
       gap={'$2'}
       position="relative"
     >
-      <Box overflow="hidden" rounded={'$xl'}>
-        <Image
-          source={{ uri: 'https://via.placeholder.com/150' }}
-          w={'$full'}
-          height={200}
-        />
-      </Box>
       <Text fontWeight="bold">{product.name}</Text>
       <HStack gap={'$1'} alignItems="center">
         <Badge

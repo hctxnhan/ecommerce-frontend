@@ -8,6 +8,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { ShopRequestStatus } from '@/types';
 import { useState } from 'react';
 import { VoucherList } from '../shop/components/VoucherList';
+import { CreateVoucherSheet } from './components/CreateVoucherSheet';
 
 export default function ManageVoucher() {
   const [segment, setSegment] = useState(ShopRequestStatus.PENDING);
@@ -19,6 +20,7 @@ export default function ManageVoucher() {
 
   return (
     <SafeAreaView flex={1}>
+      <CreateVoucherSheet />
       <Container x y>
         <SegmentedButtonGroup
           value={segment}

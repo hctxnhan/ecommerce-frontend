@@ -10,7 +10,14 @@ interface GetProductQuery {
   limit: number;
   search: string;
   category: string;
-  shopId: string;
+  shopId?: string;
+}
+
+interface MyProductQuery {
+  page: number;
+  limit: number;
+  status: 'published' | 'draft';
+  search?: string;
 }
 
 export const productApi = {
@@ -32,18 +39,21 @@ export const productApi = {
     }),
   getProductById: (id: string) =>
     axiosInstance.get<APIResponse<ProductDetail>>(`/products/${id}`),
-  myProducts: ({
-    page = 1,
-    limit = 6,
-    status
-  }: {
-    page?: number;
-    limit?: number;
-    status?: 'published' | 'draft';
-  }) =>
-    axiosInstance.get<APIResponse<Product[]>>(
-      `/products/my-products?page=${page}&limit=${limit}&status=${status}`
+  myProducts: ({ search = '', page = 1, limit = 6, status }: MyProductQuery) =>
+    axiosInstance.get<APIResponse<ProductDetail[]>>(
+      `/products/my-products?page=${page}&limit=${limit}&status=${status}&search=${search}`
     ),
   createProduct: (data: z.infer<typeof ProductSchema>) =>
-    axiosInstance.post('/products', data)
+    axiosInstance.post('/products', data),
+  updateProduct: ({
+    id,
+    data
+  }: {
+    id: string;
+    data: z.infer<typeof ProductSchema>;
+  }) => axiosInstance.patch(`/products/${id}`, data),
+  deleteProduct: (id: string) => axiosInstance.delete(`/products/${id}`),
+  archiveProduct: (id: string) =>
+    axiosInstance.put(`/products/${id}/unpublish`),
+  publishProduct: (id: string) => axiosInstance.put(`/products/${id}/publish`)
 };

@@ -1,9 +1,5 @@
 import { orderApi } from '@/api';
-import {
-  SafeAreaView,
-  ScrollView,
-  VStack
-} from '@/components';
+import { SafeAreaView, ScrollView, VStack } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import { OrderItemStatus, OrderStatus as OrderStatusEnum } from '@/types';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +8,7 @@ import { OrderTotal } from '../user/components/Cart/OrderTotal';
 import { CancelOrderModal } from './components/CancelOrderSheet';
 import { GeneralOrderShippingDetail } from './components/GeneralOrderShippingDetail';
 import { OrderDetailItem } from './components/OrderDetailProduct';
-import { OrderStatus } from './components/OrderStatus';
+import { OrderStatus, orderSteps } from './components/OrderStatus';
 
 export default function OrderId() {
   const { orderId } = useLocalSearchParams();
@@ -55,7 +51,7 @@ export default function OrderId() {
               />
 
               <Container y>
-                <OrderStatus status={calculatedStatus} />
+                <OrderStatus steps={orderSteps} status={calculatedStatus} />
               </Container>
 
               <Container y>

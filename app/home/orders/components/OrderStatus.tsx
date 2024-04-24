@@ -1,9 +1,9 @@
 import { Icon, Text } from '@/components';
 import { Stepper, StepperStep } from '@/components/__custom__/Stepper';
-import { OrderStatus as OrderStatusEnum } from '@/types';
+import { OrderItemStatus, OrderStatus as OrderStatusEnum } from '@/types';
 import { Ban, CheckCircle, LucideClock8, TruckIcon } from 'lucide-react-native';
 
-const steps = [
+export const orderSteps: Step[] = [
   {
     status: OrderStatusEnum.PENDING,
     title: 'Order places',
@@ -26,13 +26,28 @@ const steps = [
   }
 ];
 
-interface OrderStatusProps {
-  status: OrderStatusEnum;
+export const orderItemSteps: Step[] = [
+  { status: OrderItemStatus.PENDING, title: 'Pending', icon: LucideClock8 },
+  { status: OrderItemStatus.CONFIRMED, title: 'Confirmed', icon: CheckCircle },
+  { status: OrderItemStatus.SHIPPING, title: 'Shipping', icon: TruckIcon },
+  { status: OrderItemStatus.COMPLETED, title: 'Completed', icon: CheckCircle },
+  { status: OrderItemStatus.CANCELLED, title: 'Cancelled', icon: Ban }
+];
+
+interface Step {
+  status: OrderStatusEnum | OrderItemStatus;
+  title: string;
+  icon: any;
 }
 
-export function OrderStatus({ status }: OrderStatusProps) {
+interface OrderStatusProps {
+  status: OrderStatusEnum | OrderItemStatus;
+  steps: Step[];
+}
+
+export function OrderStatus({ steps, status }: OrderStatusProps) {
   const currentStep = steps.findIndex((step) => step.status === status) + 1;
-  
+
   return (
     <Stepper currentStep={currentStep} totalSteps={steps.length}>
       <Text>Orders</Text>

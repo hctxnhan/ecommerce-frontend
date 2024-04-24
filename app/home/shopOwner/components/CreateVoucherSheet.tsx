@@ -1,4 +1,3 @@
-import { productApi } from '@/api';
 import {
   Actionsheet,
   ActionsheetBackdrop,
@@ -15,23 +14,20 @@ import {
 } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import { useToast } from '@/hooks/useToast';
-import { ProductSchema, ProductType } from '@/utils/createProduct';
+import { DiscountSchema } from '@/utils/createVoucher';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { ProductForm } from './ProductForm';
+import { VoucherForm } from './VoucherForm';
 
-export function CreateProductSheet() {
+export function CreateVoucherSheet() {
   const [showActionsheet, setShowActionsheet] = useState(false);
 
-  const form = useForm<z.infer<typeof ProductSchema>>({
-    resolver: zodResolver(ProductSchema),
-    defaultValues: {
-      type: ProductType.ELECTRONICS,
-      isPublished: true
-    }
+  const form = useForm<z.infer<typeof DiscountSchema>>({
+    resolver: zodResolver(DiscountSchema),
+    defaultValues: {}
   });
 
   const { handleSubmit, reset, watch } = form;
@@ -39,41 +35,12 @@ export function CreateProductSheet() {
   const toast = useToast();
   const queryClient = useQueryClient();
 
-  const createProduct = useMutation({
-    mutationFn: productApi.createProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['my-products']
-      });
-
-      toast.show({
-        title: 'Product created',
-        type: 'success',
-        description: 'Your product has been created successfully'
-      });
-
-      onClose();
-      reset();
-    },
-    onError: (error) => {
-      toast.show({
-        title: 'Error',
-        type: 'error',
-        description: error.message
-      });
-    }
-  });
-
-  function onSubmit(data: z.infer<typeof ProductSchema>) {
-    createProduct.mutate(data);
-  }
+  function onSubmit(data: z.infer<typeof DiscountSchema>) {}
 
   function onClose() {
     setShowActionsheet(false);
     reset();
   }
-
-  const isPublished = watch('isPublished');
 
   return (
     <>
@@ -86,7 +53,7 @@ export function CreateProductSheet() {
         isPressed={false}
       >
         <FabIcon as={AddIcon} mr="$1" />
-        <FabLabel>Create product</FabLabel>
+        <FabLabel>Create voucher</FabLabel>
       </Fab>
       <Actionsheet snapPoints={[90]} isOpen={showActionsheet} onClose={onClose}>
         <ActionsheetBackdrop
@@ -101,28 +68,21 @@ export function CreateProductSheet() {
           borderRadius="$xl"
         >
           <ActionsheetSectionHeaderText>
-            Create Product
+            Create Voucher
           </ActionsheetSectionHeaderText>
 
           <ActionsheetItem flex={1} w="$full" flexDirection="column">
             <ScrollView flex={1} w="$full">
               <Container x pBottom flex={1} gap={'$8'}>
                 <FormProvider {...form}>
-                  <ProductForm />
+                  <VoucherForm />
                 </FormProvider>
               </Container>
             </ScrollView>
           </ActionsheetItem>
 
-          <Button
-            w="$full"
-            onPress={handleSubmit(onSubmit)}
-            action={isPublished ? 'primary' : 'secondary'}
-            rounded={'$none'}
-          >
-            <ButtonText textAlign="center">
-              {isPublished ? 'Publish' : 'Draft'}
-            </ButtonText>
+          <Button w="$full" onPress={handleSubmit(onSubmit)} rounded={'$none'}>
+            <ButtonText textAlign="center">Create</ButtonText>
           </Button>
         </ActionsheetContent>
       </Actionsheet>

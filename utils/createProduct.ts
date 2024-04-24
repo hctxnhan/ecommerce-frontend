@@ -1,9 +1,10 @@
 import z from 'zod';
-export const ProductType = {
-  ELECTRONICS: 'electronics',
-  CLOTHES: 'clothes',
-  FURNITURE: 'furniture'
-};
+
+export enum ProductType {
+  ELECTRONICS = 'electronics',
+  CLOTHES = 'clothes',
+  FURNITURE = 'furniture'
+}
 
 const CommonProductSchema = z.object({
   name: z.string({
@@ -15,7 +16,7 @@ const CommonProductSchema = z.object({
   }),
   description: z.string().optional(),
   isPublished: z.boolean().default(false),
-  type: z.enum(Object.values(ProductType)),
+  type: z.nativeEnum(ProductType),
   stock: z.coerce.number().default(0)
 });
 

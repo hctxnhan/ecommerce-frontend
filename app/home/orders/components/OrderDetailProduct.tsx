@@ -1,12 +1,24 @@
-import { Badge, BadgeText, HStack, Image, Text, VStack } from '@/components';
+import {
+  Badge,
+  BadgeText,
+  Button,
+  ButtonIcon,
+  HStack,
+  Icon,
+  Image,
+  Text,
+  VStack
+} from '@/components';
 import { ProductInOrder } from '@/types';
 import { getCurrency } from '@/utils/utils';
+import { CircleEllipsis as MoreOptionIcon } from 'lucide-react-native';
 
 type OrderReviewItemProps = {
   item: ProductInOrder;
+  onPressMore?: () => void;
 };
 
-export function OrderDetailItem({ item }: OrderReviewItemProps) {
+export function OrderDetailItem({ item, onPressMore }: OrderReviewItemProps) {
   const hasDiscount = Number.isFinite(item.totalPriceAfterDiscount);
 
   const price = hasDiscount
@@ -14,8 +26,19 @@ export function OrderDetailItem({ item }: OrderReviewItemProps) {
     : item.price;
 
   return (
-    <VStack>
-      <HStack mb={'$3'} gap={'$3'} w={'$full'} position="relative">
+    <VStack borderWidth={'$1'} p={'$2'} borderColor='$borderLight200' rounded={'$xl'}>
+      <Button
+        position="absolute"
+        top={'$2'}
+        right={'$2'}
+        height={24}
+        onPress={onPressMore}
+        zIndex={100}
+        variant="link"
+      >
+        <ButtonIcon color="$primary500" as={MoreOptionIcon} />
+      </Button>
+      <HStack gap={'$3'} w={'$full'} position="relative">
         <Image
           rounded={'$lg'}
           source={{ uri: 'https://via.placeholder.com/150' }}
@@ -75,19 +98,6 @@ export function OrderDetailItem({ item }: OrderReviewItemProps) {
           </HStack>
         </VStack>
       </HStack>
-      {item.order?.shippingInfo && (
-        <VStack p={'$2'} borderWidth={'$1'} borderColor='$borderLight200' gap={'$2'} alignItems='flex-end' rounded={'$xl'}>
-          <Text size="xs" fontWeight="bold">
-            {item.order.shippingInfo.name}
-          </Text>
-          <Text size="xs" fontWeight="bold">
-            {item.order.shippingInfo.phone}
-          </Text>
-          <Text size="xs" color="$text400">
-            Deliver to {item.order.shippingInfo.address}
-          </Text>
-        </VStack>
-      )}
     </VStack>
   );
 }

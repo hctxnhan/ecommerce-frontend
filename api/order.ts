@@ -1,11 +1,12 @@
+import { ProductInCart } from '@/types';
 import {
   APIResponse,
   Order,
+  OrderItemStatus,
   OrderStatus,
   ProductDetail,
   ProductInOrder
 } from './../types/index';
-import { ProductInCart } from '@/types';
 import { axiosInstance } from './axiosInstance';
 
 interface CheckoutReviewBody {
@@ -47,6 +48,12 @@ type OrderResponse = Order & {
   items: ProductInOrder[];
 };
 
+interface GetOrderQuery {
+  status: OrderItemStatus;
+  page: number;
+  limit: number;
+}
+
 export const orderApi = {
   checkoutReview: (body: CheckoutReviewBody) =>
     axiosInstance.post<APIResponse<CheckoutReviewResponse>>(
@@ -62,6 +69,26 @@ export const orderApi = {
   getById: (orderId: string) =>
     axiosInstance.get<APIResponse<OrderResponse>>(`/orders/${orderId}`),
   cancelOrder: (orderId: string) => axiosInstance.delete(`/orders/${orderId}`),
-  getShopOrderItems: () =>
-    axiosInstance.get<APIResponse<ProductDetail[]>>('/orders/shop-order-items')
+  changeOrderItemStatus: ({
+    itemId,
+    status
+  }: {
+    itemId: string;
+    status: OrderItemStatus;
+  }) => axiosInstance.put(`/orders/order-items/${itemId}/${status}`),
+  getOrderItem: (itemId: string) =>
+    axiosInstance.get<APIResponse<ProductInOrder>>(
+      `/orders/order-items/${itemId}`
+    ),
+  getShopOrderItems: ({ status, page, limit }: GetOrderQuery) =>
+    axiosInstance.get<APIResponse<ProductDetail[]>>(
+      `/orders/shop-order-items`,
+      {
+        params: {
+          status,
+          page,
+          limit
+        }
+      }
+    )
 };

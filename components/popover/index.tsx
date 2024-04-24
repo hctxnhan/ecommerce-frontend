@@ -10,6 +10,7 @@ import { createPopover } from '@gluestack-ui/popover';
 const StyledRoot = styled(
   View,
   {
+    backgroundColor: '$background950',
     width: '$full',
     height: '$full',
     justifyContent: 'center',

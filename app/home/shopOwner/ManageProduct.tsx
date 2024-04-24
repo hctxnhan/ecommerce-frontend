@@ -5,11 +5,13 @@ import {
   SegmentedButton,
   SegmentedButtonGroup
 } from '@/components/__custom__/SegmentedButton';
-import { ShopRequestStatus } from '@/types';
+import { ProductDetail } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { ProductList } from '../user/components/Home/ProductList';
 import { CreateProductSheet } from './components/CreateProductSheet';
+import { ProductListOwner } from './components/ProductList';
+import { ProductModal } from './components/ProductModal';
+import { UpdateProductSheet } from './components/UpdateProductSheet';
 
 enum ProductStatus {
   PUBLISHED = 'published',
@@ -18,6 +20,8 @@ enum ProductStatus {
 
 export default function ManageProduct() {
   const [segment, setSegment] = useState(ProductStatus.PUBLISHED);
+  const [selectedProduct, setSelectedProduct] = useState<ProductDetail | null>(null);
+  const [showUpdate, setShowUpdate] = useState(false);
 
   const query = useInfiniteQuery({
     queryKey: [
@@ -47,7 +51,6 @@ export default function ManageProduct() {
 
   return (
     <SafeAreaView flex={1}>
-      <CreateProductSheet />
       <Container x y>
         <SegmentedButtonGroup
           value={segment}
@@ -59,14 +62,36 @@ export default function ManageProduct() {
           <SegmentedButton value={ProductStatus.DRAFT}>Draft</SegmentedButton>
         </SegmentedButtonGroup>
       </Container>
-      <ProductList
+      <ProductListOwner
         pages={products}
         onReachEnd={() => {
           query.fetchNextPage();
         }}
+        onPressItem={setSelectedProduct}
         isFetchingNextPage={query.isFetchingNextPage}
         isLoading={query.isLoading}
       />
+
+      <CreateProductSheet />
+
+      {selectedProduct && (
+        <ProductModal
+          onPressUpdate={() => {
+            setShowUpdate(true);
+          }}
+          open={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          product={selectedProduct}
+        />
+      )}
+
+      {selectedProduct && (
+        <UpdateProductSheet
+          product={selectedProduct}
+          close={() => setShowUpdate(false)}
+          isShow={showUpdate}
+        />
+      )}
     </SafeAreaView>
   );
 }

@@ -1,12 +1,10 @@
-import { SafeAreaView } from '@/components';
-import { Container } from '@/components/__custom__/Container';
+import { useProfile } from '@/hooks/useProfile';
+import ShopId from '../shop/components/ShopId';
 
 export default function Home() {
-  return (
-    <SafeAreaView flex={1}>
-      <Container x></Container>
-      <Container pTop></Container>
-      <Container flex={1}></Container>
-    </SafeAreaView>
-  );
+  const { profile, isLoading } = useProfile();
+
+  if (isLoading || !profile) return null;
+
+  return <ShopId shopId={profile._id} />;
 }
