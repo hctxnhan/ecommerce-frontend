@@ -50,7 +50,7 @@ const StyledContent = styled(
     'py': '$1',
     'px': '$3',
     'borderRadius': '$sm',
-    'bg': '$background900',
+    'bg': '$backgroundLight900',
 
     '_text': {
       fontSize: '$xs',

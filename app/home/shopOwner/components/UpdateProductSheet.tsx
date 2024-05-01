@@ -80,8 +80,6 @@ export function UpdateProductSheet({
     reset();
   }
 
-  console.log(form.formState.errors);
-
   return (
     <Actionsheet snapPoints={[90]} isOpen={isShow} onClose={onClose}>
       <ActionsheetBackdrop

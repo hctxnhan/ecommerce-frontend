@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler'; 
+import 'react-native-gesture-handler';
 
 import { GluestackUIProvider } from '@/components';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -51,15 +51,15 @@ export default function RootLayout() {
 }
 function RootLayoutNav() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <GluestackUIProvider>
-        <ThemeProvider value={DefaultTheme}>
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <GluestackUIProvider>
+          <ThemeProvider value={DefaultTheme}>
             <Slot />
             <GlobalLoading />
-          </QueryClientProvider>
-        </ThemeProvider>
-      </GluestackUIProvider>
-    </GestureHandlerRootView>
+          </ThemeProvider>
+        </GluestackUIProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }

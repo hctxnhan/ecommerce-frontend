@@ -68,10 +68,10 @@ const StyleRoot = styled(
           backgroundColor: '$white',
 
           _item: {
-            backgroundColor: '$background0',
+            backgroundColor: '$backgroundLight0',
           },
 
-          shadowColor: '$background900',
+          shadowColor: '$backgroundLight900',
 
           shadowOffset: {
             width: 0,
@@ -137,7 +137,7 @@ const StyledTrigger = styled(
       },
     },
     ':focusVisible': {
-      bg: '$background50',
+      bg: '$backgroundLight50',
     },
   },
   {
@@ -259,7 +259,7 @@ const StyledContentText = styled(Text, {}, { ancestorStyle: ['_contentText'] });
 const StyledIcon = styled(
   AsForwarder,
   {
-    color: '$background800',
+    color: '$backgroundLight800',
 
     // defaultProps: {
     //   size: 'md',

@@ -6,7 +6,7 @@ import { Path } from 'react-native-svg';
 const StyledRoot = styled(
   AsForwarder,
   {
-    color: '$background800',
+    color: '$backgroundLight800',
     variants: {
       size: {
         '2xs': {
@@ -87,7 +87,7 @@ const StyledRoot = styled(
 const IconRoot = styled(
   AsForwarder,
   {
-    color: '$background800',
+    color: '$backgroundLight800',
     variants: {
       size: {
         '2xs': {

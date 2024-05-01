@@ -15,7 +15,7 @@ interface FormInputProps {
   placeholder: string;
   control: any;
   errorMessage?: Message;
-  label: string;
+  label?: string;
   isRequired?: boolean;
   isDisabled?: boolean;
   inputIcon?: any;
@@ -43,9 +43,11 @@ export function FormInput({
       size={'lg'}
       isDisabled={isDisabled}
     >
-      <FormControlLabel>
-        <FormControlLabelText>{label}</FormControlLabelText>
-      </FormControlLabel>
+      {label && (
+        <FormControlLabel>
+          <FormControlLabelText>{label}</FormControlLabelText>
+        </FormControlLabel>
+      )}
       <Controller
         name={name}
         control={control}
@@ -57,6 +59,7 @@ export function FormInput({
               </InputSlot>
             )}
             <InputField
+            flex={1}
               type={type}
               placeholder={placeholder}
               value={value}

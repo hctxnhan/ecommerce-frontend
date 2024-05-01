@@ -5,6 +5,7 @@ import {
   ButtonText,
   HStack,
   Icon,
+  Pressable,
   Text,
   VStack
 } from '@/components';
@@ -25,6 +26,7 @@ interface VoucherItemProps {
   voucher: Discount;
   canCopy?: boolean;
   canApply?: boolean;
+  onPress?: () => void;
 }
 
 const discountApplyType = (
@@ -48,7 +50,8 @@ const discountApplyType = (
 export function VoucherItem({
   voucher,
   canCopy = true,
-  canApply = true
+  canApply = true,
+  onPress
 }: VoucherItemProps) {
   const [hasCopied, setHasCopied] = useState(false);
   const setVoucher = useCartStore.use.setVoucher();
@@ -64,131 +67,133 @@ export function VoucherItem({
   }
 
   return (
-    <Container
-      borderWidth={2}
-      borderColor="$text200"
-      rounded={'$2xl'}
-      overflow="hidden"
-    >
-      {canApply && (
-        <Button
-          position="absolute"
-          top={'$2'}
-          right={'$4'}
-          size="xs"
-          variant="link"
-          zIndex={100}
-          disabled={voucher.code === voucherInCart}
-          onPress={setVoucher.bind(null, voucher.code)}
-        >
-          <ButtonText
-            ml={'$1'}
-            color={
-              voucher.code === voucherInCart
-                ? '$primary200'
-                : '$backgroundLight0'
-            }
-          >
-            {voucher.code === voucherInCart ? 'Applied' : 'Apply'}
-          </ButtonText>
-        </Button>
-      )}
-
+    <Pressable onPress={onPress}>
       <Container
-        x
-        y
-        borderBottomLeftRadius={'$2xl'}
-        borderBottomRightRadius={'$2xl'}
-        bg="$primary500"
-        gap={'$1'}
+        borderWidth={2}
+        borderColor="$text200"
+        rounded={'$2xl'}
+        overflow="hidden"
       >
-        <Text color="$text0" fontWeight="bold">
-          {voucher.name}
-        </Text>
-        <Text color="$text0">{voucher.description}</Text>
-
-        {canCopy && (
-          <>
-            <Box
-              my={'$2'}
-              w={'$full'}
-              borderTopWidth={2}
-              borderStyle="dashed"
-              borderColor="$primary400"
-            />
-
-            <HStack alignItems="center">
-              <Text size="sm" color="$primary100">
-                {voucher.code}
-              </Text>
-
-              <Button
-                ml={'$2'}
-                size="xs"
-                variant="link"
-                zIndex={100}
-                onPress={handleCopy}
-              >
-                <ButtonIcon
-                  size="sm"
-                  color="$backgroundLight0"
-                  as={hasCopied ? CopyCheck : CopyIcon}
-                />
-                <ButtonText ml={'$1'} color="$backgroundLight0">
-                  {hasCopied ? 'Copied' : 'Copy'}
-                </ButtonText>
-              </Button>
-            </HStack>
-          </>
+        {canApply && (
+          <Button
+            position="absolute"
+            top={'$2'}
+            right={'$4'}
+            size="xs"
+            variant="link"
+            zIndex={100}
+            disabled={voucher.code === voucherInCart}
+            onPress={setVoucher.bind(null, voucher.code)}
+          >
+            <ButtonText
+              ml={'$1'}
+              color={
+                voucher.code === voucherInCart
+                  ? '$primary200'
+                  : '$backgroundLight0'
+              }
+            >
+              {voucher.code === voucherInCart ? 'Applied' : 'Apply'}
+            </ButtonText>
+          </Button>
         )}
+
+        <Container
+          x
+          y
+          borderBottomLeftRadius={'$2xl'}
+          borderBottomRightRadius={'$2xl'}
+          bg="$primary500"
+          gap={'$1'}
+        >
+          <Text color="$text0" fontWeight="bold">
+            {voucher.name}
+          </Text>
+          <Text color="$text0">{voucher.description}</Text>
+
+          {canCopy && (
+            <>
+              <Box
+                my={'$2'}
+                w={'$full'}
+                borderTopWidth={2}
+                borderStyle="dashed"
+                borderColor="$primary400"
+              />
+
+              <HStack alignItems="center">
+                <Text size="sm" color="$primary100">
+                  {voucher.code}
+                </Text>
+
+                <Button
+                  ml={'$2'}
+                  size="xs"
+                  variant="link"
+                  zIndex={100}
+                  onPress={handleCopy}
+                >
+                  <ButtonIcon
+                    size="sm"
+                    color="$backgroundLight0"
+                    as={hasCopied ? CopyCheck : CopyIcon}
+                  />
+                  <ButtonText ml={'$1'} color="$backgroundLight0">
+                    {hasCopied ? 'Copied' : 'Copy'}
+                  </ButtonText>
+                </Button>
+              </HStack>
+            </>
+          )}
+        </Container>
+
+        <Container justifyContent="space-between" gap={'$2'} x y>
+          <HStack gap={'$2'}>
+            <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
+              <Icon as={Calendar} size={'xl'} />
+            </Box>
+            <VStack>
+              <Text size="sm" color="$text400">
+                Valid till
+              </Text>
+              <Text color="$text600" fontWeight="$semibold">
+                {new Date(voucher.endDate).toDateString()}
+              </Text>
+            </VStack>
+          </HStack>
+
+          <HStack gap={'$2'}>
+            <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
+              <Icon as={DollarSign} size={'xl'} />
+            </Box>
+            <VStack>
+              <Text size="sm" color="$text400">
+                Minimum order
+              </Text>
+              <Text color="$text600" fontWeight="$semibold">
+                {voucher.minOrderValue}$
+              </Text>
+            </VStack>
+          </HStack>
+
+          <HStack gap={'$2'}>
+            <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
+              <Icon as={BadgePercent} size={'xl'} />
+            </Box>
+            <VStack>
+              <Text size="sm" color="$text400">
+                Discount value
+              </Text>
+              <Text color="$text600" fontWeight="$semibold">
+                {voucher.type === DiscountType.PERCENTAGE
+                  ? voucher.value + '%'
+                  : voucher.value + '$'}{' '}
+                on {discountApplyType(voucher.applyType, voucher.applyValue)}
+              </Text>
+            </VStack>
+          </HStack>
+        </Container>
       </Container>
-
-      <Container justifyContent="space-between" gap={'$2'} x y>
-        <HStack gap={'$2'}>
-          <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
-            <Icon as={Calendar} size={'xl'} />
-          </Box>
-          <VStack>
-            <Text size="sm" color="$text400">
-              Valid till
-            </Text>
-            <Text color="$text600" fontWeight="$semibold">
-              {new Date(voucher.endDate).toDateString()}
-            </Text>
-          </VStack>
-        </HStack>
-
-        <HStack gap={'$2'}>
-          <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
-            <Icon as={DollarSign} size={'xl'} />
-          </Box>
-          <VStack>
-            <Text size="sm" color="$text400">
-              Minimum order
-            </Text>
-            <Text color="$text600" fontWeight="$semibold">
-              {voucher.minOrderValue}$
-            </Text>
-          </VStack>
-        </HStack>
-
-        <HStack gap={'$2'}>
-          <Box rounded="$2xl" p={'$2'} bg="$backgroundLight100">
-            <Icon as={BadgePercent} size={'xl'} />
-          </Box>
-          <VStack>
-            <Text size="sm" color="$text400">
-              Discount value
-            </Text>
-            <Text color="$text600" fontWeight="$semibold">
-              {voucher.type === DiscountType.PERCENTAGE
-                ? voucher.value + '%'
-                : voucher.value + '$'}{' '}
-              on {discountApplyType(voucher.applyType, voucher.applyValue)}
-            </Text>
-          </VStack>
-        </HStack>
-      </Container>
-    </Container>
+    </Pressable>
   );
 }

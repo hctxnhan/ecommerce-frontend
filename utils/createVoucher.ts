@@ -14,17 +14,56 @@ export enum DiscountApplyType {
 
 export const DiscountSchema = z
   .object({
-    name: z.string().min(3).max(255),
-    description: z.string().min(3).max(255),
+    name: z
+      .string({
+        required_error: 'Name is required'
+      })
+      .min(3)
+      .max(255),
+    description: z
+      .string({
+        required_error: 'Description is required'
+      })
+      .min(3)
+      .max(255),
     type: z.nativeEnum(DiscountType),
-    value: z.number().min(1),
-    startDate: z.string().datetime(),
-    endDate: z.string().datetime(),
-    minOrderValue: z.number().min(1),
-    usageLimit: z.number().min(1),
-    usageLimitPerUser: z.number().min(1),
-    code: z.string().min(3).max(255),
-    isActive: z.boolean().default(true),
+    value: z.coerce
+      .number({
+        required_error: 'Value is required'
+      })
+      .min(1),
+    startDate: z.instanceof(Date, {
+      message: 'Start date is required'
+    }),
+    endDate: z.instanceof(Date, {
+      message: 'End date is required'
+    }),
+    minOrderValue: z.coerce
+      .number({
+        required_error: 'Minimum order value is required'
+      })
+      .min(1),
+    usageLimit: z.coerce
+      .number({
+        required_error: 'Usage limit is required'
+      })
+      .min(1),
+    usageLimitPerUser: z.coerce
+      .number({
+        required_error: 'Usage limit per user is required'
+      })
+      .min(1),
+    code: z
+      .string({
+        required_error: 'Code is required'
+      })
+      .min(3)
+      .max(255),
+    isActive: z
+      .boolean({
+        required_error: 'Is active is required'
+      })
+      .default(true),
     applyType: z.nativeEnum(DiscountApplyType).default(DiscountApplyType.ALL),
     applyValue: z.array(z.string()).default([])
   })

@@ -3,7 +3,8 @@ import {
   Discount,
   Owner,
   ShopRequest,
-  ShopRequestStatus
+  ShopRequestStatus,
+  VoucherStatus
 } from '@/types';
 import { axiosInstance } from './axiosInstance';
 
@@ -19,8 +20,16 @@ interface ShopRequestConfirmationParams {
 }
 
 export const shopApi = {
-  getDiscounts: (shopId: string) =>
-    axiosInstance.get<APIResponse<Discount[]>>(`/users/${shopId}/discounts`),
+  getDiscounts: ({
+    shopId,
+    status
+  }: {
+    shopId: string;
+    status: VoucherStatus;
+  }) =>
+    axiosInstance.get<APIResponse<Discount[]>>(
+      `/users/${shopId}/discounts?status=${status}`
+    ),
   getShop: (shopId: string) =>
     axiosInstance.get<APIResponse<Owner>>(`/users/${shopId}`),
   registerShop: (data: ShopRegistrationBody) =>

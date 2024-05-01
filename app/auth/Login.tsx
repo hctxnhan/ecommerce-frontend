@@ -1,3 +1,4 @@
+import { authApi } from '@/api/auth';
 import {
   ArrowRightIcon,
   Box,
@@ -8,18 +9,16 @@ import {
   Text,
   VStack
 } from '@/components';
-import React from 'react';
-import { authApi } from '@/api/auth';
-import { useMutation } from '@tanstack/react-query';
 import { FormInput } from '@/components/__custom__/FormInput';
+import { useToast } from '@/hooks/useToast';
 import { ButtonIcon } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { Link, router } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { useToast } from '@/hooks/useToast';
-import { AxiosError } from 'axios';
 
 const Schema = z.object({
   email: z

@@ -1,31 +1,59 @@
 import { shopApi } from '@/api';
-import { Container } from '@/components/__custom__/Container';
+import { FlatList } from '@/components';
+import { Discount, UserRole, VoucherStatus } from '@/types';
+import { useToken } from '@gluestack-style/react';
 import { useQuery } from '@tanstack/react-query';
+import { RefreshControl } from 'react-native-gesture-handler';
 import { VoucherItem } from '../components/VoucherItem';
-import { UserRole } from '@/types';
 
 interface VoucherListProps {
   shopId: string;
   viewAs?: UserRole;
+  status?: VoucherStatus;
+  onPress?: (voucher: Discount) => void;
 }
 
-export function VoucherList({ shopId, viewAs }: VoucherListProps) {
+export function VoucherList({
+  shopId,
+  viewAs,
+  onPress,
+  status = VoucherStatus.ACTIVE
+}: VoucherListProps) {
   const query = useQuery({
-    queryKey: ['shop-vouchers', { id: shopId }],
-    queryFn: () => shopApi.getDiscounts(shopId),
+    queryKey: ['shop-vouchers', { id: shopId, status }],
+    queryFn: () => shopApi.getDiscounts({ shopId, status }),
     enabled: !!shopId
   });
 
+  const px = useToken('space', '6');
+  const py = useToken('space', '4');
+
   return (
-    <Container x y gap={'$4'}>
-      {query.data?.data.data.map((voucher) => (
+    <FlatList
+      contentContainerStyle={{
+        gap: 20,
+        paddingVertical: py,
+        paddingHorizontal: px
+      }}
+      w={'$full'}
+      numColumns={1}
+      data={query.data?.data.data}
+      renderItem={({ item }) => (
         <VoucherItem
           canApply={viewAs === UserRole.USER}
           canCopy={viewAs === UserRole.USER}
-          key={voucher._id}
-          voucher={voucher}
+          key={item._id}
+          voucher={item as Discount}
+          onPress={() => onPress?.(item as Discount)}
         />
-      ))}
-    </Container>
+      )}
+      keyExtractor={(item) => (item as Discount)._id}
+      refreshControl={
+        <RefreshControl
+          refreshing={query.isFetching}
+          onRefresh={query.refetch}
+        />
+      }
+    />
   );
 }

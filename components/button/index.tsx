@@ -22,7 +22,7 @@ const StyledRoot = styled(
 
     '_spinner': {
       props: {
-        color: '$background0',
+        color: '$backgroundLight0',
       },
     },
 
@@ -221,7 +221,7 @@ const StyledRoot = styled(
           'bg': '$transparent',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -249,7 +249,7 @@ const StyledRoot = styled(
           'borderWidth': '$1',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -434,7 +434,7 @@ const StyledRoot = styled(
           'bg': 'transparent',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -449,7 +449,7 @@ const StyledRoot = styled(
           'bg': 'transparent',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -464,7 +464,7 @@ const StyledRoot = styled(
           'bg': 'transparent',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -479,7 +479,7 @@ const StyledRoot = styled(
           'bg': 'transparent',
 
           ':hover': {
-            bg: '$background50',
+            bg: '$backgroundLight50',
           },
 
           ':active': {
@@ -868,7 +868,7 @@ const StyledSpinner = styled(
 const StyledIcon = styled(
   AsForwarder,
   {
-    color: '$background800',
+    color: '$backgroundLight800',
     variants: {
       size: {
         '2xs': {

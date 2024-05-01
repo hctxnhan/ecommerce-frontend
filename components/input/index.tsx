@@ -6,7 +6,7 @@ const StyledRoot = styled(
   View,
   {
     'borderWidth': 1,
-    'borderColor': '$background300',
+    'borderColor': '$backgroundLight300',
     'borderRadius': '$sm',
     'flexDirection': 'row',
     'overflow': 'hidden',
@@ -26,7 +26,7 @@ const StyledRoot = styled(
     ':disabled': {
       'opacity': 0.4,
       ':hover': {
-        borderColor: '$background300',
+        borderColor: '$backgroundLight300',
       },
     },
 
@@ -248,7 +248,7 @@ const StyledRoot = styled(
 const StyledIcon = styled(
   AsForwarder,
   {
-    color: '$background800',
+    color: '$backgroundLight800',
     variants: {
       size: {
         '2xs': {

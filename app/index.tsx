@@ -1,4 +1,4 @@
-import { View } from '@/components';
+import { Text, View } from '@/components';
 import { Redirect } from 'expo-router';
 export default function Home() {
   return (

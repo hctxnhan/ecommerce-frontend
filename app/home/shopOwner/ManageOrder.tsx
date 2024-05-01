@@ -1,5 +1,5 @@
 import { orderApi } from '@/api';
-import { Divider, SafeAreaView, ScrollView, VStack } from '@/components';
+import { SafeAreaView, ScrollView, VStack } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import {
   SegmentedButton,
@@ -64,7 +64,6 @@ export default function ManageOrder() {
       </Container>
       <ScrollView>
         <Container x y flex={1}>
-          <Divider py={'$2'} />
           <VStack gap={'$8'}>
             {orders?.map((order) => (
               <OrderDetailItem

@@ -51,7 +51,7 @@ export default function ManageProduct() {
 
   return (
     <SafeAreaView flex={1}>
-      <Container x y>
+      <Container x pTop>
         <SegmentedButtonGroup
           value={segment}
           onChange={setSegment as (value: string) => void}

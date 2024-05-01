@@ -7,7 +7,6 @@ import {
   CheckboxLabel,
   VStack
 } from '@/components';
-import { useState } from 'react';
 
 const options = [
   { label: 'Electronics', value: 'electronics' },
@@ -15,25 +14,41 @@ const options = [
   { label: 'Furniture', value: 'furniture' }
 ];
 
-export function SelectCategoryInput() {
-  const [values, setValues] = useState(['UX Research']);
+interface SelectCategoryInputProps {
+  selectedCategories: string[];
+  setSelectedCategories: (categories: string[]) => void;
+}
+
+export function SelectCategoryInput({
+  selectedCategories,
+  setSelectedCategories
+}: SelectCategoryInputProps) {
   return (
-    <CheckboxGroup
-      value={values}
-      onChange={(keys) => {
-        setValues(keys);
-      }}
+    <VStack
+      maxHeight={200}
+      borderWidth={1}
+      borderColor="$borderLight900"
+      rounded={'$lg'}
+      p={'$3'}
+      bg="$backgroundLight50"
     >
-      <VStack space="md">
-        {options.map((option) => (
-          <Checkbox value={option.value} key={option.value}>
-            <CheckboxIndicator mr="$2">
-              <CheckboxIcon as={CheckIcon} />
-            </CheckboxIndicator>
-            <CheckboxLabel>{option.label}</CheckboxLabel>
-          </Checkbox>
-        ))}
-      </VStack>
-    </CheckboxGroup>
+      <CheckboxGroup
+        value={selectedCategories}
+        onChange={(keys) => {
+          setSelectedCategories(keys);
+        }}
+      >
+        <VStack space="md">
+          {options.map((option) => (
+            <Checkbox value={option.value} key={option.value}>
+              <CheckboxIndicator mr="$2">
+                <CheckboxIcon as={CheckIcon} />
+              </CheckboxIndicator>
+              <CheckboxLabel>{option.label}</CheckboxLabel>
+            </Checkbox>
+          ))}
+        </VStack>
+      </CheckboxGroup>
+    </VStack>
   );
 }

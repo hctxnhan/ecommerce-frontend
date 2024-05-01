@@ -120,6 +120,12 @@ export interface Discount {
   value: number;
 }
 
+export enum VoucherStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  EXPIRED = 'expired'
+}
+
 export interface Comment {
   _id: string;
   productId: string;

@@ -157,7 +157,7 @@ const StyledIndicator = styled(
 const StyledIcon = styled(
   Check,
   {
-    'color': '$background800',
+    'color': '$backgroundLight800',
 
     // defaultProps: {
     //   size: 'md',
@@ -216,7 +216,7 @@ const StyledIcon = styled(
     },
 
     ':checked': {
-      color: '$background0',
+      color: '$backgroundLight0',
     },
 
     ':disabled': {

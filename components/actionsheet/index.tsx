@@ -32,10 +32,10 @@ const StyledContent = styled(
     borderTopRightRadius: '$3xl',
     h: '$full',
     p: '$0',
-    bg: '$background0',
+    bg: '$backgroundLight0',
 
     _sectionHeaderBackground: {
-      bg: '$background0'
+      bg: '$backgroundLight0'
     },
 
     defaultProps: {
@@ -71,20 +71,20 @@ const StyledItem = styled(
     },
 
     ':hover': {
-      bg: '$background50'
+      bg: '$backgroundLight50'
     },
 
     ':active': {
-      bg: '$background100'
+      bg: '$backgroundLight100'
     },
 
     ':focus': {
-      bg: '$background100'
+      bg: '$backgroundLight100'
     },
 
     _web: {
       ':focusVisible': {
-        bg: '$background100'
+        bg: '$backgroundLight100'
       }
     }
   },
@@ -309,7 +309,7 @@ const StyledItemText = styled(
 const StyledDragIndicator = styled(View, {
   w: '$16',
   h: '$1',
-  bg: '$background400',
+  bg: '$backgroundLight400',
   rounded: '$full'
 });
 
@@ -337,7 +337,7 @@ const StyledBackdrop = styled(AnimatedPressable, {
   top: 0,
   right: 0,
   bottom: 0,
-  bg: '$background950',
+  bg: '$backgroundLight950',
 
   _web: {
     cursor: 'default',
@@ -532,7 +532,7 @@ const StyledIcon = styled(
       size: 'sm'
     },
 
-    color: '$background500'
+    color: '$backgroundLight500'
   },
   {
     componentName: 'BaseIcon',

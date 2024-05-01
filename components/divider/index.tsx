@@ -5,7 +5,7 @@ import { View } from 'react-native';
 const StyledRoot = styled(
   View,
   {
-    bg: '$background200',
+    bg: '$backgroundLight200',
 
     variants: {
       orientation: {

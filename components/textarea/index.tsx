@@ -7,7 +7,7 @@ const StyledRoot = styled(
   {
     'w': '100%',
     'borderWidth': 1,
-    'borderColor': '$background300',
+    'borderColor': '$backgroundLight300',
     'borderRadius': '$sm',
     'h': 100,
 
@@ -33,7 +33,7 @@ const StyledRoot = styled(
     ':disabled': {
       'opacity': 0.4,
       ':hover': {
-        borderColor: '$background300',
+        borderColor: '$backgroundLight300',
       },
     },
 

@@ -299,7 +299,7 @@ const StyledIcon = styled(
       fill: 'none'
     },
 
-    color: '$background500'
+    color: '$backgroundLight500'
   },
   {
     componentName: 'BaseIcon',

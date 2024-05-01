@@ -37,7 +37,7 @@ const StyledRoot = styled(
 const StyledContent = styled(
   AnimatedView,
   {
-    'bg': '$background50',
+    'bg': '$backgroundLight50',
     'rounded': '$lg',
     'overflow': 'hidden',
 
@@ -85,40 +85,40 @@ const StyledCloseButton = styled(
     'p': '$2',
 
     '_icon': {
-      color: '$background400',
+      color: '$backgroundLight400',
     },
 
     '_text': {
-      color: '$background400',
+      color: '$backgroundLight400',
     },
 
     ':hover': {
       _icon: {
-        color: '$background700',
+        color: '$backgroundLight700',
       },
       _text: {
-        color: '$background700',
+        color: '$backgroundLight700',
       },
     },
 
     ':active': {
       _icon: {
-        color: '$background900',
+        color: '$backgroundLight900',
       },
       _text: {
-        color: '$background900',
+        color: '$backgroundLight900',
       },
     },
 
     ':focusVisible': {
-      bg: '$background100',
+      bg: '$backgroundLight100',
 
       _icon: {
-        color: '$background900',
+        color: '$backgroundLight900',
       },
 
       _text: {
-        color: '$background900',
+        color: '$backgroundLight900',
       },
     },
 
@@ -188,7 +188,7 @@ const StyledBackdrop = styled(
     'top': 0,
     'right': 0,
     'bottom': 0,
-    'bg': '$background950',
+    'bg': '$backgroundLight950',
 
     // @ts-ignore
     '_web': {

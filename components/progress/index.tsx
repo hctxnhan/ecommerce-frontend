@@ -4,7 +4,7 @@ import { View } from 'react-native';
 const StyledRoot = styled(
   View,
   {
-    bg: '$background300',
+    bg: '$backgroundLight300',
     borderRadius: '$full',
     w: '100%',
 

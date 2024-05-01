@@ -3,7 +3,7 @@ import { Center, Icon, Text, VStack } from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import { MessageCircleXIcon } from 'lucide-react-native';
 import { CommentItem } from './CommentItem';
-import Balancer from 'react-wrap-balancer';
+// import Balancer from 'react-wrap-balancer';
 import { IfRole } from '@/components/__custom__/Auth';
 import { UserRole } from '@/types';
 
@@ -20,13 +20,13 @@ export function CommentList({ productId }: { productId: string }) {
         <Icon as={MessageCircleXIcon} size="6xl" color={'$text500'} />
         <Text textAlign="center">
           <IfRole is={[UserRole.USER]}>
-            <Balancer>No comments yet. Be the first to comment!</Balancer>
+            {/* <Balancer>No comments yet. Be the first to comment!</Balancer> */}
           </IfRole>
           <IfRole is={[UserRole.SHOP_OWNER]}>
-            <Balancer>
+            {/* <Balancer>
               This product has no comments yet. Share it with your customers to
               get their feedback!
-            </Balancer>
+            </Balancer> */}
           </IfRole>
         </Text>
       </Center>

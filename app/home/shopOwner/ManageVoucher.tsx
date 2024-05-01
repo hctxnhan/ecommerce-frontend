@@ -5,14 +5,16 @@ import {
   SegmentedButtonGroup
 } from '@/components/__custom__/SegmentedButton';
 import { useProfile } from '@/hooks/useProfile';
-import { ShopRequestStatus } from '@/types';
+import { Discount, VoucherStatus } from '@/types';
 import { useState } from 'react';
 import { VoucherList } from '../shop/components/VoucherList';
 import { CreateVoucherSheet } from './components/CreateVoucherSheet';
+import { VoucherItemModal } from './components/VoucherItemModal';
 
 export default function ManageVoucher() {
-  const [segment, setSegment] = useState(ShopRequestStatus.PENDING);
+  const [segment, setSegment] = useState(VoucherStatus.ACTIVE);
   const { profile, isLoading } = useProfile();
+  const [selectedVoucher, setSelectedVoucher] = useState<Discount | null>(null);
 
   if (isLoading || !profile) {
     return null;
@@ -21,23 +23,33 @@ export default function ManageVoucher() {
   return (
     <SafeAreaView flex={1}>
       <CreateVoucherSheet />
-      <Container x y>
+      <Container x pTop>
         <SegmentedButtonGroup
           value={segment}
           onChange={setSegment as (value: string) => void}
         >
-          <SegmentedButton value={ShopRequestStatus.PENDING}>
-            Active
-          </SegmentedButton>
-          <SegmentedButton value={ShopRequestStatus.APPROVED}>
+          <SegmentedButton value={VoucherStatus.ACTIVE}>Active</SegmentedButton>
+          <SegmentedButton value={VoucherStatus.INACTIVE}>
             Inactive
           </SegmentedButton>
-          <SegmentedButton value={ShopRequestStatus.APPROVED}>
+          <SegmentedButton value={VoucherStatus.EXPIRED}>
             Expired
           </SegmentedButton>
         </SegmentedButtonGroup>
       </Container>
-      <VoucherList shopId={profile?._id} />
+      <VoucherList
+        status={segment}
+        onPress={(voucher) => setSelectedVoucher(voucher)}
+        shopId={profile?._id}
+      />
+
+      {selectedVoucher && (
+        <VoucherItemModal
+          onClose={() => setSelectedVoucher(null)}
+          open={!!selectedVoucher}
+          voucher={selectedVoucher}
+        />
+      )}
     </SafeAreaView>
   );
 }

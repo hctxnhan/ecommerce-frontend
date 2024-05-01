@@ -7,17 +7,17 @@ const StyledRoot = styled(
   {
     'props': {
       // todo: add support for this in style.gluestack.io
-      // trackColor: { false: '$background300', true: '$primary600' },
+      // trackColor: { false: '$backgroundLight300', true: '$primary600' },
 
       // hacky fix for the above
       //@ts-ignore
-      trackColor: { false: '$background300', true: '$primary600' },
-      thumbColor: '$background600',
+      trackColor: { false: '$backgroundLight300', true: '$primary600' },
+      thumbColor: '$backgroundLight600',
       //@ts-ignore
-      activeThumbColor: '$background200',
+      activeThumbColor: '$backgroundLight200',
 
       // for ios specifically in unchecked state
-      ios_backgroundColor: '$background300',
+      ios_backgroundColor: '$backgroundLight300',
     },
 
     'borderRadius': '$full',
@@ -65,13 +65,13 @@ const StyledRoot = styled(
       },
       'opacity': 0.4,
       //@ts-ignore
-      'trackColor': { false: '$background300', true: '$primary600' },
+      'trackColor': { false: '$backgroundLight300', true: '$primary600' },
       // for ios specifically in unchecked state
-      'ios_backgroundColor': '$background300',
+      'ios_backgroundColor': '$backgroundLight300',
       ':hover': {
         props: {
           //@ts-ignore
-          trackColor: { false: '$background300', true: '$primary600' },
+          trackColor: { false: '$backgroundLight300', true: '$primary600' },
         },
       },
     },
@@ -85,23 +85,23 @@ const StyledRoot = styled(
     ':hover': {
       'props': {
         // todo: add support for this in style.gluestack.io
-        // trackColor: { false: '$background400', true: '$primary700' },
+        // trackColor: { false: '$backgroundLight400', true: '$primary700' },
 
         // hacky fix for the above
         //@ts-ignore
 
-        trackColor: { false: '$background400', true: '$primary700' },
-        ios_backgroundColor: '$background400',
+        trackColor: { false: '$backgroundLight400', true: '$primary700' },
+        ios_backgroundColor: '$backgroundLight400',
       },
       ':invalid': {
         props: {
           // todo: add support for this in style.gluestack.io
-          // trackColor: { false: '$background400', true: '$primary700' },
+          // trackColor: { false: '$backgroundLight400', true: '$primary700' },
 
           // hacky fix for the above
           //@ts-ignore
 
-          trackColor: { false: '$background300', true: '$primary700' },
+          trackColor: { false: '$backgroundLight300', true: '$primary700' },
         },
       },
     },
@@ -109,7 +109,7 @@ const StyledRoot = styled(
     ':checked': {
       props: {
         //@ts-ignore
-        thumbColor: '$background0',
+        thumbColor: '$backgroundLight0',
       },
     },
   },

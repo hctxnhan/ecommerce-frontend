@@ -33,7 +33,7 @@ const StyledRoot = styled(
     'minWidth': 200,
     'py': '$2',
     'rounded': '$sm',
-    'bg': '$background0',
+    'bg': '$backgroundLight0',
 
     'defaultProps': {
       softShadow: '3',
@@ -50,7 +50,7 @@ const StyledItem = styled(
     'alignItems': 'center',
 
     ':hover': {
-      bg: '$background100',
+      bg: '$backgroundLight100',
     },
 
     ':disabled': {
@@ -66,11 +66,11 @@ const StyledItem = styled(
     },
 
     ':active': {
-      bg: '$background200',
+      bg: '$backgroundLight200',
     },
 
     ':focus': {
-      bg: '$background100',
+      bg: '$backgroundLight100',
       // @ts-ignore
       outlineWidth: '$0',
       outlineStyle: 'none',
@@ -101,7 +101,7 @@ const StyledBackdrop = styled(
     right: 0,
     // use this for when you want to give background colour to backdrop
     // opacity: 0.5,
-    // bg: '$background500',
+    // bg: '$backgroundLight500',
     _web: {
       cursor: 'default',
     },

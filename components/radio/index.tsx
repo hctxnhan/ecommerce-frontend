@@ -87,7 +87,7 @@ const StyledGroup = styled(View, {}, { descendantStyle: ['_radio'] });
 const StyledIcon = styled(
   AsForwarder,
   {
-    'color': '$background800',
+    'color': '$backgroundLight800',
 
     // defaultProps: {
     //   size: 'md',

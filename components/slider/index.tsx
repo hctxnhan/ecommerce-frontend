@@ -250,7 +250,7 @@ const StyledThumb = styled(
 const StyledTrack = styled(
   Pressable,
   {
-    bg: '$background300',
+    bg: '$backgroundLight300',
 
     borderRadius: '$lg',
     overflow: 'hidden',
