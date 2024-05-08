@@ -1,32 +1,29 @@
 import {
-  AlertCircleIcon,
   ArrowRightIcon,
+  AtSignIcon,
   Box,
   Button,
   ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlHelper,
-  FormControlHelperText,
-  FormControlLabel,
-  FormControlLabelText,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
   LockIcon,
   SafeAreaView,
   ScrollView,
   Text,
   VStack
 } from '@/components';
+import {
+  FormNextTrigger,
+  useMultiStepForm
+} from '@/components/__custom__/Form';
+import { FormInput } from '@/components/__custom__/FormInput';
 
 import { ButtonIcon } from '@gluestack-ui/themed';
 import { Link } from 'expo-router';
+import { UserIcon } from 'lucide-react-native';
+import { FormValues } from '../../CreateAccount';
 
 export function EnterInfo() {
+  const { form } = useMultiStepForm();
+
   return (
     <SafeAreaView flex={1}>
       <ScrollView>
@@ -38,107 +35,55 @@ export function EnterInfo() {
             Start shopping with us and get exclusive deals and discounts.
           </Text>
           <VStack my={'$12'} gap={'$8'}>
-            <FormControl
-              
-              size={'lg'}
+            <FormInput
+              name="email"
+              label="Email"
+              placeholder="Enter your email"
+              control={form.control}
+              errorMessage={form.formState.errors.email?.message as string}
               isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Email</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField placeholder="Enter your email" />
-              </Input>
+              inputIcon={AtSignIcon}
+            />
 
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              
-              size={'lg'}
+            <FormInput
+              name="name"
+              label="Full name"
+              placeholder="Enter your full name"
+              control={form.control}
+              errorMessage={form.formState.errors.name?.message as string}
               isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Full name</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField placeholder="Enter your full name" />
-              </Input>
+              inputIcon={UserIcon}
+            />
 
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              
-              size={'lg'}
+            <FormInput
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              control={form.control}
+              errorMessage={form.formState.errors.password?.message as string}
               isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Password</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField type="password" placeholder="Enter your password" />
-              </Input>
+              inputIcon={LockIcon}
+              type="password"
+            />
 
-              <FormControlHelper>
-                <FormControlHelperText>
-                  Must be atleast 6 characters.
-                </FormControlHelperText>
-              </FormControlHelper>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              size={'lg'}
+            <FormInput
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              control={form.control}
+              errorMessage={
+                form.formState.errors.confirmPassword?.message as string
+              }
               isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Confirm Password</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField
-                  type="password"
-                  placeholder="Confirm your password"
-                />
-              </Input>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
+              inputIcon={LockIcon}
+              type="password"
+            />
           </VStack>
-          <Button variant="solid">
+
+          <FormNextTrigger>
             <ButtonText>Create Account</ButtonText>
             <ButtonIcon as={ArrowRightIcon} />
-          </Button>
+          </FormNextTrigger>
 
           <Text
             mt={'$20'}

@@ -6,13 +6,31 @@ import { useRef } from 'react';
 import { z } from 'zod';
 import { EnterInfo } from './screens/CreateAccount/EnterInfo';
 import { EnterOTP } from './screens/CreateAccount/EnterOTP';
+import { router } from 'expo-router';
 
-const Schema = z
+export const Schema = z
   .object({
-    email: z.string().email(),
-    password: z.string().min(8).max(100),
-    confirmPassword: z.string().min(8).max(100),
-    name: z.string().min(1).max(100),
+    email: z.string().email({
+      message: 'Invalid email address'
+    }),
+    password: z
+      .string({
+        required_error: 'Password is required'
+      })
+      .min(8)
+      .max(100),
+    confirmPassword: z
+      .string({
+        required_error: 'Confirm password is required'
+      })
+      .min(8, 'Password must be at least 8 characters long')
+      .max(100),
+    name: z
+      .string({
+        required_error: 'Name is required'
+      })
+      .min(2, 'Name must be at least 2 characters long')
+      .max(100),
     verificationCode: z.string().length(6)
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -20,7 +38,7 @@ const Schema = z
     path: ['confirmPassword']
   });
 
-type FormValues = z.infer<typeof Schema>;
+export type FormValues = z.infer<typeof Schema>;
 
 export default function CreateAccount() {
   const toast = useToast();
@@ -42,6 +60,8 @@ export default function CreateAccount() {
         title: 'Sign up successful',
         description: 'Your account has been created successfully'
       });
+
+      router.push('/auth/Login');
     }
   });
 
@@ -50,7 +70,8 @@ export default function CreateAccount() {
     onError: () => {
       toast.show({
         title: 'Password reset failed',
-        description: 'An error occurred while create your account'
+        description: 'An error occurred while create your account',
+        type: 'error'
       });
     }
   });

@@ -12,6 +12,12 @@ interface LoginBody {
   password: string;
 }
 
+interface SignUpBody {
+  email: string;
+  password: string;
+  name: string;
+}
+
 export const authApi = {
   login: (data: LoginBody) =>
     axiosInstance.post<APIResponse<LoginResponse>>('/auth/sign-in', data),
@@ -21,8 +27,11 @@ export const authApi = {
       AsyncStorage.removeItem('refreshToken')
     ]),
 
-  signUp: (data: { email: string; password: string; name: string }) =>
-    axiosInstance.post<APIResponse<unknown>>('/auth/sign-up', data),
+  signUp: (data: SignUpBody) =>
+    axiosInstance.post<APIResponse<unknown>>('/auth/sign-up', {
+      ...data,
+      confirmPassword: data.password
+    }),
   verifySignUp: (data: { email: string; verificationCode: string }) =>
     axiosInstance.post<APIResponse<unknown>>(
       `/auth/verify-signup?email=${data.email}&code=${data.verificationCode}`
