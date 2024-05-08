@@ -1,29 +1,23 @@
 import {
-  AlertCircleIcon,
   ArrowRightIcon,
   Box,
   ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlLabel,
-  FormControlLabelText,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
   LockIcon,
   SafeAreaView,
   Text,
   VStack
 } from '@/components';
-import React from 'react';
 
-import { FormNextTrigger } from '@/components/__custom__/Form';
+import {
+  FormNextTrigger,
+  useMultiStepForm
+} from '@/components/__custom__/Form';
+import { FormInput } from '@/components/__custom__/FormInput';
 import { ButtonIcon } from '@gluestack-ui/themed';
 
 export function EnterNewPassword() {
+  const { form } = useMultiStepForm();
+
   return (
     <SafeAreaView flex={1}>
       <Box p={'$6'}>
@@ -35,53 +29,28 @@ export function EnterNewPassword() {
           account
         </Text>
         <VStack my={'$12'} gap={'$8'}>
-          <FormControl
-            
-            size={'lg'}
+          <FormInput
+            name="password"
+            label="New Password"
+            placeholder="Enter your new password"
+            control={form.control}
+            errorMessage={form.formState.errors.password?.message as string}
             isDisabled={false}
-          >
-            <FormControlLabel>
-              <FormControlLabelText>New password</FormControlLabelText>
-            </FormControlLabel>
-            <Input>
-              <InputSlot pl="$4">
-                <InputIcon as={LockIcon} />
-              </InputSlot>
-              <InputField placeholder="Enter your new password" />
-            </Input>
-
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} />
-              <FormControlErrorText>
-                Atleast 6 characters are required.
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-          <FormControl
-            
-            size={'lg'}
+            inputIcon={LockIcon}
+            type='password'
+          />
+          <FormInput
+            name="repeatPassword"
+            label="Repeat Password"
+            placeholder="Enter your password"
+            control={form.control}
+            errorMessage={
+              form.formState.errors.repeatPassword?.message as string
+            }
             isDisabled={false}
-          >
-            <FormControlLabel>
-              <FormControlLabelText>Confirm password</FormControlLabelText>
-            </FormControlLabel>
-            <Input>
-              <InputSlot pl="$4">
-                <InputIcon as={LockIcon} />
-              </InputSlot>
-              <InputField
-                type="password"
-                placeholder="Re-enter your password"
-              />
-            </Input>
-
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} />
-              <FormControlErrorText>
-                Atleast 6 characters are required.
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
+            inputIcon={LockIcon}
+            type="password"
+          />
         </VStack>
         <FormNextTrigger variant="solid">
           <ButtonText>Send code</ButtonText>

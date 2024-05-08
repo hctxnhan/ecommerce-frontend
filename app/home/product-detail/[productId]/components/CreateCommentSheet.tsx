@@ -12,8 +12,10 @@ import { IfRole } from '@/components/__custom__/Auth';
 import { Container } from '@/components/__custom__/Container';
 import { FormInput } from '@/components/__custom__/FormInput';
 import { RatingInput } from '@/components/__custom__/RatingInput';
+import { useCommentStore } from '@/configs/store/Comment.store';
 import { useToast } from '@/hooks/useToast';
-import { UserRole } from '@/types';
+import { APIError, UserRole } from '@/types';
+import { getResponseErrorMessage } from '@/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -29,6 +31,9 @@ const Schema = z.object({
 
 export function CreateCommentSheet({ productId }: { productId: string }) {
   const [showActionsheet, setShowActionsheet] = useState(false);
+  const orderItemId = useCommentStore.use.orderItemId();
+
+  console.log(orderItemId)
 
   const {
     control,
@@ -58,13 +63,21 @@ export function CreateCommentSheet({ productId }: { productId: string }) {
         description: 'Comment posted',
         type: 'success'
       });
+    },
+    onError: (error) => {
+      toast.show({
+        title: 'Error',
+        description: getResponseErrorMessage(error as APIError),
+        type: 'error'
+      });
     }
   });
 
   function onSubmit(data: z.infer<typeof Schema>) {
     postComment.mutate({
       ...data,
-      productId
+      productId,
+      orderItemId: orderItemId ?? undefined
     });
   }
 

@@ -9,5 +9,7 @@ interface Profile extends Owner {
 export const profileApi = {
   updateDeliveryAddress: (body: DeliveryAddressFormValues) =>
     axiosInstance.put('/orders/delivery-address', body),
-  getProfile: () => axiosInstance.get<APIResponse<Profile>>('/auth/profile')
+  getProfile: () => axiosInstance.get<APIResponse<Profile>>('/auth/profile'),
+  updateProfile: (body: { name: string; phone: string }) =>
+    axiosInstance.put('/users/profile', body)
 };

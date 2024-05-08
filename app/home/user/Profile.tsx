@@ -117,7 +117,10 @@ export default function Tab2() {
               {profile?.email}
             </Text>
           </VStack>
-          <Button variant="link">
+          <Button
+            onPress={() => router.push('/home/profile/UpdateProfile')}
+            variant="link"
+          >
             <ButtonIcon as={EditIcon} size="xl" />
           </Button>
         </HStack>

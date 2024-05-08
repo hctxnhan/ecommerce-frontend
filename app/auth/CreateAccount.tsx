@@ -1,160 +1,105 @@
-import {
-  AlertCircleIcon,
-  ArrowRightIcon,
-  Box,
-  Button,
-  ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlHelper,
-  FormControlHelperText,
-  FormControlLabel,
-  FormControlLabelText,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  LockIcon,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  VStack
-} from '@/components';
+import { authApi } from '@/api';
+import { Form } from '@/components/__custom__/Form';
+import { useToast } from '@/hooks/useToast';
+import { useMutation } from '@tanstack/react-query';
+import { useRef } from 'react';
+import { z } from 'zod';
+import { EnterInfo } from './screens/CreateAccount/EnterInfo';
+import { EnterOTP } from './screens/CreateAccount/EnterOTP';
 
-import { ButtonIcon } from '@gluestack-ui/themed';
-import { Link } from 'expo-router';
+const Schema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(8).max(100),
+    confirmPassword: z.string().min(8).max(100),
+    name: z.string().min(1).max(100),
+    verificationCode: z.string().length(6)
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword']
+  });
+
+type FormValues = z.infer<typeof Schema>;
 
 export default function CreateAccount() {
+  const toast = useToast();
+
+  const sendCode = useMutation({
+    mutationFn: authApi.sendResetPasswordCode,
+    onSuccess: () => {
+      toast.show({
+        title: 'Verification code sent',
+        description: 'A verification code has been sent to your email'
+      });
+    }
+  });
+
+  const verify = useMutation({
+    mutationFn: authApi.verifySignUp,
+    onSuccess: () => {
+      toast.show({
+        title: 'Sign up successful',
+        description: 'Your account has been created successfully'
+      });
+    }
+  });
+
+  const signUp = useMutation({
+    mutationFn: authApi.signUp,
+    onError: () => {
+      toast.show({
+        title: 'Password reset failed',
+        description: 'An error occurred while create your account'
+      });
+    }
+  });
+
+  const emailRef = useRef<string>('');
+
+  // function handleSendCode(data: FormValues) {
+  //   emailRef.current = data.email;
+  //   return sendCode.mutate(data.email);
+  // }
+
+  function handleVerify(data: FormValues) {
+    return verify.mutate({
+      verificationCode: data.verificationCode,
+      email: data.email
+    });
+  }
+
+  function handleSignUp(data: FormValues) {
+    return signUp.mutate({
+      email: data.email,
+      password: data.password,
+      name: data.name
+    });
+  }
+
   return (
-    <SafeAreaView flex={1}>
-      <ScrollView>
-        <Box p={'$6'}>
-          <Text size="3xl" mb={'$2'} fontWeight="$bold">
-            Create Account
-          </Text>
-          <Text>
-            Start shopping with us and get exclusive deals and discounts.
-          </Text>
-          <VStack my={'$12'} gap={'$8'}>
-            <FormControl
-              
-              size={'lg'}
-              isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Email</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField placeholder="Enter your email" />
-              </Input>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              
-              size={'lg'}
-              isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Full name</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField placeholder="Enter your full name" />
-              </Input>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              
-              size={'lg'}
-              isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Password</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField type="password" placeholder="Enter your password" />
-              </Input>
-
-              <FormControlHelper>
-                <FormControlHelperText>
-                  Must be atleast 6 characters.
-                </FormControlHelperText>
-              </FormControlHelper>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-            <FormControl
-              size={'lg'}
-              isDisabled={false}
-            >
-              <FormControlLabel>
-                <FormControlLabelText>Confirm Password</FormControlLabelText>
-              </FormControlLabel>
-              <Input>
-                <InputSlot pl="$4">
-                  <InputIcon as={LockIcon} />
-                </InputSlot>
-                <InputField
-                  type="password"
-                  placeholder="Confirm your password"
-                />
-              </Input>
-
-              <FormControlError>
-                <FormControlErrorIcon as={AlertCircleIcon} />
-                <FormControlErrorText>
-                  Atleast 6 characters are required.
-                </FormControlErrorText>
-              </FormControlError>
-            </FormControl>
-          </VStack>
-          <Button variant="solid">
-            <ButtonText>Create Account</ButtonText>
-            <ButtonIcon as={ArrowRightIcon} />
-          </Button>
-
-          <Text
-            mt={'$20'}
-            textAlign="center"
-            color="$blueGray500"
-            fontWeight="$medium"
-          >
-            Already registered?{' '}
-            <Link replace href={'/auth/Login'}>
-              <Text color="$primary500" fontWeight="$bold">
-                Login{' '}
-              </Text>
-            </Link>
-          </Text>
-        </Box>
-      </ScrollView>
-    </SafeAreaView>
+    <Form.Provider
+      schema={Schema}
+      defaultValues={{
+        email: '',
+        verificationCode: [],
+        name: '',
+        password: '',
+        repeatPassword: ''
+      }}
+    >
+      <Form.Screen
+        validationFields={['email', 'password', 'repeatPassword', 'name']}
+        onNext={handleSignUp}
+      >
+        <EnterInfo />
+      </Form.Screen>
+      <Form.Screen
+        onNext={handleVerify}
+        validationFields={['verificationCode']}
+      >
+        <EnterOTP onResend={() => {}} />
+      </Form.Screen>
+    </Form.Provider>
   );
 }

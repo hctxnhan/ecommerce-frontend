@@ -1,31 +1,24 @@
 import {
-  AlertCircleIcon,
   ArrowRightIcon,
   AtSignIcon,
   Box,
-  Button,
   ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlLabel,
-  FormControlLabelText,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
   SafeAreaView,
   Text,
   VStack
 } from '@/components';
-import React from 'react';
 
+import {
+  FormNextTrigger,
+  useMultiStepForm
+} from '@/components/__custom__/Form';
+import { FormInput } from '@/components/__custom__/FormInput';
 import { ButtonIcon } from '@gluestack-ui/themed';
 import { Link } from 'expo-router';
-import { FormNextTrigger } from '@/components/__custom__/Form';
 
 export function EnterEmail() {
+  const { form } = useMultiStepForm();
+
   return (
     <SafeAreaView flex={1}>
       <Box p={'$6'}>
@@ -36,28 +29,15 @@ export function EnterEmail() {
           Don't worry! Just enter your email associated with your account.
         </Text>
         <VStack my={'$12'} gap={'$8'}>
-          <FormControl
-            
-            size={'lg'}
+          <FormInput
+            name="email"
+            label="Email"
+            placeholder="Enter your email"
+            control={form.control}
+            errorMessage={form.formState.errors.email?.message as string}
             isDisabled={false}
-          >
-            <FormControlLabel>
-              <FormControlLabelText>Email</FormControlLabelText>
-            </FormControlLabel>
-            <Input>
-              <InputSlot pl="$4">
-                <InputIcon as={AtSignIcon} />
-              </InputSlot>
-              <InputField placeholder="Enter your email" />
-            </Input>
-
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} />
-              <FormControlErrorText>
-                Atleast 6 characters are required.
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
+            inputIcon={AtSignIcon}
+          />
         </VStack>
         <FormNextTrigger>
           <ButtonText>Send code</ButtonText>

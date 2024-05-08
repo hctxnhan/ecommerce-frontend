@@ -5,6 +5,7 @@ interface CreateCommentBody {
   content: string;
   productId: string;
   rating: number;
+  orderItemId?: string;
 }
 
 export const commentApi = {

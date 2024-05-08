@@ -19,5 +19,18 @@ export const authApi = {
     Promise.all([
       AsyncStorage.removeItem('accessToken'),
       AsyncStorage.removeItem('refreshToken')
-    ])
+    ]),
+
+  signUp: (data: { email: string; password: string; name: string }) =>
+    axiosInstance.post<APIResponse<unknown>>('/auth/sign-up', data),
+  verifySignUp: (data: { email: string; verificationCode: string }) =>
+    axiosInstance.post<APIResponse<unknown>>(
+      `/auth/verify-signup?email=${data.email}&code=${data.verificationCode}`
+    ),
+  resetPassword: (data: { email: string; code: string; password: string }) =>
+    axiosInstance.post<APIResponse<unknown>>('/auth/reset-password', data),
+  sendResetPasswordCode: (email: string) =>
+    axiosInstance.post<APIResponse<unknown>>(
+      `/auth/resend-verify-code?email=${email}&purpose=RESET_PASSWORD`
+    )
 };

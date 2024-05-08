@@ -33,6 +33,12 @@ export default function Layout() {
           title: 'Request History'
         }}
       />
+      <Stack.Screen
+        name="UpdateProfile"
+        options={{
+          title: 'Update Profile'
+        }}
+      />
     </Stack>
   );
 }

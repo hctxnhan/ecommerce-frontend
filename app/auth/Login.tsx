@@ -114,6 +114,19 @@ export default function Login() {
           color="$blueGray500"
           fontWeight="$medium"
         >
+          Forgot password?{' '}
+          <Link replace href={'/auth/ForgetAccount'}>
+            <Text color="$primary500" fontWeight="$bold">
+              Reset now
+            </Text>
+          </Link>
+        </Text>
+        <Text
+          mt={'$4'}
+          textAlign="center"
+          color="$blueGray500"
+          fontWeight="$medium"
+        >
           Don't have an account?{' '}
           <Link replace href={'/auth/CreateAccount'}>
             <Text color="$primary500" fontWeight="$bold">

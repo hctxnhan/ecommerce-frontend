@@ -89,8 +89,6 @@ const mapRoleToPath: Record<
 export function RedirectRoleHome(props: RedirectRoleHomeProps) {
   const { profile, isLoading } = useProfile();
 
-  console.log(profile, isLoading, props.role)
-
   if (isLoading || !profile) {
     return null;
   }

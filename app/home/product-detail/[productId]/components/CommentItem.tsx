@@ -11,14 +11,13 @@ export function CommentItem({ comment }: { comment: Comment }) {
       rounded={'$lg'}
       borderColor={'$borderLight200'}
     >
-      <HStack gap={'$2'} alignItems="baseline">
-        <Text color="$primary500" fontWeight="bold">
-          {comment.user.name}
-        </Text>
-        <Text size="sm" color="$text400" fontStyle="italic">
-          {new Date(comment.createdAt).toDateString()}
-        </Text>
-      </HStack>
+      <Text color="$primary500" fontWeight="bold">
+        {comment.userName}
+        <Text>{comment.orderItemId && ' (purchase verified)'}</Text>
+      </Text>
+      <Text size="sm" color="$text400" fontStyle="italic">
+        {new Date(comment.createdAt).toDateString()}
+      </Text>
       {comment.rating && <Rating long rating={comment.rating} />}
       <Text>{comment.content}</Text>
     </VStack>

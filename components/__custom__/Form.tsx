@@ -79,6 +79,7 @@ export function FormProvider({ children, schema, defaultValues }: FormProps) {
     if (screenList?.length) {
       const screen = screenList[currentScreen];
       const isValid = await screen.validate();
+      
       if (isValid) {
         await screen?.onNext?.(form.getValues());
 

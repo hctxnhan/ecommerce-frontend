@@ -23,8 +23,10 @@ import { AddToCartSheet } from '../components/AddToCartSheet';
 import { ShopBadge } from '../components/ShopBadge';
 import { IfRole } from '@/components/__custom__/Auth';
 import { UserRole } from '@/types';
+import { useCommentStore } from '@/configs/store/Comment.store';
 
 export default function ProductId() {
+  const clearOrderItem = useCommentStore.use.clearOrderItemId();
   const [showActionsheet, setShowActionsheet] = useState(false);
   const params = useLocalSearchParams<{
     productId: string;
@@ -117,9 +119,10 @@ export default function ProductId() {
 
         <Container x y>
           <NavigateButton
-            onPress={() =>
-              router.push(`/home/product-detail/${params.productId}/comment/`)
-            }
+            onPress={() => {
+              clearOrderItem();
+              router.push(`/home/product-detail/${params.productId}/comment/`);
+            }}
           >
             Reviews
           </NavigateButton>

@@ -1,7 +1,7 @@
 import { shopApi } from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { ShopRequestItem } from '../profile/components/ShopRequestItem';
-import { Center, Divider, Icon, SafeAreaView, Text } from '@/components';
+import { Box, Center, Divider, Icon, SafeAreaView, Text } from '@/components';
 import { Container } from '@/components/__custom__/Container';
 import {
   SegmentedButton,
@@ -46,7 +46,6 @@ export default function request() {
             Rejected
           </SegmentedButton>
         </SegmentedButtonGroup>
-        <Divider py={'$2'} />
         {!adminRequest.isLoading && !adminRequest.data?.data.length && (
           <Center flex={1} h={'$full'} gap={'$4'}>
             <Icon as={MessageCircleXIcon} size="6xl" color={'$text500'} />
@@ -55,7 +54,7 @@ export default function request() {
             </Text>
           </Center>
         )}
-
+        <Box py={4} />
         {adminRequest.data?.data.map((request) => (
           <ShopRequestItem isAdmin key={request._id} item={request} />
         ))}

@@ -25,6 +25,7 @@ export interface Owner {
   _id: string;
   role: UserRole;
   email: string;
+  phone?: string;
   shop: {
     name: string;
     description: string;
@@ -52,6 +53,7 @@ export interface ProductInOrder extends ProductDetail {
   status: OrderItemStatus;
   orderId: string;
   productId: string;
+  reviewId?: string;
   order?: {
     shippingInfo?: DeliveryAddress;
   };
@@ -138,11 +140,8 @@ export interface Comment {
   createdAt: string;
   updatedAt: string;
   rating?: number;
-  user: {
-    _id: string;
-    name: string;
-    avatar: string;
-  };
+  userName?: string;
+  orderItemId?: string;
 }
 
 export enum ShopRequestStatus {

@@ -59,7 +59,7 @@ export function FormInput({
               </InputSlot>
             )}
             <InputField
-            flex={1}
+              flex={1}
               type={type}
               placeholder={placeholder}
               value={value}

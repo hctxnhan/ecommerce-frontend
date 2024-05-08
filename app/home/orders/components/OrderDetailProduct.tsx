@@ -3,22 +3,28 @@ import {
   BadgeText,
   Button,
   ButtonIcon,
+  ButtonText,
   HStack,
   Icon,
   Image,
   Text,
   VStack
 } from '@/components';
-import { ProductInOrder } from '@/types';
+import { OrderItemStatus, ProductInOrder, UserRole } from '@/types';
 import { getCurrency } from '@/utils/utils';
 import { CircleEllipsis as MoreOptionIcon } from 'lucide-react-native';
 
 type OrderReviewItemProps = {
   item: ProductInOrder;
   onPressMore?: () => void;
+  onPressReview?: () => void;
 };
 
-export function OrderDetailItem({ item, onPressMore }: OrderReviewItemProps) {
+export function OrderDetailItem({
+  item,
+  onPressMore,
+  onPressReview
+}: OrderReviewItemProps) {
   const hasDiscount = Number.isFinite(item.totalPriceAfterDiscount);
 
   const price = hasDiscount
@@ -26,18 +32,25 @@ export function OrderDetailItem({ item, onPressMore }: OrderReviewItemProps) {
     : item.price;
 
   return (
-    <VStack borderWidth={'$1'} p={'$2'} borderColor='$borderLight200' rounded={'$xl'}>
-      <Button
-        position="absolute"
-        top={'$2'}
-        right={'$2'}
-        height={24}
-        onPress={onPressMore}
-        zIndex={100}
-        variant="link"
-      >
-        <ButtonIcon color="$primary500" as={MoreOptionIcon} />
-      </Button>
+    <VStack
+      borderWidth={'$1'}
+      p={'$2'}
+      borderColor="$borderLight200"
+      rounded={'$xl'}
+    >
+      {onPressMore && (
+        <Button
+          position="absolute"
+          top={'$2'}
+          right={'$2'}
+          height={24}
+          onPress={onPressMore}
+          zIndex={100}
+          variant="link"
+        >
+          <ButtonIcon color="$primary500" as={MoreOptionIcon} />
+        </Button>
+      )}
       <HStack gap={'$3'} w={'$full'} position="relative">
         <Image
           rounded={'$lg'}
@@ -96,6 +109,14 @@ export function OrderDetailItem({ item, onPressMore }: OrderReviewItemProps) {
               {getCurrency(price * item.quantity)}
             </Text>
           </HStack>
+
+          {onPressReview && item.status === OrderItemStatus.COMPLETED && (
+            <Button onPress={onPressReview} size="sm" variant="link">
+              <ButtonText textAlign="right">
+                {item.reviewId ? 'Reviewed' : 'Review'}
+              </ButtonText>
+            </Button>
+          )}
         </VStack>
       </HStack>
     </VStack>
