@@ -16,7 +16,6 @@ import {
   Switch as SwitchComp,
   VStack
 } from '@/components';
-import { DatePicker } from '@/components/__custom__/DatePicker';
 import { FormInput } from '@/components/__custom__/FormInput';
 import { DiscountApplyType } from '@/types';
 import { DiscountSchema } from '@/utils/createVoucher';
@@ -25,6 +24,7 @@ import { Case, Switch } from 'react-if';
 import { z } from 'zod';
 import { SelectCategoryInput } from './SelectCategoryInput';
 import { SelectProductInput } from './SelectProductInput';
+import { DatePicker } from '@/components/__custom__/DatePicker';
 
 const formInput = [
   {
@@ -77,6 +77,7 @@ export function VoucherForm() {
           selectedValue={applyType}
           onValueChange={(value: string) => {
             setValue('applyType', value as DiscountApplyType);
+            setValue('applyValue', [])
           }}
           placeholder="Select product type"
         >
@@ -144,6 +145,7 @@ export function VoucherForm() {
 
       {formInput.map((input) => (
         <FormInput
+        
           key={input.name}
           control={control}
           name={input.name}
@@ -153,7 +155,6 @@ export function VoucherForm() {
         />
       ))}
 
-      <HStack gap={'$2'} w={'$full'}>
         <FormInput
           control={control}
           name="value"
@@ -166,6 +167,7 @@ export function VoucherForm() {
           name="type"
           render={({ field: { value, onChange } }) => (
             <Select
+              width={'$32'}
               selectedValue={value.toString()}
               onValueChange={onChange}
               placeholder="Select apply type"
@@ -189,7 +191,6 @@ export function VoucherForm() {
             </Select>
           )}
         />
-      </HStack>
 
       <VStack gap={'$2'}>
         <Controller

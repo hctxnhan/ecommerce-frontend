@@ -42,7 +42,7 @@ export default function ShopId({ shopId }: { shopId: string }) {
         image="https://via.placeholder.com/150"
         onClose={() => console.log('close')}
       /> */}
-      <ScrollView flex={1}>
+      <ScrollView className='hahah' flex={1}>
         {detail.data && (
           <Container x y>
             <ShopBadge
@@ -62,7 +62,7 @@ export default function ShopId({ shopId }: { shopId: string }) {
         </Container>
 
         <Container
-        flex={1}
+          flex={1}
           py={'$6'}
           bg="$backgroundLight100"
           borderTopLeftRadius={'$2xl'}

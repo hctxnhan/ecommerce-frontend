@@ -76,7 +76,8 @@ export function AddToCartSheet({
       quantity,
       price: product.price,
       productName: product.name,
-      ownerId: product.owner?._id
+      ownerId: product.owner?._id,
+      type: product.type
     });
   }
 

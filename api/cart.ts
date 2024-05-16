@@ -7,6 +7,7 @@ interface AddBody {
   price: number;
   productName: string;
   ownerId: string;
+  type: string;
 }
 
 interface GetCartResponse {

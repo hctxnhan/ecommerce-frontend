@@ -33,8 +33,6 @@ export function CreateCommentSheet({ productId }: { productId: string }) {
   const [showActionsheet, setShowActionsheet] = useState(false);
   const orderItemId = useCommentStore.use.orderItemId();
 
-  console.log(orderItemId)
-
   const {
     control,
     handleSubmit,

@@ -16,6 +16,11 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/configs/queryClient';
 import { GlobalLoading } from '@/components/__custom__/GlobalLoading';
 
+import { LogBox } from 'react-native';
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
+
 // export const unstable_settings = {
 //   // Ensure that reloading on `/modal` keeps a back button present.
 //   initialRouteName: "gluestack",

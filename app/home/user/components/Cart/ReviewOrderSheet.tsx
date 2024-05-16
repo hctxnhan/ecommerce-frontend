@@ -16,6 +16,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { cartApi, orderApi } from '@/api';
 import { useCartStore } from '@/configs/store/Cart.store';
 import { useToast } from '@/hooks/useToast';
+import { useEffect } from 'react';
 
 export function ReviewOrderSheet({
   showActionsheet,
@@ -46,6 +47,18 @@ export function ReviewOrderSheet({
     enabled: showActionsheet && cartQuery.isSuccess && !!cartQuery.data,
     select: (data) => data.data.data.cart
   });
+
+  useEffect(() => {
+    if (reviewOrderQuery.isError) {
+      toast.show({
+        title: 'Error getting todos',
+        description: reviewOrderQuery.error.message,
+        type: 'error',
+      });
+
+      setShowActionsheet(false);
+    }
+  }, [reviewOrderQuery.isError]);
 
   const placeOrderMutation = useMutation({
     mutationFn: orderApi.placeOrder,
